@@ -1,0 +1,59 @@
+interface ServerConfigHandler {
+
+    enum INTERNET_PROTOCOL { IPv4, IPv6, undefined };
+    enum VIRTUAL_USER_AUTHENTICATION { Anonymous };
+
+    exception ConfigurationException { string why; };
+    exception ServerException        { string why; };
+
+    typedef sequence<string> StringSequence;
+
+    string getServerName()                                                       raises(ConfigurationException);
+    void setServerName(in string name)                                           raises(ConfigurationException);
+
+    // Network
+    string getServerAddr()                                                       raises(ConfigurationException);
+    unsigned short getServerPort()                                               raises(ConfigurationException);
+    void setServerPort(in unsigned short port)                                   raises(ConfigurationException);
+
+    INTERNET_PROTOCOL getInternetProtocol()                                      raises(ConfigurationException);
+    void setInternetProtocol(in INTERNET_PROTOCOL ip)                            raises(ConfigurationException);
+    unsigned short getIdleTimeout()                                              raises(ConfigurationException);
+    void setIdleTimeout(in unsigned short to)                                    raises(ConfigurationException);
+    unsigned short getDataConnectionTimeout()                                    raises(ConfigurationException);
+    void setDataConnectionTimeout(in unsigned short to)                          raises(ConfigurationException);
+	
+    // System User
+    boolean isUsingSystemUser()                                                  raises(ConfigurationException);
+    void useSystemUser(in boolean use)                                           raises(ConfigurationException);
+    
+    // Anonymous
+    boolean isAnonymousAllowed()                                                 raises(ConfigurationException);
+    void allowAnonymous(in boolean allow)                                        raises(ConfigurationException);
+    boolean isAnonymousUploadAllowed()                                           raises(ConfigurationException);
+    void allowAnonymousUpload(in boolean allow)                                  raises(ConfigurationException);
+    boolean isAnonymousCreateDirAllowed()                                        raises(ConfigurationException);
+    void allowAnonymousCreateDir(in boolean allow)                               raises(ConfigurationException);
+    VIRTUAL_USER_AUTHENTICATION getVirtualUserAuthentication()                   raises(ConfigurationException);
+    void setVirtualUserAuthentication(in VIRTUAL_USER_AUTHENTICATION mode)       raises(ConfigurationException);
+    void addVirtualUser(in string user, in string password)                      raises(ConfigurationException);
+    void remVirtualUser(in string user)                                          raises(ConfigurationException);
+    StringSequence virtualUsers()                                                raises(ConfigurationException);
+    
+    // Misc
+    string getWelcomeMessage()                                                   raises(ConfigurationException);
+    void setWelcomeMessage(in string msg)                                        raises(ConfigurationException);
+    
+    // Log
+    string getLogFile()                                                          raises(ConfigurationException);
+    
+    // configuration
+    void importConfiguration(in string configuration)                            raises(ConfigurationException);
+    string exportConfiguration()                                                 raises(ConfigurationException);
+    void resetConfiguration()                                                    raises(ConfigurationException);
+    
+    // Start/Stop
+    void start()                                                                 raises(ServerException);
+    void stop()                                                                  raises(ServerException);
+    void restart()                                                               raises(ServerException);
+};

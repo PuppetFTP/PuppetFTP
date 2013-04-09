@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="routing.xsd">
+  <!-- Home page -->
+  <route name="index" uri="/">
+    <module name="general" />
+    <processor name="index" />
+  </route>
+  <!-- Connect/disconnect -->
+  <route name="login" uri="/connection">
+    <module name="authentication" />
+    <processor name="login" />
+  </route>
+  <route name="logout" uri="/disconnect">
+    <module name="authentication" />
+    <processor name="logout" />
+  </route>
+
+  <!-- User Configuration Page -->
+  <!-- Entity -->
+
+  <route name="entityAdd" uri="/local/:entity/add">
+    <module name="entity" />
+    <processor name="entityEdit" />
+    <requirements>
+      <parameter name="entity" value="[\w]+" />
+    </requirements>
+  </route>
+  <route name="entityEdit" uri="/local/:entity/edit/:id">
+    <module name="entity" />
+    <processor name="entityEdit" />
+    <requirements>
+      <parameter name="entity" value="[\w]+" />
+      <parameter name="id" value="[\d]+" />
+    </requirements>
+  </route>
+  <route name="entityDelete" uri="/local/:entity/delete/:id">
+    <module name="entity" />
+    <processor name="entityDelete" />
+    <requirements>
+      <parameter name="entity" value="[\w]+" />
+      <parameter name="id" value="[\d]+" />
+    </requirements>
+  </route>
+  <route name="entityView" uri="/local/:entity/view/:id">
+    <module name="entity" />
+    <processor name="entityView" />
+    <requirements>
+      <parameter name="entity" value="[\w]+" />
+      <parameter name="id" value="[\d]+" />
+    </requirements>
+  </route>
+  <route name="entityList" uri="/local/:entity">
+    <module name="entity" />
+    <processor name="entityList" />
+    <requirements>
+      <parameter name="entity" value="[\w]+" />
+    </requirements>
+  </route>
+
+  <!-- Import Export Configuration Page -->
+  <route name="importExport" uri="/local/import-export">
+    <module name="importexport" />
+    <processor name="importExport" />
+  </route>
+
+  <!-- Server -->
+  <route name="serverUserList" uri="/server/user">
+    <module name="server" />
+    <processor name="serverUserList" />
+  </route>
+  <route name="serverUserEdit" uri="/server/user/edit/:id">
+    <module name="server" />
+    <processor name="serverUserEdit" />
+    <requirements>
+      <parameter name="id" value="[\d]+" />
+    </requirements>
+  </route>
+  <route name="serverList" uri="/server/list">
+    <module name="server" />
+    <processor name="serverList" />
+  </route>
+  <route name="serverEdit" uri="/server/edit/:id">
+    <module name="server" />
+    <processor name="serverEdit" />
+    <requirements>
+      <parameter name="id" value="[\d]+" />
+    </requirements>
+  </route>
+  <route name="serverService" uri="/server/service/:id/:name">
+    <module name="server" />
+    <processor name="serverService" />
+    <requirements>
+      <parameter name="id" value="[\d]+" />
+      <parameter name="name" value="[\w]+" />
+    </requirements>
+  </route>
+</routing>
+
+
+
+
+
+
+
+
+
+
+
+
