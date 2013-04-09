@@ -11,3 +11,24 @@
 *.lai
 *.la
 *.a
+
+*.moc
+
+# Visual Studio and QtCreator generated files
+*.app
+*.ib_pdb_index
+*.idb
+*.ilk
+*.pdb
+*.prl
+*.pro.user*
+*.qmlproject.user*
+*.sln
+*.suo
+ui_*.h
+*.vcproj
+*vcproj.*.*.user
+*.ncb
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
