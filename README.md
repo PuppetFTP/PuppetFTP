@@ -26,21 +26,21 @@ Binaries can be found in their bin folder.
 
 #### Webserver
 
-A default configuration is provided, you do not need to modify it. The configuration file is located in bin/config/config.ini
+A default configuration is provided, you do not need to modify it. The configuration file is located in **bin/config/config.ini**
 
 Parameters:
 
- * HostAddress    => Host address, used for listening web request. Default ANY
+ * **HostAddress**    => Host address, used for listening web request. Default ANY
 
- * HostPort       => Default port used to listen web request. Default 5074
+ * **HostPort**       => Default port used to listen web request. Default 5074
 
- * SessionTimeout => Session timeout, default timeout for web session. Default 1200
+ * **SessionTimeout** => Session timeout, default timeout for web session. Default 1200
 
- * InitRef        => Parameter used to configure CORBA and Naming service location. Default: NameService=corbaloc:iiop:localhost:2809/NameService
+ * **InitRef**        => Parameter used to configure CORBA and Naming service location. Default: NameService=corbaloc:iiop:localhost:2809/NameService
 
 #### Daemon
 
-You will have to edit the configuration file in order to set the identifier of the daemon. Others parameters do not need to be edited. The configuration file is located in bin/config.ini. You must copy and paste this configuration file next to the daemon binary.
+You will have to edit the configuration file in order to set the identifier of the daemon. Others parameters do not need to be edited. The configuration file is located in **bin/config.ini**. You must copy and paste this configuration file next to the daemon binary.
 
  * server_name    => Identifier of the daemon over the network, this name must be unique and must match the one mentionned on the web server. By default, it is set to localhost, you will have to change it if you want to manage several servers.
 
@@ -50,15 +50,14 @@ You will have to edit the configuration file in order to set the identifier of t
 
 ##4. Execution
 
- * start CORBA Naming service with: omniNames -start -always -logdir <logdir> &
-	Where <logdir> is a path where you want to log. Writing right must be enabled.
+ * start CORBA Naming service with: omniNames **-start** **-always** **-logdir** \<logdir\> **&**
   
  * start the daemon on the managed server. The daemon is a service,
-  simple run the following to start it: ./puppetFtpd
+  simple run the following to start it: **./puppetFtpd**
 
- * start the web server, run : ./PuppetFTP-WebServer &
+ * start the web server, run : **./PuppetFTP-WebServer &**
 
- * to stop the service run: ./puppetFtpd -t
+ * to stop the service run: **./puppetFtpd -t**
 
 
 #Known issue : 
