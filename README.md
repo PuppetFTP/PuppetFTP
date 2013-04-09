@@ -11,14 +11,14 @@ NOTE: Ensure your environment is correctly set. In order to build the project, y
 ##2. Building
 
    * The web server:
-   ** cd PuppetFTP-WebServer
-   ** qmake
-   ** make
+	   * cd PuppetFTP-WebServer
+	   * qmake
+	   * make
 
    * For the daemon
-   ** cd PuppetFTP-Daemon
-   ** qmake
-   ** make
+	   * cd PuppetFTP-Daemon
+	   * qmake
+	   * make
 
 Binaries can be found in their bin folder.
 
