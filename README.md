@@ -14,7 +14,7 @@ NOTE: Ensure your environment is correctly set. In order to build the project, y
 	   * cd PuppetFTP-WebServer
 	   * qmake
 	   * make
-
+<br>
    * For the daemon
 	   * cd PuppetFTP-Daemon
 	   * qmake
@@ -42,15 +42,15 @@ Parameters:
 
 You will have to edit the configuration file in order to set the identifier of the daemon. Others parameters do not need to be edited. The configuration file is located in **bin/config.ini**. You must copy and paste this configuration file next to the daemon binary.
 
- * server_name    => Identifier of the daemon over the network, this name must be unique and must match the one mentionned on the web server. By default, it is set to localhost, you will have to change it if you want to manage several servers.
+ * **server_name**    => Identifier of the daemon over the network, this name must be unique and must match the one mentionned on the web server. By default, it is set to localhost, you will have to change it if you want to manage several servers.
 
- * conf_file      => Configuration file of the managed server. Refer to the documentation of the server for more informations. Path must be absolute.
+ * **conf_file**      => Configuration file of the managed server. Refer to the documentation of the server for more informations. Path must be absolute.
 
- * plugin_path    => Path to the plugin to be loaded. You have to tell which plugin to load to manage your server. Only vsftpd and proftpd are currently supported, plugins are respectively libvsftpd.so and libproftpd.so and are located in bin/plugins. Path must be absolute.
+ * **plugin_path**    => Path to the plugin to be loaded. You have to tell which plugin to load to manage your server. Only vsftpd and proftpd are currently supported, plugins are respectively libvsftpd.so and libproftpd.so and are located in bin/plugins. Path must be absolute.
 
 ##4. Execution
 
- * start CORBA Naming service with: omniNames **-start** **-always** **-logdir** \<logdir\> **&**
+ * start CORBA Naming service with: **omniNames** **-start** **-always** **-logdir** ***\<logdir\>*** **&**
   
  * start the daemon on the managed server. The daemon is a service,
   simple run the following to start it: **./puppetFtpd**
