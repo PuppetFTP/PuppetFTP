@@ -1,14 +1,66 @@
-PuppetFTP
-====
+# PuppetFTP
 
-PuppetFTP is a simple solution which allows you to configure any of your FTP servers in a couple of clicks. It can work with an unlimited number of server, one solution to manage all of your park. PuppetFTP provides a simple web interface, which gives you an access to your configuration at any moment.
+##1. Dependencies
 
-This solution is designed for people without any knowledge in server administration but can also be used by experienced users who just want a simple interface.
+   * Qt 4.8.x
+   * OmniORB 4.6 (omniNames)
+   * SQLite 3
 
-PuppetFTP allows you to configure vsftpd and ProFTPD and tends to support more servers shortly.
+NOTE: Ensure your environment is correctly set. In order to build the project, you need Qt tools (qmake) and libraries. For onmiNames, you may set  the LD_LIBRARY_PATH environment variable to the path where is installed OmniORB.
 
-With PuppetFTP, you will be able to set a lot of parameters for your server like internet protocol, the timeout (idle and data), the welcome message, etc. You will be able to manage the anonymous user and your virtual users. You will also be able to start, stop or restart your server. You will be able to export the current configuration in order to make backup or duplicate it on an other server with the import function.
+##2. Building
 
-PuppetFTP can support several type of users, allowing to delegate actions. For example, you may allow a user to access only a restricted part of the server configuration. As PuppetFTP let you manage a set of servers, you can also allow the user to configure a restricted set of servers.
+   * The web server:
+   ** cd PuppetFTP-WebServer
+   ** qmake
+   ** make
 
-PuppetFTP has been designed to be extensible. If you have a special need, just try to implement the functionality and add it to PuppetFTP with a simple plugin.
+   * For the daemon
+   ** cd PuppetFTP-Daemon
+   ** qmake
+   ** make
+
+Binaries can be found in their bin folder.
+
+##3. Configuration
+
+#### Webserver
+
+A default configuration is provided, you do not need to modify it. The configuration file is located in bin/config/config.ini
+
+Parameters:
+
+ * HostAddress    => Host address, used for listening web request. Default ANY
+
+ * HostPort       => Default port used to listen web request. Default 5074
+
+ * SessionTimeout => Session timeout, default timeout for web session. Default 1200
+
+ * InitRef        => Parameter used to configure CORBA and Naming service location. Default: NameService=corbaloc:iiop:localhost:2809/NameService
+
+#### Daemon
+
+You will have to edit the configuration file in order to set the identifier of the daemon. Others parameters do not need to be edited. The configuration file is located in bin/config.ini. You must copy and paste this configuration file next to the daemon binary.
+
+ * server_name    => Identifier of the daemon over the network, this name must be unique and must match the one mentionned on the web server. By default, it is set to localhost, you will have to change it if you want to manage several servers.
+
+ * conf_file      => Configuration file of the managed server. Refer to the documentation of the server for more informations. Path must be absolute.
+
+ * plugin_path    => Path to the plugin to be loaded. You have to tell which plugin to load to manage your server. Only vsftpd and proftpd are currently supported, plugins are respectively libvsftpd.so and libproftpd.so and are located in bin/plugins. Path must be absolute.
+
+##4. Execution
+
+ * start CORBA Naming service with: omniNames -start -always -logdir <logdir> &
+	Where <logdir> is a path where you want to log. Writing right must be enabled.
+  
+ * start the daemon on the managed server. The daemon is a service,
+  simple run the following to start it: ./puppetFtpd
+
+ * start the web server, run : ./PuppetFTP-WebServer &
+
+ * to stop the service run: ./puppetFtpd -t
+
+
+#Known issue : 
+
+- On Rhel based distros, there is a known issue preventing us from restarting services.
