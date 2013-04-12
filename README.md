@@ -26,7 +26,7 @@ Binaries can be found in their bin folder.
 
 #### Webserver
 
-A default configuration is provided, you do not need to modify it. The configuration file is located in **bin/config/config.ini**
+A default configuration can be found in **bin/config/config.ini**
 
 Parameters:
 
@@ -59,6 +59,8 @@ You will have to edit the configuration file in order to set the identifier of t
 
  * to stop the service run: **./puppetFtpd -t**
 
+##5. Use
+Point your web browser to http://1.2.3.4:5074 (ip address and port matching the configuration file). Login using admin@puppet.ftp / admin as credentials and start using PuppetFTP to manage your FTP servers.
 
 #Known issue : 
 
