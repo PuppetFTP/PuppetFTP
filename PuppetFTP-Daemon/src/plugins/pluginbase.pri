@@ -7,7 +7,7 @@ CONFIG += qt plugin
 
 
 INCLUDEPATH += $$PWD
-INCLUDEPATH += $$LIBRARY_SRC_TREE/abstractplugin
+INCLUDEPATH += $$LIBRARY_SRC_TREE/pluginsystem
 INCLUDEPATH += $$LIBRARY_SRC_TREE/serverconfig
 INCLUDEPATH += $$PLUGIN_SRC_TREE
 INCLUDEPATH += $$NETWORK_SRC_TREE
@@ -25,6 +25,6 @@ SOURCES += $$PWD/chrootlist.cpp
 SOURCES += $$PWD/pamauthentication.cpp
 SOURCES += $$PWD/servicemanager.cpp
 
-LIBS += -lAbstractplugin
+LIBS += -lPluginSystem
 LIBS += -lCommunication
 LIBS += -lServerconfig

@@ -2,11 +2,11 @@
 #define PROFTPD_H
 
 #include <iostream>
-#include "iabstractplugin.h"
 #include "chrootlist.h"
 #include "proftpdconfig.h"
 #include "pamauthentication.h"
 #include "CommunicationException.h"
+#include "serverconfig.h"
 
 #include "plugin.h"
 

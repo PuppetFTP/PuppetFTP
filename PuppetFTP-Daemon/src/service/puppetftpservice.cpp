@@ -3,9 +3,6 @@
 #include "CommunicationService.h"
 #include "CORBAImpl/Provider.h"
 #include "CommunicationException.h"
-#include "iabstractplugin.h"
-#include "abstractplugin.h"
-#include "abstractpluginexception.h"
 
 #include "pluginmanager.h"
 
@@ -39,7 +36,6 @@ void PuppetFtpService::start()
     logMessage(QString(QLatin1String("Use configuration file: %1")).arg(config->get(ServerConfig::configFileName)), Information);
     // Configure configuration layer...
     try {
-
         CommunicationService::setProvider(new CORBA::Impl::Provider());
         CommunicationService::configure(INetworkAccessProvider::MODE::SERVER, options);
 
@@ -47,13 +43,11 @@ void PuppetFtpService::start()
         // config must provide only plugin name not plugin path
         const QString & pluginName = config->get(ServerConfig::pluginPathName);
         Plugin * plugin = PluginManager::instance()->loadPlugin(pluginName).data();
+        QMetaObject::invokeMethod(plugin, "initialize", Q_ARG(ServerConfig, *config));
         QMetaObject::invokeMethod(plugin, "getServerConfigurationProvider", Q_RETURN_ARG(IServerConfigurationProvider *, m_server));
         // # TEMPORARY
 
         CommunicationService::provider()->registerServiceProvider(m_server->getServerName(), m_server);
-    }
-    catch (AbstractPluginException e) {
-        logMessage(e.toQString(), Error);
     }
     catch (CommunicationException e) {
         logMessage(QString(QLatin1String("Unable to register object: %1")).arg(e.message()), Error);

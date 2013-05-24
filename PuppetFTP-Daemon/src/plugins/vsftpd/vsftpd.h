@@ -1,13 +1,12 @@
 #ifndef VSFTPD_H
 #define VSFTPD_H
 
-#include "iabstractplugin.h"
 #include "chrootlist.h"
 #include "vsftpdconfig.h"
 #include "vsftpdparser.h"
 #include "pamauthentication.h"
 #include "CommunicationException.h"
-
+#include "serverconfig.h"
 #include "plugin.h"
 
 class Vsftpd : public Plugin
