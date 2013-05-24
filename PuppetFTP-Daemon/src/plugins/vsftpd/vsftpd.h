@@ -8,24 +8,23 @@
 #include "pamauthentication.h"
 #include "CommunicationException.h"
 
-class Vsftpd : public QObject, public IAbstractPlugin
+#include "plugin.h"
+
+class Vsftpd : public Plugin
 {
-    Q_OBJECT
-    Q_INTERFACES(IAbstractPlugin)
 public:
     Vsftpd();
     ~Vsftpd();
 
     // Plugin management
-    void                            initialize(ServerConfig & config);
+    Q_INVOKABLE void initialize(ServerConfig & config);
 
     // Communication requirement
-    IServerConfigurationProvider    * getServerConfigurationProvider() const;
+    Q_INVOKABLE IServerConfigurationProvider * getServerConfigurationProvider() const;
 
 private:
-    VsftpdParser m_parser;
-    IServerConfigurationProvider    * m_configurationProvider;
-    AbstractAuthentication          * m_authentificator;
+    IServerConfigurationProvider * m_configurationProvider;
+    AbstractAuthentication * m_authentificator;
 };
 
 #endif // VSFTPD_H

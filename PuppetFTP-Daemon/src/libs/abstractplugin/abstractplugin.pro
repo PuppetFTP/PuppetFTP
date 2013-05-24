@@ -1,6 +1,6 @@
 TEMPLATE = lib
 
-TARGET = Abstractplugin
+TARGET = PluginSystem
 
 include(../puppetlibrary.pri)
 
@@ -8,9 +8,8 @@ INCLUDEPATH += $$LIBRARY_SRC_TREE/serverconfig
 INCLUDEPATH += $$NETWORK_SRC_TREE
 INCLUDEPATH += $$PLUGIN_SRC_TREE
 
-HEADERS += $$PWD/abstractplugin.h
-HEADERS += $$PWD/abstractpluginexception.h
-HEADERS += $$PWD/iabstractplugin.h
+HEADERS += $$PWD/pluginmanager.h
+HEADERS += $$PWD/plugin.h
 
-SOURCES += $$PWD/abstractplugin.cpp
-SOURCES += $$PWD/abstractpluginexception.cpp
+SOURCES += $$PWD/pluginmanager.cpp
+SOURCES += $$PWD/plugin.cpp
