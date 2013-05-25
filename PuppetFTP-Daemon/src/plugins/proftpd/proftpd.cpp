@@ -3,10 +3,17 @@
 Proftpd::Proftpd()
     : m_configurationProvider(NULL), m_authentificator(NULL)
 {
+    setName(QLatin1String("Proftpd"));
+    setType(QLatin1String("MetaPlugin"));
 }
 
 Proftpd::~Proftpd()
 {
+    if (m_configurationProvider != 0)
+        delete m_configurationProvider;
+
+    if (m_authentificator != 0)
+        delete m_authentificator;
 }
 
 /********************************************************************************/
@@ -30,4 +37,4 @@ IServerConfigurationProvider    *Proftpd::getServerConfigurationProvider() const
     return m_configurationProvider;
 }
 
-Q_EXPORT_PLUGIN2(proftpd_plugin, Proftpd)
+EXPORT_PLUGIN(Proftpd)

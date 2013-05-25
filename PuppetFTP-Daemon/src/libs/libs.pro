@@ -4,5 +4,5 @@ CONFIG += ordered
 QT += core
 QT -= gui
 
-#abstactplugin is the last because dependencies of serverconfig
-SUBDIRS =  communication serverconfig abstractplugin
+#pluginsystem is the last because dependencies of serverconfig
+SUBDIRS =  communication serverconfig pluginsystem

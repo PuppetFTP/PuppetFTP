@@ -3,9 +3,8 @@
 #include "CommunicationService.h"
 #include "CORBAImpl/Provider.h"
 #include "CommunicationException.h"
-#include "iabstractplugin.h"
-#include "abstractplugin.h"
-#include "abstractpluginexception.h"
+
+#include "pluginmanager.h"
 
 PuppetFtpService::PuppetFtpService(int argc, char ** argv)
     : QtService < QCoreApplication > (argc, argv, SERVICE_NAME)
@@ -22,7 +21,6 @@ void PuppetFtpService::start()
 {
     QCoreApplication * app = application();
     ServerConfig     * config = ServerConfig::getInstance();
-    IAbstractPlugin  * plugin;
 
     config->load();
     logMessage(QString("Valid conf file : %1").arg(config->isValid()), Information);
@@ -36,25 +34,28 @@ void PuppetFtpService::start()
 
     logMessage(QString(QLatin1String("InitRef is: %1")).arg(options["InitRef"]), Information);
     logMessage(QString(QLatin1String("Use configuration file: %1")).arg(config->get(ServerConfig::configFileName)), Information);
-    logMessage(QString(QLatin1String("Use service binary: %1")).arg(config->get(ServerConfig::binPathName)), Information);
-
     // Configure configuration layer...
-try {
-    CommunicationService::setProvider(new CORBA::Impl::Provider());
-    CommunicationService::configure(INetworkAccessProvider::MODE::SERVER, options);
+    try {
+        CommunicationService::setProvider(new CORBA::Impl::Provider());
+        CommunicationService::configure(INetworkAccessProvider::MODE::SERVER, options);
 
-    // Add a server configuration handler...
-    plugin = AbstractPlugin::load(*config);
-    m_server = plugin->getServerConfigurationProvider();
+        // # TEMPORARY
+        // config must provide only plugin name not plugin path
+        const QString & pluginName = config->get(ServerConfig::pluginPathName);
+        Plugin * plugin = PluginManager::instance()->loadPlugin(pluginName).data();
+        QMetaObject::invokeMethod(plugin, "initialize", Q_ARG(ServerConfig, *config));
+        QMetaObject::invokeMethod(plugin, "getServerConfigurationProvider", Q_RETURN_ARG(IServerConfigurationProvider *, m_server));
+        // # TEMPORARY
 
-    CommunicationService::provider()->registerServiceProvider(m_server->getServerName(), m_server);
-    }
-    catch (AbstractPluginException e) {
-        logMessage(e.toQString(), Error);
+        CommunicationService::provider()->registerServiceProvider(m_server->getServerName(), m_server);
     }
     catch (CommunicationException e) {
         logMessage(QString(QLatin1String("Unable to register object: %1")).arg(e.message()), Error);
     }
+
+    stop();
+
+    return;
 
     app->exec();
 }

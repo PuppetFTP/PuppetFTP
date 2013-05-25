@@ -2,10 +2,17 @@
 
 Vsftpd::Vsftpd()
 {
+    setName(QLatin1String("Proftpd"));
+    setType(QLatin1String("MetaPlugin"));
 }
 
 Vsftpd::~Vsftpd()
 {
+    if (m_configurationProvider != 0)
+        delete m_configurationProvider;
+
+    if (m_authentificator != 0)
+        delete m_authentificator;
 }
 
 void Vsftpd::initialize(ServerConfig & config)
@@ -27,4 +34,4 @@ IServerConfigurationProvider    *Vsftpd::getServerConfigurationProvider() const
     return m_configurationProvider;
 }
 
-Q_EXPORT_PLUGIN2(vsftpd, Vsftpd)
+EXPORT_PLUGIN(Vsftpd)

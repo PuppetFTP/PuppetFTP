@@ -13,7 +13,7 @@ QT       -= gui
 CONFIG   += console
 CONFIG   -= app_bundle
 
-INCLUDEPATH += $$LIBRARY_SRC_TREE/abstractplugin
+INCLUDEPATH += $$LIBRARY_SRC_TREE/pluginsystem
 INCLUDEPATH += $$LIBRARY_SRC_TREE/serverconfig
 INCLUDEPATH += $$PLUGIN_SRC_TREE
 INCLUDEPATH += $$NETWORK_SRC_TREE
@@ -25,7 +25,7 @@ HEADERS += puppetftpservice.h
 SOURCES += main.cpp
 SOURCES += puppetftpservice.cpp
 
-LIBS *= -lAbstractplugin
+LIBS *= -lPluginSystem
 LIBS *= -lCommunication
 LIBS *= -lServerconfig
 LIBS *= -lomnithread
