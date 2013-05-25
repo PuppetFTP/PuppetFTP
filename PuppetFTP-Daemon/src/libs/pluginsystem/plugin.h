@@ -20,22 +20,22 @@ class Plugin : public QObject
     Q_OBJECT
     Q_PROPERTY(QString name READ name() WRITE setName())
     Q_PROPERTY(QString type READ type() WRITE setType())
-    Q_PROPERTY(QString path READ path() WRITE setPath())
+    Q_PROPERTY(QString group READ group() WRITE setGroup())
 public:
     Plugin();
 
     QString name();
     QString type();
-    QString path();
+    QString group();
 
     void setName(const QString & name);
     void setType(const QString & type);
-    void setPath(const QString & path);
+    void setGroup(const QString & group);
 
 private:
     QString m_name;
-    QString m_path;
     QString m_type;
+    QString m_group;
 };
 
 #endif // PLUGIN_H
