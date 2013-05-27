@@ -21,6 +21,7 @@ class Plugin : public QObject
     Q_PROPERTY(QString name READ name() WRITE setName())
     Q_PROPERTY(QString type READ type() WRITE setType())
     Q_PROPERTY(QString group READ group() WRITE setGroup())
+
 public:
     Plugin();
 

@@ -2,9 +2,6 @@
 
 #include "pluginmanager.h"
 
-#include <QDebug>
-
-
 /*!
  * \class PluginManager
  * \brief The PluginManager class allows the application to load plugins

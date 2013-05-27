@@ -5,6 +5,7 @@ Proftpd::Proftpd()
 {
     setName(QLatin1String("Proftpd"));
     setType(QLatin1String("MetaPlugin"));
+    setGroup(QLatin1String("FTP"));
 }
 
 Proftpd::~Proftpd()

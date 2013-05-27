@@ -4,6 +4,7 @@ Vsftpd::Vsftpd()
 {
     setName(QLatin1String("Proftpd"));
     setType(QLatin1String("MetaPlugin"));
+    setGroup(QLatin1String("FTP"));
 }
 
 Vsftpd::~Vsftpd()
