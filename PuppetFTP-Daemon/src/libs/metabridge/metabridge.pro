@@ -4,9 +4,15 @@ TARGET = MetaBridge
 
 include(../puppetlibrary.pri)
 
+INCLUDEPATH += $$LIBRARY_SRC_TREE/pluginsystem
 INCLUDEPATH += $$NETWORK_SRC_TREE
-INCLUDEPATH += $$PLUGIN_SRC_TREE
 
-HEADERS += metabridge.h
+HEADERS += $$PWD/metaconfig.h
+HEADERS += $$PWD/metaplugin.h
+HEADERS += $$PWD/metaconfigdriver.h
 
-SOURCES += metabridge.cpp
+SOURCES += $$PWD/metaconfig.cpp
+SOURCES += $$PWD/metaplugin.cpp
+SOURCES += $$PWD/metaconfigdriver.cpp
+
+LIBS += -lPluginSystem

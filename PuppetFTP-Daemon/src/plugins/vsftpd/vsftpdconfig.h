@@ -3,29 +3,37 @@
 
 #include "abstractauthentication.h"
 #include "vsftpdparser.h"
-#include "IServerConfigurationProvider.h"
 #include "servicemanager.h"
+#include "metaconfig.h"
 
-class VsftpdConfigHandler : public IServerConfigurationProvider
+class VsftpdConfigHandler : public MetaConfig
 {
 public:
     VsftpdConfigHandler(QString serverName, QString serverAddr, QString fileName = DEFAULT_CONFIG_VSFTP_FILE, QString serverBinPath = DEFAULT_BIN_PATH_VSFTP);
     ~VsftpdConfigHandler();
 
     // Network
+    Q_PROPERTY(QString serverName READ getServerName WRITE setServerName)
+    Q_PROPERTY(QString serverAddr READ getServerAddr)
+    Q_PROPERTY(quint16 serverPort READ getServerPort WRITE setServerPort)
+    Q_PROPERTY(QString internetProtocol READ getInternetProtocol WRITE setInternetProtocol)
+    Q_PROPERTY(quint16 idleTimeout READ getIdleTimeout WRITE setIdleTimeout)
+    Q_PROPERTY(quint16 dataConnectionTimeout READ getDataConnectionTimeout WRITE setDataConnectionTimeout)
+
     QString getServerName() const;
     void    setServerName(const QString & name);
     QString getServerAddr() const;
     quint16 getServerPort() const;
     void    setServerPort(quint16 port);
-    INTERNET_PROTOCOL::ip getInternetProtocol() const;
-    void setInternetProtocol(INTERNET_PROTOCOL::ip ip);
+    QString getInternetProtocol() const;
+    void setInternetProtocol(const QString & ip);
     quint16 getIdleTimeout() const;
     void setIdleTimeout(quint16 timeout);
     quint16 getDataConnectionTimeout() const;
     void setDataConnectionTimeout(quint16 timeout);
 
     // User
+/*
     bool isUsingSystemUser() const;
     void useSystemUser(bool use);
     bool isAnonymousAllowed() const;
@@ -41,23 +49,29 @@ public:
     void addVirtualUser(const QString & user, const QString & password);
     void remVirtualUser(const QString & user);
     QStringList virtualUsers() const;
-
+*/
     // Misc
+    Q_PROPERTY(QString welcomeMessage READ getWelcomeMessage WRITE setWelcomeMessage)
+
     QString getWelcomeMessage() const;
     void setWelcomeMessage(const QString & message);
 
     // Log
+    Q_PROPERTY(QString logFile READ getLogFile)
+
     QString getLogFile() const;
 
     // Start/stop
-    void start() const;
-    void stop() const;
-    void restart() const;
+    Q_INVOKABLE void start() const;
+    Q_INVOKABLE void stop() const;
+    Q_INVOKABLE void restart() const;
 
     // fichier de conf
+/*
     QString exportConfiguration() const;
     void importConfiguration(const QString &configuration);
     void resetConfiguration();
+*/
 
 private:
     QString	m_serverName;

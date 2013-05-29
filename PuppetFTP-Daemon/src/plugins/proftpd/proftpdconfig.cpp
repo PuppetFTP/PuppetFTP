@@ -1,4 +1,3 @@
-#include <QDebug>
 #include <QProcess>
 #include <iostream>
 #include <QFile>
@@ -7,97 +6,98 @@
 
 #include "CommunicationException.h"
 
-ProFtpdConfigProvider::ProFtpdConfigProvider(const QString & serverName, const QString & serverAddr, const QString & fileName, const QString & serverBinPath)
+ProFtpdConfigHandler::ProFtpdConfigHandler(const QString & serverName, const QString & serverAddr, const QString & fileName, const QString & serverBinPath)
     : m_serverName(serverName), m_serverAddr(serverAddr), m_parser(fileName), m_serverPath(serverBinPath), m_serviceName("proftpd")
 {
 }
 
-ProFtpdConfigProvider::~ProFtpdConfigProvider()
+ProFtpdConfigHandler::~ProFtpdConfigHandler()
 {
 }
 
 /********************************************************************************/
 
-QString ProFtpdConfigProvider::getServerName() const
+QString ProFtpdConfigHandler::getServerName() const
 {
     return m_serverName;
 }
 
-void    ProFtpdConfigProvider::setServerName(const QString & name)
+void    ProFtpdConfigHandler::setServerName(const QString & name)
 {
     m_serverName = name;
 }
 
 // Network
-QString ProFtpdConfigProvider::getServerAddr() const
+QString ProFtpdConfigHandler::getServerAddr() const
 {
     return m_serverAddr;
 }
 
-quint16 ProFtpdConfigProvider::getServerPort() const
+quint16 ProFtpdConfigHandler::getServerPort() const
 {
     return m_parser.get(QLatin1String("Port")).toUInt();
 }
 
-void    ProFtpdConfigProvider::setServerPort(quint16 port)
+void    ProFtpdConfigHandler::setServerPort(quint16 port)
 {
     m_parser.set(QLatin1String("Port"), QVariant(port));
 }
 
-IServerConfigurationProvider::INTERNET_PROTOCOL::ip ProFtpdConfigProvider::getInternetProtocol() const
+QString ProFtpdConfigHandler::getInternetProtocol() const
 {
     bool isIpv6 = m_parser.get(QLatin1String("UseIPv6")).toString() == QLatin1String("on");
 
     if (isIpv6)
-        return IServerConfigurationProvider::INTERNET_PROTOCOL::IPv6;
+        return QLatin1String("Ipv6");
 
-    return IServerConfigurationProvider::INTERNET_PROTOCOL::IPv4;
+    return QLatin1String("Ipv4");
 }
 
-void ProFtpdConfigProvider::setInternetProtocol(IServerConfigurationProvider::INTERNET_PROTOCOL::ip ip)
+void ProFtpdConfigHandler::setInternetProtocol(const QString & ip)
 {
-    if (ip == IServerConfigurationProvider::INTERNET_PROTOCOL::IPv6)
+    if (ip == QLatin1String("IPv6"))
         m_parser.set(QLatin1String("UseIPv6"), QVariant(QLatin1String("on")));
-    else if (ip == IServerConfigurationProvider::INTERNET_PROTOCOL::IPv4)
+    else if (ip == QLatin1String("IPv4"))
         m_parser.set(QLatin1String("UseIPv6"), QVariant(QLatin1String("off")));
 }
 
-quint16 ProFtpdConfigProvider::getIdleTimeout() const
+quint16 ProFtpdConfigHandler::getIdleTimeout() const
 {
     return m_parser.get(QLatin1String("TimeoutIdle")).toUInt();
 }
 
-void ProFtpdConfigProvider::setIdleTimeout(quint16 timeout)
+void ProFtpdConfigHandler::setIdleTimeout(quint16 timeout)
 {
     m_parser.set(QLatin1String("TimeoutIdle"), timeout);
 }
 
-quint16 ProFtpdConfigProvider::getDataConnectionTimeout() const
+quint16 ProFtpdConfigHandler::getDataConnectionTimeout() const
 {
     return m_parser.get(QLatin1String("TimeoutStalled")).toUInt();
 }
 
-void ProFtpdConfigProvider::setDataConnectionTimeout(quint16 timeout)
+void ProFtpdConfigHandler::setDataConnectionTimeout(quint16 timeout)
 {
     m_parser.set(QLatin1String("TimeoutStalled"), timeout);
 }
 
 // User
-bool ProFtpdConfigProvider::isUsingSystemUser() const
+/*
+bool ProFtpdConfigHandler::isUsingSystemUser() const
 {
     /*if (m_parser.get(QLatin1String("local_enable")).toString() == QLatin1String("YES"))
         return true;
-*/
+*//*
     return false;
 }
 
-void ProFtpdConfigProvider::useSystemUser(bool use)
+void ProFtpdConfigHandler::useSystemUser(bool use)
 {
     Q_UNUSED(use);
     //m_parser.set(QLatin1String("local_enable"), use ? QLatin1String("YES") : QLatin1String("NO"));
 }
 
-bool ProFtpdConfigProvider::isAnonymousAllowed() const
+bool ProFtpdConfigHandler::isAnonymousAllowed() const
 {
     return  m_parser.get(QString("Anonymous /home/ftp#User")) == QString("ftp")
         && m_parser.get(QString("Anonymous /home/ftp#Group")) == QString("nogroup")
@@ -105,7 +105,7 @@ bool ProFtpdConfigProvider::isAnonymousAllowed() const
     ;
 }
 
-void ProFtpdConfigProvider::allowAnonymous(bool allow)
+void ProFtpdConfigHandler::allowAnonymous(bool allow)
 {
     if (allow) {
         m_parser.set(QString("Anonymous /home/ftp#User"), QString("ftp"));
@@ -118,12 +118,12 @@ void ProFtpdConfigProvider::allowAnonymous(bool allow)
     }
 }
 
-bool ProFtpdConfigProvider::isAnonymousUploadAllowed() const
+bool ProFtpdConfigHandler::isAnonymousUploadAllowed() const
 {
     return m_parser.get(QString("Anonymous /home/ftp#Directory *#Limit WRITE#DenyAll")).isValid();
 }
 
-void ProFtpdConfigProvider::allowAnonymousUpload(bool allow)
+void ProFtpdConfigHandler::allowAnonymousUpload(bool allow)
 {
     if (allow) {
         m_parser.set(QString("Anonymous /home/ftp#Directory *#Limit WRITE#DenyAll"));
@@ -132,64 +132,65 @@ void ProFtpdConfigProvider::allowAnonymousUpload(bool allow)
     }
 }
 
-bool ProFtpdConfigProvider::isAnonymousCreateDirAllowed() const
+bool ProFtpdConfigHandler::isAnonymousCreateDirAllowed() const
 {
     return isAnonymousUploadAllowed();
 }
 
-void ProFtpdConfigProvider::allowAnonymousCreateDir(bool allow)
+void ProFtpdConfigHandler::allowAnonymousCreateDir(bool allow)
 {
     allowAnonymousUpload(allow);
 }
-
+*/
 // Virtual User Management
-void ProFtpdConfigProvider::setVirtualUserAuthentication(IServerConfigurationProvider::VIRTUAL_USER_AUTHENTICATION::auth mode)
+/*
+void ProFtpdConfigHandler::setVirtualUserAuthentication(IServerConfigurationProvider::VIRTUAL_USER_AUTHENTICATION::auth mode)
 {
     Q_UNUSED(mode);
 }
 
-IServerConfigurationProvider::VIRTUAL_USER_AUTHENTICATION::auth ProFtpdConfigProvider::getVirtualUserAuthentication() const
+IServerConfigurationProvider::VIRTUAL_USER_AUTHENTICATION::auth ProFtpdConfigHandler::getVirtualUserAuthentication() const
 {
     return IServerConfigurationProvider::VIRTUAL_USER_AUTHENTICATION::Anonymous;
 }
 
-void ProFtpdConfigProvider::addVirtualUser(const QString & user, const QString & password)
+void ProFtpdConfigHandler::addVirtualUser(const QString & user, const QString & password)
 {
     Q_UNUSED(user);
     Q_UNUSED(password);
   //  m_authentificator->addUser(QLatin1String(user), QLatin1String(password));
 }
 
-void ProFtpdConfigProvider::remVirtualUser(const QString & user)
+void ProFtpdConfigHandler::remVirtualUser(const QString & user)
 {
     Q_UNUSED(user);
    // m_authentificator->removeUser(QLatin1String(user));
 }
 
-QStringList ProFtpdConfigProvider::virtualUsers() const
+QStringList ProFtpdConfigHandler::virtualUsers() const
 {
     return QStringList();
 }
-
+*/
 // Misc
-QString ProFtpdConfigProvider::getWelcomeMessage() const
+QString ProFtpdConfigHandler::getWelcomeMessage() const
 {
     return m_parser.get(QLatin1String("DisplayLogin")).toString();
 }
 
-void ProFtpdConfigProvider::setWelcomeMessage(const QString & message)
+void ProFtpdConfigHandler::setWelcomeMessage(const QString & message)
 {
     m_parser.set(QLatin1String("DisplayLogin"), QVariant(message));
 }
 
 // Log
-QString ProFtpdConfigProvider::getLogFile() const
+QString ProFtpdConfigHandler::getLogFile() const
 {
     return m_parser.get(QLatin1String("ServerLog")).toString();
 }
 
 // Start/stop
-void ProFtpdConfigProvider::start() const
+void ProFtpdConfigHandler::start() const
 {
     int exitStatus = ServiceManager::start(m_serviceName);
     if (exitStatus == 1) {
@@ -198,7 +199,7 @@ void ProFtpdConfigProvider::start() const
     }
 }
 
-void ProFtpdConfigProvider::stop() const
+void ProFtpdConfigHandler::stop() const
 {
     int exitStatus = ServiceManager::stop(m_serviceName);
     if (exitStatus == 1) {
@@ -207,7 +208,7 @@ void ProFtpdConfigProvider::stop() const
     }
 }
 
-void ProFtpdConfigProvider::restart() const
+void ProFtpdConfigHandler::restart() const
 {
     int exitStatus = ServiceManager::restart(m_serviceName);
     if (exitStatus == 1) {
@@ -215,8 +216,8 @@ void ProFtpdConfigProvider::restart() const
         throw CommunicationException(err.c_str());
     }
  }
-
-QString ProFtpdConfigProvider::exportConfiguration() const
+/*
+QString ProFtpdConfigHandler::exportConfiguration() const
 {
     QFile file(m_parser.filename());
 
@@ -234,7 +235,7 @@ QString ProFtpdConfigProvider::exportConfiguration() const
     return data;
 }
 
-void ProFtpdConfigProvider::importConfiguration(const QString & configuration)
+void ProFtpdConfigHandler::importConfiguration(const QString & configuration)
 {
     QFile file(m_parser.filename());
 
@@ -250,6 +251,7 @@ void ProFtpdConfigProvider::importConfiguration(const QString & configuration)
     file.close();
 }
 
-void ProFtpdConfigProvider::resetConfiguration()
+void ProFtpdConfigHandler::resetConfiguration()
 {
 }
+*/

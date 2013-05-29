@@ -7,23 +7,24 @@
 #include "pamauthentication.h"
 #include "CommunicationException.h"
 #include "serverconfig.h"
-#include "plugin.h"
+#include "metaplugin.h"
 
-class Vsftpd : public Plugin
+class Vsftpd : public MetaPlugin
 {
 public:
     Vsftpd();
     ~Vsftpd();
 
-    // Plugin management
+    // Plugin default config loading from file deprecated soon !
     Q_INVOKABLE void initialize(ServerConfig & config);
 
-    // Communication requirement
-    Q_INVOKABLE IServerConfigurationProvider * getServerConfigurationProvider() const;
+    MetaConfig * getMetaConfigInstance();
 
 private:
-    IServerConfigurationProvider * m_configurationProvider;
-    AbstractAuthentication * m_authentificator;
-};
+    // Dependency ingections deprecated Soon !
+    QString         m_configFile;
+    QString         m_binPath;
+    QString         m_serverName;
+    QString         m_serverAddr;};
 
 #endif // VSFTPD_H

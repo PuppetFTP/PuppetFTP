@@ -68,13 +68,13 @@ void PluginManager::setLastError(const QString & errorString)
 QString PluginManager::pluginFileName(const QString & pluginName)
 {
 #ifdef Q_OS_WIN
-    return QString(QLatin1String(".\\plugins\\%1.dll")).arg(pluginName.toLower());
+    return QString(QLatin1String(".\\plugins\\%1")).arg(pluginName.toLower());
 #else
-    return QString(QLatin1String("./plugins/%1.so")).arg(pluginName.toLower());
+    return QString(QLatin1String("./plugins/lib%1")).arg(pluginName.toLower());
 #endif // Q_OS_WIN
 }
 
-typedef Plugin * (* Instance)();
+typedef Plugin* (* Instance)();
 
 /*!
  * \fn QSharedPointer < Plugin > PluginManager::loadPlugin(const QString & pluginName)
@@ -87,24 +87,17 @@ typedef Plugin * (* Instance)();
 QSharedPointer < Plugin > PluginManager::loadPlugin(const QString & pluginName)
 {
     if (!pluginName.isEmpty()) {
-        QLibrary lib;
-        lib.setFileName(pluginName);
+        QLibrary lib(pluginFileName(pluginName));
         Instance symbole = (Instance)lib.resolve("instance");
-
-        if (symbole == NULL) {
+        if (symbole) {
             Plugin * plugin = symbole();
-            if (plugin != NULL) {
-                const QString & className = QString::fromUtf8(plugin->metaObject()->className()).toLower();
-                if (className != pluginName.toLower()) {
-                    if (className == QLatin1String("Plugin") || className == QLatin1String("MetaPlugin"))
-                        setLastError(QString(QLatin1String("Invocated plugin %1 not seem to use Q_OBJECT"))
-                                     .arg(pluginName));
-                    else
-                        setLastError(QString(QLatin1String("Invocated plugin %1 not seem to be the expected one: %2"))
-                                     .arg(plugin->metaObject()->className(), pluginName));
-                }
+            if (plugin) {
+                QString className = plugin->name();
+                if (className.toLower() == pluginName.toLower())
+                    return QSharedPointer < Plugin >(plugin);
 
-                return QSharedPointer < Plugin >(plugin);
+                setLastError(QString(QLatin1String("Invocated plugin %1 not seem to be the expected one: %2"))
+                             .arg(className, pluginName));
             }
 
             setLastError(QString(QLatin1String("Plugin %1 invokation failed")).arg(pluginName));
