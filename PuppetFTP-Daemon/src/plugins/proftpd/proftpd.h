@@ -1,32 +1,29 @@
 #ifndef PROFTPD_H
 #define PROFTPD_H
 
-#include <iostream>
-#include "chrootlist.h"
 #include "proftpdconfig.h"
-#include "pamauthentication.h"
-#include "CommunicationException.h"
 #include "serverconfig.h"
+#include "metaplugin.h"
 
-#include "plugin.h"
-
-class Proftpd : public Plugin
+class Proftpd : public MetaPlugin
 {
     Q_OBJECT
 
 public:
     Proftpd();
-    ~Proftpd();
 
-    // Plugin management
-    Q_INVOKABLE void initialize(ServerConfig & config);
+    // Plugin default config loading from file deprecated soon !
+    void initialize(ServerConfig & config);
 
-    // Communication requirement
-    Q_INVOKABLE IServerConfigurationProvider * getServerConfigurationProvider() const;
+    MetaConfig * getMetaConfigInstance();
 
 private:
-    IServerConfigurationProvider * m_configurationProvider;
-    AbstractAuthentication * m_authentificator;
+    // Deprecated Soon !
+    QString         m_configFile;
+    QString         m_binPath;
+    QString         m_serverName;
+    QString         m_serverAddr;
+
 };
 
 #endif // PROFTPD_H

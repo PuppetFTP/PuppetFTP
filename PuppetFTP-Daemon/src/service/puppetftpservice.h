@@ -5,10 +5,8 @@
 
 #include <QtCore>
 #include <QtCore/QCoreApplication>
-#include <iostream>
-//#include "ORB.h"
 
-#include "IServerConfigurationProvider.h"
+#include "metaconfigdriver.h"
 
 #define SERVICE_NAME "puppetFtpd"
 #define CONFIGFILE_PARAMETER "--config-file="
@@ -29,7 +27,7 @@ protected:
 #endif // QT_NO_DEBUG
 
 private:
-    IServerConfigurationProvider * m_server;
+    MetaConfigDriver m_metaConfigDriver;
 };
 
 #endif // PUPPETFTPSERVICE_H

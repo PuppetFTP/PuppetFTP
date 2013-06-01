@@ -1,6 +1,7 @@
 TEMPLATE = subdirs
 
-FTP-DRIVERS += proftpd vsftpd
+FTP-DRIVERS += proftpd
+FTP-DRIVERS += vsftpd
 
 for(driver, FTP-DRIVERS) {
     exists($$driver) {
@@ -9,4 +10,3 @@ for(driver, FTP-DRIVERS) {
         message(Ftp driver folder ($$driver) not found.)
     }
 }
-

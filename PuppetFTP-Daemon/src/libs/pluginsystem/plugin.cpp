@@ -46,13 +46,13 @@ void Plugin::setName(const QString & name)
     m_name = name;
 }
 
+void Plugin::setType(const QString & type)
+{
+    m_type = type;
+}
+
 void Plugin::setGroup(const QString & group)
 {
     m_group = group;
-}
-
-void Plugin::setPath(const QString & path)
-{
-    m_path = path;
 }
 

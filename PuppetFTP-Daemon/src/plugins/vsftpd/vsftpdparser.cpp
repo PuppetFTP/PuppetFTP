@@ -5,8 +5,6 @@
 #include "ServerConfigHandler.hh"
 #include <iostream>
 
-#include <QDebug>
-
 VsftpdParser::VsftpdParser(const QString & filePath)
     : m_filename(QDir::toNativeSeparators(filePath)), m_confSettings(m_filename, QSettings::NativeFormat)
 {

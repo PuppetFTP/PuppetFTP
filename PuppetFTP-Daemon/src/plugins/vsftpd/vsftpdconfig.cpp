@@ -1,7 +1,6 @@
 #include <QtPlugin>
 #include <QSettings>
 #include <QDir>
-#include <QDebug>
 #include <QProcess>
 #include <iostream>
 
@@ -52,27 +51,27 @@ void    VsftpdConfigHandler::setServerPort(quint16 port)
     m_parser.set(QLatin1String("listen_port"), QVariant(port));
 }
 
-IServerConfigurationProvider::INTERNET_PROTOCOL::ip VsftpdConfigHandler::getInternetProtocol() const
+QString VsftpdConfigHandler::getInternetProtocol() const
 {
     QString ipv4 = m_parser.get(QLatin1String("listen")).toString();
     QString ipv6 = m_parser.get(QLatin1String("listen_ipv6")).toString();
 
     if (ipv6 == QLatin1String("YES") && ipv4 != QLatin1String("YES"))
-        return IServerConfigurationProvider::INTERNET_PROTOCOL::IPv6;
+        return QLatin1String("IPv6");
 
     if (ipv4 == QLatin1String("YES") && ipv6 != QLatin1String("YES"))
-        return IServerConfigurationProvider::INTERNET_PROTOCOL::IPv4;
+        return QLatin1String("IPv4");
 
-    return IServerConfigurationProvider::INTERNET_PROTOCOL::undefined;
+    return QLatin1String("undefined");
 }
 
 // need etre root ?
-void VsftpdConfigHandler::setInternetProtocol(IServerConfigurationProvider::INTERNET_PROTOCOL::ip ip)
+void VsftpdConfigHandler::setInternetProtocol(const QString & ip)
 {
-    if (ip == IServerConfigurationProvider::INTERNET_PROTOCOL::IPv6) {
+    if (ip == QLatin1String("IPv6")) {
         m_parser.set(QLatin1String("listen_ipv6"), QVariant(QLatin1String("YES")));
         m_parser.set(QLatin1String("listen"), QVariant(QLatin1String("NO")));
-    } else if (ip == IServerConfigurationProvider::INTERNET_PROTOCOL::IPv4) {
+    } else if (ip == QLatin1String("IPv4")) {
         m_parser.set(QLatin1String("listen"), QVariant(QLatin1String("YES")));
         m_parser.set(QLatin1String("listen_ipv6"), QVariant(QLatin1String("NO")));
     }
@@ -99,6 +98,7 @@ void VsftpdConfigHandler::setDataConnectionTimeout(quint16 to)
 }
 
 // User
+/*
 bool VsftpdConfigHandler::isUsingSystemUser() const
 {
     if (m_parser.get(QLatin1String("local_enable")).toString() == QLatin1String("YES"))
@@ -170,7 +170,7 @@ void VsftpdConfigHandler::setVirtualUserAuthentication(::IServerConfigurationPro
         m_parser.set(QLatin1String("local_enable"), QLatin1String("YES"));
         m_parser.set(QLatin1String("write_enable"), QLatin1String("YES"));
         */
-        m_parser.set(QLatin1String("chroot_list_file"), chrootPath);
+     /*   m_parser.set(QLatin1String("chroot_list_file"), chrootPath);
         m_parser.set(QLatin1String("chroot_list_enable"), QLatin1String("YES"));
         m_parser.set(QLatin1String("chroot_local_user"), QLatin1String("NO"));
 
@@ -197,7 +197,7 @@ QStringList VsftpdConfigHandler::virtualUsers() const
 {
     return QStringList();
 }
-
+*/
 // Misc
 QString VsftpdConfigHandler::getWelcomeMessage() const
 {
@@ -243,7 +243,7 @@ void VsftpdConfigHandler::restart() const
     }
  }
 
-
+/*
 QString VsftpdConfigHandler::exportConfiguration() const
 {
     QFile file(m_parser.filename());
@@ -281,3 +281,4 @@ void VsftpdConfigHandler::importConfiguration(const QString & configuration)
 void VsftpdConfigHandler::resetConfiguration()
 {
 }
+*/

@@ -4,8 +4,6 @@
 #include "CORBAImpl/Provider.h"
 #include "CommunicationException.h"
 
-#include "pluginmanager.h"
-
 PuppetFtpService::PuppetFtpService(int argc, char ** argv)
     : QtService < QCoreApplication > (argc, argv, SERVICE_NAME)
 {
@@ -39,23 +37,21 @@ void PuppetFtpService::start()
         CommunicationService::setProvider(new CORBA::Impl::Provider());
         CommunicationService::configure(INetworkAccessProvider::MODE::SERVER, options);
 
-        // # TEMPORARY
-        // config must provide only plugin name not plugin path
-        const QString & pluginName = config->get(ServerConfig::pluginPathName);
-        Plugin * plugin = PluginManager::instance()->loadPlugin(pluginName).data();
-        QMetaObject::invokeMethod(plugin, "initialize", Q_ARG(ServerConfig, *config));
-        QMetaObject::invokeMethod(plugin, "getServerConfigurationProvider", Q_RETURN_ARG(IServerConfigurationProvider *, m_server));
-        // # TEMPORARY
+        QString serverName = config->get(ServerConfig::serverNameName);
+        if (serverName.isEmpty()) {
+            logMessage(QLatin1String("Unable to find serverName in puppetFTP configurationFile: %1"), Error);
+            stop();
+            return;
+        }
 
-        CommunicationService::provider()->registerServiceProvider(m_server->getServerName(), m_server);
+        // Uncomment when Communication Service will be update
+        // CommunicationService::provider()->registerServiceProvider(serverName, m_metaConfigDriver);
     }
     catch (CommunicationException e) {
         logMessage(QString(QLatin1String("Unable to register object: %1")).arg(e.message()), Error);
+        stop();
+        return;
     }
-
-    stop();
-
-    return;
 
     app->exec();
 }
@@ -71,6 +67,7 @@ void PuppetFtpService::stop()
 }
 
 #ifndef QT_NO_DEBUG
+#include <QDebug>
 void PuppetFtpService::logMessage(const QString & message, MessageType type, int id, uint category, const QByteArray & data)
 {
     QString logType;
