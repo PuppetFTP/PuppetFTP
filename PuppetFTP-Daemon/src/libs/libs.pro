@@ -1,7 +1,7 @@
 TEMPLATE = subdirs
 CONFIG += ordered
 
-SUBDIRS += serverconfig
+SUBDIRS += utils
 SUBDIRS += communication
 SUBDIRS += pluginsystem
 SUBDIRS += metabridge

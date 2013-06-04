@@ -13,10 +13,9 @@ QT       -= gui
 CONFIG   += console
 CONFIG   -= app_bundle
 
-
 INCLUDEPATH += $$LIBRARY_SRC_TREE/pluginsystem
 INCLUDEPATH += $$LIBRARY_SRC_TREE/metabridge
-INCLUDEPATH += $$LIBRARY_SRC_TREE/serverconfig
+INCLUDEPATH += $$LIBRARY_SRC_TREE/utils
 INCLUDEPATH += $$PLUGIN_SRC_TREE
 INCLUDEPATH += $$NETWORK_SRC_TREE
 INCLUDEPATH += $$NETWORK_SRC_TREE/CORBAImpl/interface
@@ -27,6 +26,7 @@ HEADERS += puppetftpservice.h
 SOURCES += main.cpp
 SOURCES += puppetftpservice.cpp
 
+LIBS *= -lUtils
 LIBS *= -lPluginSystem
 LIBS *= -lMetaBridge
 LIBS *= -lCommunication

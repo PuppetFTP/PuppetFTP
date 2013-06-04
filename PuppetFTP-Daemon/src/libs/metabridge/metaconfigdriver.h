@@ -5,7 +5,6 @@
 #include <QVariant>
 #include <QStringList>
 #include <QCache>
-#include <QSharedPointer>
 
 #include "metaconfig.h"
 #include "metaplugin.h"

@@ -3,24 +3,41 @@
 
 #include <QString>
 #include <QVariant>
-#include <QSettings>
+#include <QHash>
+#include <QElapsedTimer>
+
+#include "lasterror.h"
 
 # define DEFAULT_CONFIG_VSFTP_FILE "/etc/vsftpd/vsftpd.conf"
 # define DEFAULT_BIN_PATH_VSFTP "/usr/bin/service"
 
-class VsftpdParser
+#define CACHE_TIME 30000
+
+class VsftpdParser : public LastError
 {
 public:
     VsftpdParser(const QString & filePath = DEFAULT_CONFIG_VSFTP_FILE);
 
     void set(const QString & key, const QVariant & value);
-    QVariant get(const QString & key) const;
+    QVariant get(const QString & key);
 
-    QString filename() const;
+    QString fileName() const;
+    void setFileName(const QString filename);
+
+    bool isDryRun() const;
+    void setDryRun(bool dryRun);
+
+private:
+    void refresh();
+    void flush();
 
 private:
     QString m_filename;
-    QSettings m_confSettings;
+    bool m_dryRun;
+
+    QString m_data;
+    QHash < QString, QVariant > m_cache;
+    QElapsedTimer m_cacheTimer;
 };
 
 #endif // VSFTPDPARSER_H
