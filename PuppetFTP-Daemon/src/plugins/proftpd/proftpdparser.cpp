@@ -1,8 +1,7 @@
 #include <QDir>
 #include <QTextStream>
-#include <QDebug>
 
-#include <iostream>
+#include <QDebug>
 
 #include "ServerConfigHandler.hh"
 #include "proftpdparser.h"
@@ -82,8 +81,7 @@ ProftpdParser::ProftpdParser(const QString & filePath)
 
 #define DATA_NODE_REGEXP "(?:\\n\\s*|^\\s*)([^#<>\\n\\s]+)[\\t| ]+([^>\\s\\n][^>\\n]*)(?:\\n|$)|(?:\\n\\s*|^\\s*)([^#<>\\n\\s]+)[\\t| ]*(?:\\n|$)"
 
-
-ProftpdConfNode ProftpdParser::parse(const QString & data) const
+ProftpdConfNode ProftpdParser::parse(const QString & data)
 {
     qDebug() << "data";
     qDebug() << data;
@@ -114,11 +112,9 @@ ProftpdConfNode ProftpdParser::parse(const QString & data) const
         QRegExp endNode(QString("(</%1>)").arg(beginNode.cap(1).isEmpty() ? beginNode.cap(3) : beginNode.cap(1)));
         childpos = endNode.indexIn(data, childpos);
 
-        if (childpos == -1) {
-            std::string err("Misformated configuration file");
-            std::cerr << err << std::endl;
-            throw ServerConfigHandler::ConfigurationException(err.c_str());
-        }
+        if (childpos == -1)
+            setLastError(QLatin1String("Misformated configuration file"));
+
   //      qDebug() << "ADD" << beginNode.capturedTexts();
         int endData = childpos;
         childpos += endNode.matchedLength();
@@ -142,7 +138,7 @@ ProftpdConfNode ProftpdParser::parse(const QString & data) const
     return node;
 }
 
-void insert(QString & data, QString key, const QString & value, bool toDelete)
+void ProftpdParser::insert(QString & data, const QString & key, const QString & value, bool toDelete)
 {
     QStringList subkeys = key.split(QLatin1Char('#'));
     const QString & currentKey = subkeys.first();
@@ -154,7 +150,6 @@ void insert(QString & data, QString key, const QString & value, bool toDelete)
     int childpos = 0;
     int datapos = 0;
     while ((childpos = beginNode.indexIn(data, childpos)) != -1) {
-
         if (!iscurrentKeyNode) {
             while ((datapos = datamatch.indexIn(data, datapos)) != -1 && datapos < childpos) {
                 if (datamatch.cap(1) == currentKey) {
@@ -188,11 +183,8 @@ void insert(QString & data, QString key, const QString & value, bool toDelete)
         QRegExp endNode(QString("(</%1>)").arg(beginNode.cap(1).isEmpty() ? beginNode.cap(3) : beginNode.cap(1)));
         childpos = endNode.indexIn(data, childpos);
 
-        if (childpos == -1) {
-            std::string err("Misformated configuration file");
-            std::cerr << err << std::endl;
-            throw ServerConfigHandler::ConfigurationException(err.c_str());
-        }
+        if (childpos == -1)
+            setLastError(QLatin1String("Misformated configuration file"));
 
         int endData = childpos;
         childpos += endNode.matchedLength();
@@ -249,56 +241,61 @@ void insert(QString & data, QString key, const QString & value, bool toDelete)
     }
 }
 
-void ProftpdParser::set(const QString & key, const QVariant & value, bool toDelete)
+void ProftpdParser::refresh()
 {
-    QFile file(m_filename);
+    if (!m_cacheTimer.hasExpired(CACHE_TIME))
+        return;
 
-    if (!file.open(QIODevice::ReadWrite | QIODevice::Text)) {
-        std::string err("Unable to access configuration file.");
-        std::cerr << err << std::endl;
-        throw ServerConfigHandler::ConfigurationException(err.c_str());
+    if (m_data.isEmpty()) {
+        QFile file(m_filename);
+
+        if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+            QTextStream in(&file);
+            m_data = in.readAll();
+        } else {
+            setLastError(QLatin1String("Unable to access configuration file."));
+        }
     }
 
-    QTextStream in(&file);
-    QString data = in.readAll();
-    file.close();
-
-    insert(data, key, value.toString(), toDelete);
-
-    qDebug() << data;
-
-    if (!file.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Truncate)) {
-        std::string err("Unable to access configuration file.");
-        std::cerr << err << std::endl;
-        throw ServerConfigHandler::ConfigurationException(err.c_str());
+    if (!m_data.isEmpty()) {
+        m_cache.clear();
+        m_cache = parse(m_data);
     }
 
-    QTextStream out(&file);
-    out << data;
-
-    file.close();
+    m_cacheTimer.start();
 }
 
-QVariant ProftpdParser::get(const QString & key) const
+void ProftpdParser::flush()
 {
     QFile file(m_filename);
 
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        std::string err("Unable to access configuration file.");
-        std::cerr << err << std::endl;
-        throw ServerConfigHandler::ConfigurationException(err.c_str());
+    if (file.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Truncate)) {
+        if (file.write(m_data.toUtf8()) == -1)
+            file.close();
+        else
+            setLastError(QLatin1String("An error occured while writting data to the file."));
+    } else {
+        setLastError(QLatin1String("Unable to access configuration file."));
     }
+}
 
-    QTextStream in(&file);
-    QString data = in.readAll();
+void ProftpdParser::set(const QString & key, const QVariant & value, bool toDelete)
+{
+    if (!isDryRun())
+        refresh();
 
-    file.close();
+    insert(m_data, key, value.toString(), toDelete);
 
-    //m_data = parse(data);
-    ProftpdConfNode node = parse(data);
+    if (!isDryRun())
+        flush();
+}
 
-   // print(m_data);
+QVariant ProftpdParser::get(const QString & key)
+{
+    if (!isDryRun())
+        refresh();
 
+    ProftpdConfNode node = m_cache;
     QStringList keyList = key.split(QLatin1Char('#'));
     foreach (const QString subkey, keyList) {
         if (subkey != keyList.last()) {
@@ -313,7 +310,22 @@ QVariant ProftpdParser::get(const QString & key) const
     return QVariant(QVariant::Invalid);
 }
 
-QString ProftpdParser::filename() const
+QString ProftpdParser::fileName() const
 {
     return m_filename;
+}
+
+void ProftpdParser::setFileName(const QString & filename)
+{
+    m_filename = filename;
+}
+
+bool ProftpdParser::isDryRun() const
+{
+    return m_dryRun;
+}
+
+void ProftpdParser::setDryRun(bool dryRun)
+{
+    m_dryRun = dryRun;
 }

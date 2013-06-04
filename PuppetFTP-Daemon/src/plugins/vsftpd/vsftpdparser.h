@@ -22,7 +22,7 @@ public:
     QVariant get(const QString & key);
 
     QString fileName() const;
-    void setFileName(const QString filename);
+    void setFileName(const QString & filename);
 
     bool isDryRun() const;
     void setDryRun(bool dryRun);

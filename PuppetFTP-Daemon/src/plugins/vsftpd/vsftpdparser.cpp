@@ -40,11 +40,10 @@ void VsftpdParser::flush()
     QFile file(m_filename);
 
     if (file.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Truncate)) {
-        if (file.write(m_data.toUtf8()) == -1) {
+        if (file.write(m_data.toUtf8()) == -1)
             file.close();
-        } else {
+        else
             setLastError(QLatin1String("An error occured while writting data to the file."));
-        }
     } else {
         setLastError(QLatin1String("Unable to access configuration file."));
     }
@@ -91,8 +90,18 @@ QString VsftpdParser::fileName() const
     return m_filename;
 }
 
-void VsftpdParser::setFileName(const QString filename)
+void VsftpdParser::setFileName(const QString & filename)
 {
     m_filename = filename;
     sync();
+}
+
+bool VsftpdParser::isDryRun() const
+{
+    return m_dryRun;
+}
+
+void VsftpdParser::setDryRun(bool dryRun)
+{
+    m_dryRun = dryRun;
 }
