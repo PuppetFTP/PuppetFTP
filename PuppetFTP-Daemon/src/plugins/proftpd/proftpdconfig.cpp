@@ -161,8 +161,7 @@ QString ProFtpdConfigHandler::parserFileName()
 {
     return m_parser.fileName();
 }
-
-void ProFtpdConfigHandler::setParserFileName(const QString filename)
+void ProFtpdConfigHandler::setParserFileName(const QString & filename)
 {
     m_parser.setFileName(filename);
 }

@@ -67,7 +67,7 @@ public:
     //Parser
     Q_PROPERTY(QString parserFilename READ parserFileName WRITE setParserFileName)
     QString parserFileName();
-    void setParserFileName(const QString filename);
+    void setParserFileName(const QString & filename);
 
     Q_PROPERTY(bool parserDryRun READ isParserDryRun WRITE setParserDryRun)
     bool isParserDryRun();

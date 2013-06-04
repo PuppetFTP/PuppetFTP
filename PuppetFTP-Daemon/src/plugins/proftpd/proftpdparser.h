@@ -8,8 +8,8 @@
 
 #include <lasterror.h>
 
-# define DEFAULT_CONFIG_PROFTPD_FILE "/etc/proftpd/proftpd.conf"
-# define DEFAULT_BIN_PATH_PROFTPD "/etc/init.d/proftpd"
+#define DEFAULT_CONFIG_PROFTPD_FILE "/etc/proftpd/proftpd.conf"
+#define DEFAULT_BIN_PATH_PROFTPD "/etc/init.d/proftpd"
 
 #define CACHE_TIME 30000
 

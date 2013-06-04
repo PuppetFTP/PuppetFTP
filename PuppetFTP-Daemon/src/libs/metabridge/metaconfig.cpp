@@ -26,7 +26,7 @@ bool MetaConfig::set(const QString & propertyName, const QVariant & value)
     const QMetaObject * metaObject = this->metaObject();
     const char * propertyStr = propertyName.toUtf8().constData();
 
-    int index = metaObject->indexOfProperty(propertyStr) != -1;
+    int index = metaObject->indexOfProperty(propertyStr);
     if (index != -1) {
         QMetaProperty metaProperty = metaObject->property(index);
         if (metaProperty.isWritable() && metaProperty.userType())
@@ -55,7 +55,7 @@ QVariant MetaConfig::exec(const QString & taskName, const QVariantList & argumen
     const QMetaObject * metaObject = this->metaObject();
     const char * taskStr = taskName.toUtf8().constData();
 
-    int index = metaObject->indexOfMethod(taskStr) != -1;
+    int index = metaObject->indexOfMethod(taskStr);
     if (index != -1) {
         QMetaMethod metaMethod = metaObject->method(index);
 
