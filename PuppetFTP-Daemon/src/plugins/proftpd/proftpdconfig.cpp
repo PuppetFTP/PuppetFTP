@@ -80,7 +80,7 @@ void ProFtpdConfigHandler::setDataConnectionTimeout(quint16 timeout)
 bool ProFtpdConfigHandler::isAnonymousAllowed()
 {
     return  m_parser.get(QString("Anonymous /home/ftp#User")) == QString("ftp")
-        && m_parser.get(QString("Anonymous /home/ftp#Group")) == QString("nogroup")
+        && m_parser.get(QString("Anonymous /home/ftp#Group")) == QString("ftp")
         && m_parser.get(QString("Anonymous /home/ftp#UserAlias")) == QString("anonymous ftp")
     ;
 }
@@ -89,39 +89,48 @@ void ProFtpdConfigHandler::allowAnonymous(bool allow)
 {
     if (allow) {
         m_parser.set(QString("Anonymous /home/ftp#User"), QString("ftp"));
-        m_parser.set(QString("Anonymous /home/ftp#Group"), QString("nogroup"));
+        m_parser.set(QString("Anonymous /home/ftp#Group"), QString("ftp"));
         m_parser.set(QString("Anonymous /home/ftp#UserAlias"), QString("anonymous ftp"));
     } else {
         m_parser.set(QString("Anonymous /home/ftp#User"), QString("ftp"), true);
-        m_parser.set(QString("Anonymous /home/ftp#Group"), QString("nogroup"), true);
+        m_parser.set(QString("Anonymous /home/ftp#Group"), QString("ftp"), true);
         m_parser.set(QString("Anonymous /home/ftp#UserAlias"), QString("anonymous ftp"), true);
     }
 }
 
 bool ProFtpdConfigHandler::isAnonymousUploadAllowed()
 {
-    return !m_parser.get(QString("Anonymous /home/ftp#Directory *#Limit WRITE#DenyAll")).isValid();
+    if (m_parser.get(QString("Anonymous /home/ftp#Limit WRITE#DenyAll")).isValid())
+        return false;
+
+    return true;
 }
 
 void ProFtpdConfigHandler::allowAnonymousUpload(bool allow)
 {
-    if (allow)
-        m_parser.set(QString("Anonymous /home/ftp#Directory *#Limit WRITE#AllowAll"));
-    else
-        m_parser.set(QString("Anonymous /home/ftp#Directory *#Limit WRITE#DenyAll"));
+    if (allow) {
+        m_parser.set(QString("Anonymous /home/ftp#Limit WRITE"), QVariant(), true);
+        m_parser.set(QString("Anonymous /home/ftp#Limit WRITE#AllowAll"));
+    } else {
+        m_parser.set(QString("Anonymous /home/ftp#Limit WRITE"), QVariant(), true);
+        m_parser.set(QString("Anonymous /home/ftp#Limit WRITE#DenyAll"));
+    }
 }
 
 bool ProFtpdConfigHandler::isAnonymousMakeDirAllowed()
 {
-    return !m_parser.get(QString("Anonymous /home/ftp#Directory *#Limit MKD#DenyAll")).isValid();
+    if (m_parser.get(QString("Anonymous /home/ftp#Limit MKD#DenyAll")).isValid())
+        return false;
+
+    return true;
 }
 
 void ProFtpdConfigHandler::allowAnonymousMakeDir(bool allow)
 {
     if (allow)
-        m_parser.set(QString("Anonymous /home/ftp#Directory *#Limit MKD#AllowAll"));
+        m_parser.set(QString("Anonymous /home/ftp#Limit MKD#AllowAll"));
     else
-        m_parser.set(QString("Anonymous /home/ftp#Directory *#Limit MKD#DenyAll"));
+        m_parser.set(QString("Anonymous /home/ftp#Limit MKD#DenyAll"));
 }
 
 // Misc
@@ -157,7 +166,7 @@ void ProFtpdConfigHandler::restart()
     ServiceManager::restart(m_serviceName);
 }
 
-QString ProFtpdConfigHandler::parserFileName()
+QString ProFtpdConfigHandler::parserFileName() const
 {
     return m_parser.fileName();
 }
@@ -166,7 +175,7 @@ void ProFtpdConfigHandler::setParserFileName(const QString & filename)
     m_parser.setFileName(filename);
 }
 
-bool ProFtpdConfigHandler::isParserDryRun()
+bool ProFtpdConfigHandler::isParserDryRun() const
 {
     return m_parser.isDryRun();
 }
@@ -174,4 +183,19 @@ bool ProFtpdConfigHandler::isParserDryRun()
 void ProFtpdConfigHandler::setParserDryRun(bool dryRun)
 {
     m_parser.setDryRun(dryRun);
+}
+
+QString ProFtpdConfigHandler::parserData() const
+{
+    return m_parser.Data();
+}
+
+void ProFtpdConfigHandler::setParserData(const QString & data)
+{
+    m_parser.setData(data);
+}
+
+QString ProFtpdConfigHandler::parserLastError() const
+{
+    return m_parser.lastError();
 }

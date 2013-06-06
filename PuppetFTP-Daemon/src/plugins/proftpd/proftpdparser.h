@@ -45,6 +45,9 @@ public:
     bool isDryRun() const;
     void setDryRun(bool dryRun);
 
+    QString parserData() const;
+    void setParserData(const QString data);
+
 private:
     ProftpdConfNode parse(const QString & data);
     void insert(QString & data, const QString & key, const QString & value, bool toDelete);

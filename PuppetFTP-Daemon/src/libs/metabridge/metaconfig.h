@@ -25,6 +25,7 @@ public:
     QStringList metaProperties();
     QStringList metaTasks();
 
+private:
     QCache < QString, QStringList> m_cache;
 };
 

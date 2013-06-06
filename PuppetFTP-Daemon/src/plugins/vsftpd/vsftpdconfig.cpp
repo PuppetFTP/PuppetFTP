@@ -215,17 +215,17 @@ void VsftpdConfigHandler::restart()
     ServiceManager::restart(m_serviceName);
 }
 
-QString VsftpdConfigHandler::parserFileName()
+QString VsftpdConfigHandler::parserFileName() const
 {
     return m_parser.fileName();
 }
 
-void VsftpdConfigHandler::setParserFileName(const QString filename)
+void VsftpdConfigHandler::setParserFileName(const QString & filename)
 {
     m_parser.setFileName(filename);
 }
 
-bool VsftpdConfigHandler::isParserDryRun()
+bool VsftpdConfigHandler::isParserDryRun() const
 {
     return m_parser.isDryRun();
 }
@@ -233,4 +233,19 @@ bool VsftpdConfigHandler::isParserDryRun()
 void VsftpdConfigHandler::setParserDryRun(bool dryRun)
 {
     m_parser.setDryRun(dryRun);
+}
+
+QString VsftpdConfigHandler::parserData() const
+{
+    return m_parser.Data();
+}
+
+void VsftpdConfigHandler::setParserData(const QString & data)
+{
+    m_parser.setData(data);
+}
+
+QString VsftpdConfigHandler::parserLastError() const
+{
+    return m_parser.lastError();
 }

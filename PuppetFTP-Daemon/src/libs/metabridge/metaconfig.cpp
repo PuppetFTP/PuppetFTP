@@ -2,10 +2,25 @@
 
 #include <QMetaProperty>
 
+/*!
+  \class MetaConfig
+  \brief The MetaConfig class is an abstract class useful to provide an easy access
+  to QMetaObject properties and methods.
+
+  The inheritant class must expose the choseen elements by using the Q_OBJECT, Q_PROPERTY and Q_INVOKABLE.
+  */
+
 MetaConfig::MetaConfig()
 {
 }
 
+/*!
+    \fn QVariant MetaConfig::get(const QString & propertyName)
+
+    Retrieve the property according to given \a propertyName value as a QVariant
+    The read accessor must have been declarated throught the Q_PROPERTY and the Type must be a MetaType registred
+    Q_PROPERTY(Type propertyName READ readAccessor)
+ */
 QVariant MetaConfig::get(const QString & propertyName)
 {
     const QMetaObject * metaObject = this->metaObject();
@@ -21,6 +36,15 @@ QVariant MetaConfig::get(const QString & propertyName)
     return QVariant();
 }
 
+#include <QDebug>
+
+/*!
+    \fn QVariant MetaConfig::get(const QString & propertyName)
+
+    Change the property according to given \a propertyName and QVariant \a value
+    The write accessor must have been declarated throught the Q_PROPERTY and the Type must be a MetaType registred
+    Q_PROPERTY(Type propertyName WRITE writeAccessor)
+ */
 bool MetaConfig::set(const QString & propertyName, const QVariant & value)
 {
     const QMetaObject * metaObject = this->metaObject();
@@ -36,6 +60,14 @@ bool MetaConfig::set(const QString & propertyName, const QVariant & value)
     return false;
 }
 
+/*!
+    ArgumentList qVariantListToGenericArguments(const QVariantList & argumentList, QList < QByteArray > parameterTypes)
+
+    Private and internal function for an easy convertion from QVariantList to an ArgumentList (QList < QGeneriqueArgument >)
+    Useful to provide QGenericArgument for QMetaMethod::invoke. The returned ArgumentList always contains ten QGenericArguments.
+
+    \internal
+ */
 ArgumentList qVariantListToGenericArguments(const QVariantList & argumentList, QList < QByteArray > parameterTypes)
 {
     ArgumentList genericArguments;
@@ -50,6 +82,16 @@ ArgumentList qVariantListToGenericArguments(const QVariantList & argumentList, Q
     return genericArguments;
 }
 
+/*!
+    \fn QVariant MetaConfig::exec(const QString & taskName, const QVariantList & argumentList)
+
+    Invoke QMetamethode \a taskName with the given arguments.
+    The given task nme must have beed declared as Q_INVOKABLE
+
+    Q_INVOKABLE void taskName();
+
+    Return the result as a QVariant.
+ */
 QVariant MetaConfig::exec(const QString & taskName, const QVariantList & argumentList)
 {
     const QMetaObject * metaObject = this->metaObject();
@@ -86,6 +128,11 @@ QVariant MetaConfig::exec(const QString & taskName, const QVariantList & argumen
     return QVariant();
 }
 
+/*!
+    \fn QStringList MetaConfig::metaProperties()
+
+    Retrun the list of properties known as Q_PROPERTY of the current object
+ */
 QStringList MetaConfig::metaProperties()
 {
     if (!m_cache.contains(QLatin1String("metaProperties"))) {
@@ -103,6 +150,11 @@ QStringList MetaConfig::metaProperties()
     return *(m_cache.object(QLatin1String("metaProperties")));
 }
 
+/*!
+    \fn QStringList MetaConfig::metaTasks()
+
+    Return the list of methods's signatures declared as Q_INVOKABLE of the current object
+ */
 QStringList MetaConfig::metaTasks()
 {
     if (!m_cache.contains(QLatin1String("metaTasks"))) {
@@ -122,4 +174,3 @@ QStringList MetaConfig::metaTasks()
 
     return *(m_cache.object(QLatin1String("metaTasks")));
 }
-

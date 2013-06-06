@@ -83,9 +83,9 @@ ProftpdParser::ProftpdParser(const QString & filePath)
 
 ProftpdConfNode ProftpdParser::parse(const QString & data)
 {
-    qDebug() << "data";
-    qDebug() << data;
-    qDebug() << "dataEND";
+  //  qDebug() << "data";
+  //  qDebug() << data;
+  //  qDebug() << "dataEND";
 
     ProftpdConfNode node;
     QRegExp beginNode(BEGIN_NODE_REGEXP, Qt::CaseSensitive, QRegExp::RegExp2);
@@ -202,7 +202,7 @@ void ProftpdParser::insert(QString & data, const QString & key, const QString & 
     }
 
     if (iscurrentKeyNode) {
-        data.prepend(QString("<%1>\n</%2>\n").arg(currentKey, currentKey.split(QString(" ")).first()));
+        data.prepend(QString("\n<%1>\n</%2>\n").arg(currentKey, currentKey.split(QString(" ")).first()));
         insert(data, subkeys.join(QString("#")), value, toDelete);
     } else {
         while ((datapos = datamatch.indexIn(data, datapos)) != -1) {
@@ -284,7 +284,13 @@ void ProftpdParser::set(const QString & key, const QVariant & value, bool toDele
     if (!isDryRun())
         refresh();
 
+    qDebug() << "key "<< key << "value" << value;
+
     insert(m_data, key, value.toString(), toDelete);
+
+    // TODO: improve to update cache and not reload like this
+    m_cache.clear();
+    m_cache = parse(m_data);
 
     if (!isDryRun())
         flush();
@@ -300,7 +306,7 @@ QVariant ProftpdParser::get(const QString & key)
     foreach (const QString subkey, keyList) {
         if (subkey != keyList.last()) {
             node = node.childreen().value(subkey, ProftpdConfNode());
-            qDebug() << node;
+            // qDebug() << node;
         } else {
             if (node.contains(subkey))
                 return QVariant(node.value(subkey, QString()));
@@ -328,4 +334,14 @@ bool ProftpdParser::isDryRun() const
 void ProftpdParser::setDryRun(bool dryRun)
 {
     m_dryRun = dryRun;
+}
+
+QString ProftpdParser::Data() const
+{
+    return m_data;
+}
+
+void ProftpdParser::setData(const QString data)
+{
+    m_data = data;
 }

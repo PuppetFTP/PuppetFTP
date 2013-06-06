@@ -64,7 +64,7 @@ public:
     Q_INVOKABLE void stop();
     Q_INVOKABLE void restart();
 
-    //Parser
+    // Parser
     Q_PROPERTY(QString parserFilename READ parserFileName WRITE setParserFileName)
     QString parserFileName();
     void setParserFileName(const QString & filename);
@@ -72,6 +72,16 @@ public:
     Q_PROPERTY(bool parserDryRun READ isParserDryRun WRITE setParserDryRun)
     bool isParserDryRun();
     void setParserDryRun(bool dryRun);
+
+    Q_PROPERTY(QString parserData READ parserData WRITE setParserData)
+    QString parserData() const;
+    void setParserData(const QString & data);
+
+    Q_PROPERTY(QString parserLastError READ parserLastError)
+    QString parserLastError() const;
+
+    // LastError
+    Q_PROPERTY(QString lastError READ lastError)
 
 private:
     ProftpdParser m_parser;

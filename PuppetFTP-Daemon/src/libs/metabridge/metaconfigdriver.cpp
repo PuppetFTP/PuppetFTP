@@ -1,10 +1,23 @@
 #include "metaconfigdriver.h"
 #include "pluginmanager.h"
 
+/*!
+    \class MetaConfigDriver
+    \brief The MetaConfigDriver is the main element of the meta system.
+    It's provide a way to load metaPlugins and retrieve MetaConfig instance and then to drive them
+ */
+
 MetaConfigDriver::MetaConfigDriver()
 {
 }
 
+/*!
+    \fn bool MetaConfigDriver::loadPlugin(const QString & pluginId, const QString & pluginName)
+
+    Loads the given \a pluginName Metaplugin and hold the MetaConfig object as a reference of the \a pluginId
+
+    Return true on success else a lastError is set
+ */
 bool MetaConfigDriver::loadPlugin(const QString & pluginId, const QString & pluginName)
 {
     if (!m_cache.contains(pluginId)) {
@@ -36,11 +49,22 @@ bool MetaConfigDriver::loadPlugin(const QString & pluginId, const QString & plug
     return false;
 }
 
+/*!
+    \fn bool MetaConfigDriver::unloadPlugin(const QString & pluginId)
+
+    Unload the MetaConfig object referenced as \a pluginId
+ */
 bool MetaConfigDriver::unloadPlugin(const QString & pluginId)
 {
     return m_cache.remove(pluginId);
 }
 
+/*!
+    \fn bool MetaConfigDriver::set(const QString & pluginId, const QString & propertyName, const QVariant & value)
+    Set the \a propertyName of the referenced plugin \a pluginId with given \a value
+
+    Return true if succesfull
+ */
 bool MetaConfigDriver::set(const QString & pluginId, const QString & propertyName, const QVariant & value)
 {
     MetaConfig * metaConfig = tryToGetMetaConfig(pluginId);
@@ -50,6 +74,12 @@ bool MetaConfigDriver::set(const QString & pluginId, const QString & propertyNam
     return false;
 }
 
+/*!
+    \fn QVariant MetaConfigDriver::get(const QString & pluginId, const QString & propertyName)
+    Get the \a propertyName of the referenced plugin \a pluginId
+
+    Return the value as a QVariant
+ */
 QVariant MetaConfigDriver::get(const QString & pluginId, const QString & propertyName)
 {
     MetaConfig * metaConfig = tryToGetMetaConfig(pluginId);
@@ -59,6 +89,12 @@ QVariant MetaConfigDriver::get(const QString & pluginId, const QString & propert
     return QVariant();
 }
 
+/*!
+    \fn QVariant MetaConfigDriver::exec(const QString & pluginId, const QString & taskName, const QVariantList & argumentList)
+    Execute the \a taskName of the referenced \a pluginId with the given \a argumentList
+
+    Return the result of the task as a QVariant
+ */
 QVariant MetaConfigDriver::exec(const QString & pluginId, const QString & taskName, const QVariantList & argumentList)
 {
     MetaConfig * metaConfig = tryToGetMetaConfig(pluginId);
@@ -68,6 +104,11 @@ QVariant MetaConfigDriver::exec(const QString & pluginId, const QString & taskNa
     return QVariant();
 }
 
+/*!
+    \fn QStringList MetaConfigDriver::metaProperties(const QString & pluginId)
+
+    Retrieves the metaProperties list of the referenced \a pluginId
+ */
 QStringList MetaConfigDriver::metaProperties(const QString & pluginId)
 {
     MetaConfig * metaConfig = tryToGetMetaConfig(pluginId);
@@ -77,6 +118,11 @@ QStringList MetaConfigDriver::metaProperties(const QString & pluginId)
     return QStringList();
 }
 
+/*!
+    \fn QStringList MetaConfigDriver::metaTasks(const QString & pluginId)
+
+    Retrieves the metaTasks list of the referenced \a pluginId
+ */
 QStringList MetaConfigDriver::metaTasks(const QString & pluginId)
 {
     MetaConfig * metaConfig = tryToGetMetaConfig(pluginId);
@@ -86,6 +132,11 @@ QStringList MetaConfigDriver::metaTasks(const QString & pluginId)
     return QStringList();
 }
 
+/*!
+    \fn QString MetaConfigDriver::lastErrorString()
+
+    Return the last error occured
+ */
 QString MetaConfigDriver::lastErrorString()
 {
     QString lastError = m_lastError;
@@ -93,18 +144,32 @@ QString MetaConfigDriver::lastErrorString()
     return lastError;
 }
 
+/*!
+    \fn void MetaConfigDriver::setLastErrorString(const QString & errorString)
+
+    Set the last error occured
+
+    \internal
+ */
 void MetaConfigDriver::setLastErrorString(const QString & errorString)
 {
     m_lastError = errorString;
 }
 
+/*!
+    \fn MetaConfig * MetaConfigDriver::tryToGetMetaConfig(const QString & pluginId)
+
+    Try to retrieve the plugin referenced as \a pluginId from the cache
+
+    \internal
+ */
 MetaConfig * MetaConfigDriver::tryToGetMetaConfig(const QString & pluginId)
 {
     MetaConfig * metaConfig = m_cache.object(pluginId);
     if (metaConfig)
         return metaConfig;
 
-    m_lastError = QString(QLatin1String("This pluginId is not loaded: %1")).arg(pluginId);
+    setLastErrorString(QString(QLatin1String("This pluginId is not loaded: %1")).arg(pluginId));
 
     return NULL;
 }

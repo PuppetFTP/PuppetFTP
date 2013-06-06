@@ -27,6 +27,9 @@ public:
     bool isDryRun() const;
     void setDryRun(bool dryRun);
 
+    QString Data();
+    void setData(const QString & data);
+
 private:
     void refresh();
     void flush();

@@ -105,3 +105,13 @@ void VsftpdParser::setDryRun(bool dryRun)
 {
     m_dryRun = dryRun;
 }
+
+QString VsftpdParser::Data()
+{
+    return m_data;
+}
+
+void VsftpdParser::setData(const QString & data)
+{
+    m_data = data;
+}

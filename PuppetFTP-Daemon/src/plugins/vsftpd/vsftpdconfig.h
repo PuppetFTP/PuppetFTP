@@ -90,19 +90,30 @@ public:
 
     //Parser
     Q_PROPERTY(QString parserFilename READ parserFileName WRITE setParserFileName)
-    QString parserFileName();
-    void setParserFileName(const QString filename);
+    QString parserFileName() const;
+    void setParserFileName(const QString & filename);
 
     Q_PROPERTY(bool parserDryRun READ isParserDryRun WRITE setParserDryRun)
-    bool isParserDryRun();
+    bool isParserDryRun() const;
     void setParserDryRun(bool dryRun);
+
+    Q_PROPERTY(QString parserData READ parserData WRITE setParserData)
+    QString parserData() const;
+    void setParserData(const QString & data);
+
+    Q_PROPERTY(QString parserLastError READ parserLastError)
+    QString parserLastError() const;
+
+    // LastError
+    Q_PROPERTY(QString lastError READ lastError)
+    QString lastError() const;
 
 private:
     VsftpdParser m_parser;
 
-    QString	m_serverName;
-    QString	m_serverAddr;
-    QString	m_serverPath;
+    QString m_serverName;
+    QString m_serverAddr;
+    QString m_serverPath;
     QString m_serviceName;
 };
 

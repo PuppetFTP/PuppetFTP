@@ -8,8 +8,9 @@
 
 #include "metaconfig.h"
 #include "metaplugin.h"
+#include "lasterror.h"
 
-class MetaConfigDriver
+class MetaConfigDriver : public LastError
 {
 public:
     MetaConfigDriver();
@@ -26,6 +27,7 @@ public:
     QStringList metaTasks(const QString & pluginId);
 
     QString lastErrorString();
+    bool hasFailure();
 private:
     void setLastErrorString(const QString & errorString);
     MetaConfig * tryToGetMetaConfig(const QString & pluginId);
