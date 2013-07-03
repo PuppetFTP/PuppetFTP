@@ -12,6 +12,7 @@
 #include "Session.h"
 #include "Helper.h"
 #include "Widget.h"
+#include "Translate.h"
 
 IndexProcessor::IndexProcessor() : AbstractRequestProcessor() {
 }
@@ -22,6 +23,11 @@ IndexProcessor::~IndexProcessor() {
 void IndexProcessor::process(HTTPRequest& request) {
     Session* s = SessionManager::instance()->getSession(request.getSessionId());
 
+    QString lang = request.getParameter("lang").toString();
+    if (!lang.isEmpty()) {
+        Translate::instance()->load(lang);
+    }
+
     addNotify(s->getNotification("connection"));
     addNotify(s->getNotification("listing"));
 }
@@ -30,7 +36,8 @@ QByteArray IndexProcessor::render() const {
     UI::DefaultPageRenderer core;
     QMap<QString, QVariant> param;
 
-    core.setTitle("PuppetFTP - Home");
+    Translate::instance()->group("index");
+    core.setTitle("PuppetFTP - "+Translate::instance()->tr("title"));
     core.body()->addWidget(_notify);
 
     UI::Container* divClear = new UI::Container();
@@ -39,73 +46,49 @@ QByteArray IndexProcessor::render() const {
 
     // Content
     // Menu 1 - Configure PuppetFTP
-    UI::Container* aside1 = new UI::Container(UI::Container::ASIDE);
+    UI::Container* section = new UI::Container(UI::Container::SECTION);
     {
-        aside1->setId("leftSide");
-        aside1->addClass("box");
+        section->setId("home");
 
         UI::Container* divIcon1 = new UI::Container();
         {
-            divIcon1->addClass("icon");
+            divIcon1->addClass("index");
 
-            UI::Image* img1 = new UI::Image("/images/icon_admin.png", "Configure PuppetFTP");
-            img1->setAttribute("width", "70");
-            divIcon1->addWidget(img1);
+            UI::Image* img = new UI::Image("/img/icon_user.png", Translate::instance()->tr("manage_users"));
+            img->setAttribute("width", "60");
+            divIcon1->addWidget(img);
+            UI::Link* link = new UI::Link(Helper::gen_url("serverUserList", param),   new UI::Text(Translate::instance()->tr("manage_users")));
+            divIcon1->addWidget(link);
         }
-        aside1->addWidget(divIcon1);
-
-        UI::Container* divMenu1 = new UI::Container();
-        {
-            divMenu1->addClass("menu");
-
-            param["entity"] = "user";
-            UI::Menu* menu1 = new UI::Menu(UI::Container::NAV);
-            menu1->addSection("configure", "Configure PuppetFTP");
-            menu1->addMenu("configure", new UI::Link(Helper::gen_url("entityList", param),   new UI::Text("- Manage your users")));
-            param["entity"] = "server";
-            menu1->addMenu("configure", new UI::Link(Helper::gen_url("entityList", param),   new UI::Text("- Manage your available servers")));
-            menu1->addMenu("configure", new UI::Link(Helper::gen_url("importExport", param), new UI::Text("- Import/Export configuration")));
-            divMenu1->addWidget(menu1);
-        }
-        aside1->addWidget(divMenu1);
-
-        aside1->addWidget(divClear);
-    }
-    core.body()->addWidget(aside1);
-
-    // Menu 2 - Manage Your Server
-    UI::Container* aside2 = new UI::Container(UI::Container::ASIDE);
-    {
-        aside2->setId("rightSide");
-        aside2->addClass("box");
+        section->addWidget(divIcon1);
 
         UI::Container* divIcon2 = new UI::Container();
         {
-            divIcon2->addClass("icon");
+            divIcon2->addClass("index");
 
-            UI::Image* img2 = new UI::Image("/images/icon_ftp.png", "Manage your servers");
-            img2->setAttribute("width", "70");
-            divIcon2->addWidget(img2);
+            UI::Image* img = new UI::Image("/img/icon_ftp.png", Translate::instance()->tr("manage_servers"));
+            img->setAttribute("width", "60");
+            divIcon2->addWidget(img);
+            UI::Link* link = new UI::Link(Helper::gen_url("serverList", param),   new UI::Text(Translate::instance()->tr("manage_servers")));
+            divIcon2->addWidget(link);
         }
-        aside2->addWidget(divIcon2);
+        section->addWidget(divIcon2);
 
-        UI::Container* divMenu2 = new UI::Container();
+        UI::Container* divIcon3 = new UI::Container();
         {
-            divMenu2->addClass("menu");
+            divIcon3->addClass("index");
 
-            param.clear();
-            UI::Menu* menu2 = new UI::Menu(UI::Container::NAV);
-            menu2->addSection("server", "Manage Your Server");
-            menu2->addMenu("server", new UI::Link(Helper::gen_url("serverUserList", param),   new UI::Text("- Manage your users")));
-            menu2->addMenu("server", new UI::Link(Helper::gen_url("serverList", param),   new UI::Text("- Configure your servers")));
-            menu2->addMenu("server", new UI::Link(Helper::gen_url("importExport", param), new UI::Text("- Import/Export configuration")));
-            divMenu2->addWidget(menu2);
+            UI::Image* img = new UI::Image("/img/icon_import.png", Translate::instance()->tr("manage_import_export"));
+            img->setAttribute("width", "60");
+            divIcon3->addWidget(img);
+            UI::Link* link = new UI::Link(Helper::gen_url("importExport", param),   new UI::Text(Translate::instance()->tr("manage_import_export")));
+            divIcon3->addWidget(link);
         }
-        aside2->addWidget(divMenu2);
+        section->addWidget(divIcon3);
 
-        aside2->addWidget(divClear);
+        section->addWidget(divClear);
     }
-    core.body()->addWidget(aside2);
+    core.body()->addWidget(section);
 
     core.body()->addWidget(divClear);
 

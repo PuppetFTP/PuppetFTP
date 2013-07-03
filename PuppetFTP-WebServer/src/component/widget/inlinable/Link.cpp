@@ -3,17 +3,16 @@
 namespace UI {
 
 Link::Link() {
-    _url    = "";
     _widget = NULL;
 }
 
 Link::Link(const QString& url) {
-    _url    = url;
+    setAttribute("href", url);
     _widget = NULL;
 }
 
 Link::Link(const QString& url, IInlinable* widget) {
-    _url    = url;
+    setAttribute("href", url);
     _widget = widget;
 }
 
@@ -33,17 +32,15 @@ Link::~Link() {
 }
 
 
-void            Link::setWidget(IInlinable* widget) { _widget = widget; }
-void            Link::setUrl(const QString& url)    { _url = url;       }
-IInlinable*     Link::getWidget()             const { return _widget;   }
-QString         Link::getUrl()                const { return _url;      }
+void            Link::setWidget(IInlinable* widget) { _widget = widget;            }
+void            Link::setUrl(const QString& url)    { setAttribute("href", url);   }
+IInlinable*     Link::getWidget()             const { return _widget;              }
+QString         Link::getUrl()                const { return getAttribute("href"); }
 
 QString         Link::render()                const {
     QString res;
 
-    res.append("<a" + renderAttribute() + " href=\"");
-    res.append(_url);
-    res.append("\">");
+    res.append("<a" + renderAttribute() + ">");
     if (_widget != NULL) {
         res.append(_widget->render());
     }

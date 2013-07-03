@@ -1,4 +1,4 @@
-body {background:#fff url("/images/bg_head.png") 0 -70px repeat-x;color:#1a1a1a;margin:0;font-family:'Muli',sans-serif;}
+body {background:#fff url("/img/bg_head.png") 0 -70px repeat-x;color:#1a1a1a;margin:0;font-family:'Muli',sans-serif;}
 a:hover,a:visited,a {color:#1a1a1a;text-decoration:none;}
 a:hover {color:#4D90FE;}
 .error {color:red;vertical-align:top;}
@@ -8,7 +8,17 @@ a:hover {color:#4D90FE;}
 .title {font-weight:normal;}
 .showBock {display:block;}
 .showInline {display:inline;}
-footer {text-align:center;font-size:12px;}
+footer {
+  background-color: #FFFFFF;
+  text-align:center;
+  font-size:12px;
+  bottom: 0;
+  height: 40px;
+  line-height: 20px;
+  margin: 0 auto;
+  position: fixed;
+  width: 100%;
+}
 
 /*
 **
@@ -25,7 +35,7 @@ header #logo {padding-top:20px;}
 **
 */
 
-body > section {width:1024px;min-height:300px;margin:auto;}
+body > section {width:1024px;min-height:300px;margin:auto auto 40px;}
 
 /*
 **
@@ -34,7 +44,7 @@ body > section {width:1024px;min-height:300px;margin:auto;}
 */
 
 .box {
-  background:#fff url("/images/bg_box.png") 0 0 repeat-x;
+  background:#fff url("/img/bg_box.png") 0 0 repeat-x;
   border-left:1px solid #d4d4d4;
   border-right:1px solid #d4d4d4;
   border-bottom:1px solid #d4d4d4;
@@ -44,7 +54,7 @@ body > section {width:1024px;min-height:300px;margin:auto;}
 
 #connexion {
   width:265px;
-  height:160px;
+  height:165px;
   margin:80px auto;
   padding-top:10px;
 }
@@ -60,21 +70,7 @@ input[type="password"] {
   margin:10px 20px;
 }
 
-.button,
-input[type="button"],
-input[type="submit"] {
-    background:#fff url("/images/bg_button.png") 0 0 repeat-x;
-    border:1px solid #c8c8c8;
-    color:#1A1A1A;
-    cursor:pointer;
-    font:11px/27px 'Muli',sans-serif;
-    height:29px;
-    min-width:54px;
-    padding:0 8px;
-    text-align:center;
-}
-.button:hover, input[type="button"]:hover, input[type="submit"]:hover {color:#4D90FE;}
-#submitForm {margin-top:10px;margin-left:160px;}
+#submitForm {margin-top:10px;margin-left:155px;}
 /*
 **
 ** config
@@ -83,7 +79,6 @@ input[type="submit"] {
 
 #users section#content section label {width:150px;display:inline-block;margin: 5px 0}
 #users section#content section input[type=text], #users section#content section input[type=password] {width:250px;display:inline-block;margin:5px 0}
-/*#users section#content section input[type=submit], #users section#content section input[type=button] {display:inline-block;text-align:right;}*/
 #users section#content section select {width:256px;display:inline-block;margin:5px 0}
 
 /*
@@ -91,17 +86,15 @@ input[type="submit"] {
 ** interface
 **
 */
-
+h1 {font-size: 21px;}
 #logo {float:left;}
 header nav {margin-top:45px;margin-left:460px;float:left;}
 header nav div {float:left;}
 header nav div.link {padding:8px 20px 0 5px;}
-aside {width:390px;height:170px;float:left;margin:80px 0 80px 0;}
-aside#leftSide {margin-left:100px;}
-aside#rightSide {margin-left:50px;}
-aside div {height:100%;}
+section#home {margin:100px 50px 50px 50px;}
 div.icon {padding:0 20px;width:60px;float:left;}
-aside div.icon {padding:20px;width:60px;float:left;}
+div.manage {float:right;font-size:10px;margin-right:10px;}
+section#home div.index {padding:0px;float:left;width:33%}
 aside .menu h1 {font-size:22px;color:#202020;}
 nav li {list-style:none;padding:2px 0;}
 aside .menu nav ul {padding-left:70px;}
@@ -115,7 +108,6 @@ section > div > section {margin-left:20px;float:left;width:750px;text-align:righ
 section > div > section table {text-align:left;border-collapse:collapse;width:100%}
 section > div > section a.button {padding:5px;}
 section > div > section table#userList {width:100%;margin-top:20px;}
-section > div > section table th {font-weight:normal;border: 1px solid #333;border-top:none;padding:0 5px;}
 section > div > section table th.col-0 {width:250px;}
 section > div > section table th.col-1 {}
 section > div > section table th.col-2 {width:160px;}
@@ -135,7 +127,7 @@ section > div > section table#userList tr.impair {background-color:#efefef;}
 
 section > section#edition {margin:25px 240px;padding:10px 0 20px 25px;width:500px;}
 section > section#edition table{width:95%;margin:10px 15px;}
-section > section#edition select{width:83%;margin:10px 20px;padding:8px;}
+section > section#edition select{width:315px;height:35px;margin:10px 20px;}
 section > section#edition input[type=text],
 section > section#edition input[type=password] {width: 300px;}
 section > section#edition input[type=submit] {float:right;}
@@ -158,15 +150,17 @@ section > section#action input[type=button] {float:right;margin:10px 0 0 10px;}
 */
 
 section > h1.editServer {float:left;}
-section > div.buttons {float:right;margin:20px;}
+section > div.buttons {float:right;margin:15px;}
 section > div#server {clear:both;}
 section > div#server div.rightCol {float:left;margin:0 35px;width:65%;}
 section > div#server div.rightCol form h1 {margin:0;}
 section > div#server div.rightCol form table {margin:20px 0;width:100%}
 section > div#server div.rightCol form table tbody tr > td {width:120px;}
+section > div#server div.rightCol form table tbody tr td > img {cursor:help;}
 section > div#server div.rightCol form table input[type=submit] {float:right;}
-section > div#server div.rightCol form input, section > div#server div.rightCol form select {margin:10px 20px;}
-section > div#server div.rightCol form select {width:230px;padding:8px;}
+section > div#server div.rightCol form input, section > div#server div.rightCol form select {margin:10px;}
+section > div#server div.rightCol form select {width:235px;margin-right: 5px;height:35px;}
+
 
 section > div section table td {padding:0 5px;vertical-align: middle;}
 section > div section table td:first-child {width:25px;}

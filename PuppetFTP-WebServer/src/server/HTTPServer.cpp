@@ -37,20 +37,18 @@
 #include "ModelWidgetFactory.h"
 #include "UserModelList.h"
 #include "RoleModelList.h"
-#include "ServerModelList.h"
 #include "CredentialModelList.h"
-#include "AccessibleServerModelList.h"
 #include "UserModelEditor.h"
 #include "RoleModelEditor.h"
 #include "ServerModelEditor.h"
 #include "CredentialModelEditor.h"
-#include "AccessibleServerModelEditor.h"
 #include "CommunicationService.h"
 #include "INetworkAccessProvider.h"
 #include "CommunicationException.h"
 #include "CORBAImpl/Provider.h"
 #include "ServerConfEditor.h"
 #include "ServerConfList.h"
+#include "Translate.h"
 
 QHostAddress HTTPServer::DEFAULT_HOSTADDR        = QHostAddress::Any;
 quint16      HTTPServer::DEFAULT_HOSTPORT        = 5074;
@@ -80,6 +78,9 @@ void HTTPServer::configure() {
     _port = _port < 1000 ? DEFAULT_HOSTPORT : _port;
     // Get session timeout
     SessionManager::instance()->setSessionTimeout(settings.value("SessionTimeout", SessionManager::DEFAULT_SESSION_TIMEOUT).toUInt());
+    // Set locale language
+    Translate::DEFAULT_LOCALE = settings.value("Language", Translate::DEFAULT_LOCALE).toString();
+
     // Configure communication layer
     try {
         CommunicationService::setProvider(new CORBA::Impl::Provider());
@@ -111,15 +112,12 @@ void HTTPServer::configure() {
     //   List
     UI::ModelWidgetFactory::instance()->registerWidget<UI::UserModelList>("userList");
     UI::ModelWidgetFactory::instance()->registerWidget<UI::RoleModelList>("roleList");
-    UI::ModelWidgetFactory::instance()->registerWidget<UI::ServerModelList>("serverList");
     UI::ModelWidgetFactory::instance()->registerWidget<UI::CredentialModelList>("credentialList");
-    UI::ModelWidgetFactory::instance()->registerWidget<UI::AccessibleServerModelList>("accessible_serverList");
     // Edit
+    UI::ModelWidgetFactory::instance()->registerWidget<UI::ServerModelEditor>("serverEditor");
     UI::ModelWidgetFactory::instance()->registerWidget<UI::UserModelEditor>("userEditor");
     UI::ModelWidgetFactory::instance()->registerWidget<UI::RoleModelEditor>("roleEditor");
-    UI::ModelWidgetFactory::instance()->registerWidget<UI::ServerModelEditor>("serverEditor");
     UI::ModelWidgetFactory::instance()->registerWidget<UI::CredentialModelEditor>("credentialEditor");
-    UI::ModelWidgetFactory::instance()->registerWidget<UI::AccessibleServerModelEditor>("accessible_serverEditor");
     // Server
     UI::ModelWidgetFactory::instance()->registerWidget<UI::ServerConfEditor>("serverConfigurationEditor");
     UI::ModelWidgetFactory::instance()->registerWidget<UI::ServerConfList>("serverConfigurationList");

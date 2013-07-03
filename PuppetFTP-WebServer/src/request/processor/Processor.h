@@ -25,7 +25,7 @@
 /*
 ** Server
 */
-#include "ServerEditProcessor.h"
+#include "ServerManageProcessor.h"
 #include "ServerListProcessor.h"
 #include "ServerServiceProcessor.h"
 

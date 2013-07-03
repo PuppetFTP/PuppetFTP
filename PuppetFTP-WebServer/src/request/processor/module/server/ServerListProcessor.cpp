@@ -6,6 +6,7 @@
 #include "Helper.h"
 #include "Session.h"
 #include "SessionManager.h"
+#include "Translate.h"
 
 ServerListProcessor::ServerListProcessor() : AbstractRequestProcessor() {
 }
@@ -43,18 +44,21 @@ QByteArray ServerListProcessor::render() const {
     UI::DefaultPageRenderer page;
     QMap<QString, QVariant> param;
 
-    page.setTitle("PuppetFTP - Manage Your Server - List");
     page.body()->addWidget(_notify);
 
+    Translate::instance()->group("breadcrumb");
     // Breadcrumbs
     UI::Title* title = new UI::Title();
     {
         UI::Breadcrumb* link = new UI::Breadcrumb();
-        link->addLink("Manage your server", Helper::gen_url("index"));
-        link->addLink("Server management", "");
+        link->addLink(Translate::instance()->tr("server_home"), Helper::gen_url("index"));
+        link->addLink(Translate::instance()->tr("server_manage"), "");
         title->addWidget(link);
     }
     page.body()->addWidget(title);
+
+    Translate::instance()->group("server_manage");
+    page.setTitle("PuppetFTP - "+Translate::instance()->tr("title"));
 
     // Content
     UI::Container* divContent = new UI::Container();
@@ -65,7 +69,7 @@ QByteArray ServerListProcessor::render() const {
         UI::Container* divIcon = new UI::Container();
         {
             divIcon->addClass("icon users");
-            UI::Image* imgContent = new UI::Image("/images/icon_ftp.png", "Manage Your Server");
+            UI::Image* imgContent = new UI::Image("/img/icon_ftp.png", Translate::instance()->tr("icon"));
             imgContent->setAttribute("width", "60");
             divIcon->addWidget(imgContent);
         }
@@ -75,8 +79,8 @@ QByteArray ServerListProcessor::render() const {
         UI::Menu* menu = new UI::Menu(UI::Container::NAV);
         {
             menu->setAttribute("id", "menu");
-            menu->addMenu("menu", new UI::Link(Helper::gen_url("serverUserList", param), new UI::Text("User management")));
-            menu->addMenu("menu", new UI::Link(Helper::gen_url("serverList", param), new UI::Text("Server management")));
+            menu->addMenu("menu", new UI::Link(Helper::gen_url("serverUserList", param), new UI::Text(Translate::instance()->tr("menu_user"))));
+            menu->addMenu("menu", new UI::Link(Helper::gen_url("serverList", param), new UI::Text(Translate::instance()->tr("menu_server"))));
         }
         divContent->addWidget(menu);
 

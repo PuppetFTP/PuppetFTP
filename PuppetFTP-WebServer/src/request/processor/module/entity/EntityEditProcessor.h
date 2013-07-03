@@ -15,9 +15,10 @@
 
 class EntityEditProcessor: public AbstractRequestProcessor {
 protected:
-    QString     _entityName;
-    int         _id;
+    QString            _entityName;
+    int                _id;
     UI::IModelEditor*  _form;
+    bool               _close;
 public:
     EntityEditProcessor();
     virtual ~EntityEditProcessor();

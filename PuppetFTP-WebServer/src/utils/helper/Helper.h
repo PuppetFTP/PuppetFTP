@@ -21,7 +21,7 @@ namespace Helper {
  *   "Hello World !!! I love Bounty !" => "hello-world-i_love-bounty"
  */
 QString slugify(const QString& input);
-QString formatQdateTime(const QVariant& date);
+QString formatQdateTime(const QVariant& date, QMap<QString, QVariant> params);
 QString formatEnumProtocol(const QVariant& value);
 
 /**

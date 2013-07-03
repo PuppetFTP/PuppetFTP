@@ -2,7 +2,7 @@
 #include "SessionManager.h"
 #include "Session.h"
 #include "CommunicationException.h"
-#include "DefaultPageRenderer.h"
+#include "EmptyPageRenderer.h"
 #include "DatabaseManager.h"
 #include "ITable.h"
 #include "Helper.h"
@@ -11,6 +11,7 @@
 #include "IServerConfigurationProvider.h"
 #include "CommunicationService.h"
 #include "RuntimeException.h"
+#include "Translate.h"
 
 ServerServiceProcessor::ServerServiceProcessor() : AbstractRequestProcessor() {
 }
@@ -25,6 +26,9 @@ QStringList ServerServiceProcessor::getRequiredCrendentials() const {
 
 void ServerServiceProcessor::process(HTTPRequest& request) {
     Session* s = SessionManager::instance()->getSession(request.getSessionId());
+    bool   err = true;
+    _close     = false;
+    QString message;
 
     _id   = request.getParameter("id").toInt();
     _name = request.getParameter("name").toString();
@@ -35,106 +39,99 @@ void ServerServiceProcessor::process(HTTPRequest& request) {
         try {
             Model::Server* server = dynamic_cast<Model::Server*>(DatabaseManager::instance()->getTable("server")->get("id", _id));
             if (server == NULL) {
-                s->setNotification("service", "ServerConfiguration id " + QString::number(_id) + " doesn't exists.", UI::Notify::ERROR);
-                request.redirect(Helper::gen_url("serverEdit", param));
-                return;
-            }
-            // Get a client for the previously added handler...
-            IServerConfigurationProvider* client = CommunicationService::provider()->getServiceClient(server->getCorbaId());
-            if (client == NULL) {
-                s->setNotification("service", "ClientProvider '" + server->getCorbaId() + "' doesn't exists.", UI::Notify::ERROR);
-                request.redirect(Helper::gen_url("serverEdit", param));
-                delete server;
-                return;
-            }
-            if (_name == "start") {
-                client->start();
-            } else if (_name == "stop") {
-                client->stop();
-            } else if (_name == "restart") {
-                client->restart();
+                message = "ServerConfiguration id " + QString::number(_id) + " doesn't exists.";
             } else {
-                throw new RuntimeException("Service '"+_name+"' unknown.");
-            }
-            request.redirect(Helper::gen_url("serverEdit", param));
-            s->setNotification("service", "Server " + server->getName() + ": "+ _name, UI::Notify::INFO);
+                // Get a client for the previously added handler...
+                IServerConfigurationProvider* client = CommunicationService::provider()->getServiceClient(server->getCorbaId());
+                if (client == NULL) {
+                    message = "ClientProvider '" + server->getCorbaId() + "' doesn't exists.";
+                } else {
 
-            delete server;
-            delete client;
+                    if (_name == "start") {
+                        client->start();
+                    } else if (_name == "stop") {
+                        client->stop();
+                    } else if (_name == "restart") {
+                        client->restart();
+                    } else {
+                        throw new RuntimeException("Service '"+_name+"' unknown.");
+                    }
+                    err     = false;
+                    message = "Server " + server->getName() + ": "+ _name;
+                    delete client;
+                }
+                delete server;
+            }
         } catch (const RuntimeException& e) {
             addNotify("Error: '" + e.message(), UI::Notify::ERROR);
+            return;
         } catch (const CommunicationException& e) {
-            s->setNotification("service", "Communication Error: '" + e.message(), UI::Notify::ERROR);
-            request.redirect(Helper::gen_url("serverEdit", param));
+            message = "Communication Error: '" + e.message();
         } catch (...) {
-            s->setNotification("service", "Internal Fatal Error.", UI::Notify::ERROR);
-            request.redirect(Helper::gen_url("serverEdit", param));
+            message = "Internal Fatal Error.";
         }
-    } else if (!request.getParameter("cancel").isNull()) {
-        request.redirect(Helper::gen_url("serverEdit", param));
+        s->setNotification("service", message, (err ? UI::Notify::ERROR : UI::Notify::INFO));
+    }
+
+    if (!request.getParameter("cancel").isNull() || !request.getParameter("submit").isNull()) {
+        _close = true;
     }
 }
 
 QByteArray ServerServiceProcessor::render() const {
-    UI::DefaultPageRenderer page;
-    QMap<QString, QVariant> param;
-    param["id"] = _id;
+    UI::EmptyPageRenderer page;
 
-    page.setTitle("PuppetFTP - Configure");
-    page.body()->addWidget(_notify);
+    if (_close == false) {
+        QMap<QString, QVariant> param;
+        param["id"] = _id;
 
-    // Breadcrumbs
-    UI::Title* title = new UI::Title();
-    {
-        UI::Breadcrumb* link = new UI::Breadcrumb();
-        link->addLink("Manage your server", Helper::gen_url("index"));
-        link->addLink("Server management", Helper::gen_url("serverEdit", param));
-        link->addLink("Service management", "");
-        title->addWidget(link);
-    }
-    page.body()->addWidget(title);
+        page.body()->addWidget(_notify);
 
+        Translate::instance()->group("server_service");
+        page.setTitle("PuppetFTP - "+Translate::instance()->tr("title"));
 
-    // Content
-    UI::Container* divContent = new UI::Container(UI::Container::SECTION);
-    {
-        divContent->setId("action");
-        // Service
-        UI::Container* div = new UI::Container();
+        // Content
+        UI::Container* divContent = new UI::Container(UI::Container::SECTION);
         {
-            div->addClass("box");
-            // Create Form
-            param["name"] = _name;
-            UI::Form* form = new UI::Form(Helper::gen_url("serverService", param));
+            divContent->setId("action");
+            // Service
+            UI::Container* div = new UI::Container();
             {
-                form->setRendering(UI::Form::NONE);
-                form->setRendererLabel(false);
-                form->setId("serviceForm");
-                form->setAttribute("novalidate", "novalidate");
-                form->addSection("serviceForm", "Are you sure to " + _name + " the server ?");
+                div->addClass("box");
+                // Create Form
+                param["name"] = _name;
+                UI::Form* form = new UI::Form(Helper::gen_url("serverService", param));
+                {
+                    form->setRendering(UI::Form::NONE);
+                    form->setRendererLabel(false);
+                    form->setId("serviceForm");
+                    form->setAttribute("novalidate", "novalidate");
+                    form->addSection("serviceForm", Translate::instance()->tr("message", _name));
 
-                // Submit
-                UI::Input* submit = new UI::Input("submit", UI::Input::SUBMIT);
-                submit->setValue("Yes");
-                submit->addClass("yes");
-                form->addWidget("serviceForm", submit);
+                    // Submit
+                    UI::Input* submit = new UI::Input("submit", UI::Input::SUBMIT);
+                    submit->setValue(Translate::instance()->tr("button_submit"));
+                    submit->addClass("btn");
+                    form->addWidget("serviceForm", submit);
 
-                // Cancel
-                UI::Input* cancel = new UI::Input("cancel", UI::Input::SUBMIT);
-                cancel->setValue("Cancel");
-                cancel->addClass("cancel");
-                form->addWidget("serviceForm", cancel);
+                    // Cancel
+                    UI::Input* cancel = new UI::Input("cancel", UI::Input::SUBMIT);
+                    cancel->setValue(Translate::instance()->tr("button_cancel"));
+                    cancel->addClass("btn");
+                    form->addWidget("serviceForm", cancel);
+                }
+                div->addWidget(form);
+
+                // Clear
+                UI::Container* divClear = new UI::Container();
+                divClear->setAttribute("style", "clear:both;visibility:hidden;");
+                div->addWidget(divClear);
             }
-            div->addWidget(form);
-
-            // Clear
-            UI::Container* divClear = new UI::Container();
-            divClear->setAttribute("style", "clear:both;visibility:hidden;");
-            div->addWidget(divClear);
+            divContent->addWidget(div);
         }
-        divContent->addWidget(div);
+        page.body()->addWidget(divContent);
+    } else {
+        page.addJavascript("/js/close-sbx.js");
     }
-    page.body()->addWidget(divContent);
-
     return page.render();
 }

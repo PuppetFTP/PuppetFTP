@@ -1,3 +1,9 @@
+
+Shadowbox.init({
+    modal: true,
+    onClose: function(){ window.location.reload(); }
+});
+
 $(document).ready(function() {
   $("#notice").css('display', 'none');
   if ($("#notice span")) {
@@ -6,4 +12,5 @@ $(document).ready(function() {
       $.ambiance({message: span.html(), timeout: 5, type: span.attr("class")});
     });
   }
+
 });

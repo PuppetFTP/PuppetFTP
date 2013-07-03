@@ -16,6 +16,7 @@ class EntityDeleteProcessor: public AbstractRequestProcessor {
 protected:
     QString     _entityName;
     int         _id;
+    bool        _close;
 public:
     EntityDeleteProcessor();
     virtual ~EntityDeleteProcessor();

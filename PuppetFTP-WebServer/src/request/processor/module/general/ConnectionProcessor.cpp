@@ -15,6 +15,7 @@
 #include "Helper.h"
 #include "DatabaseManager.h"
 #include "User.h"
+#include "Translate.h"
 
 ConnectionProcessor::ConnectionProcessor() : AbstractRequestProcessor() {
 }
@@ -66,7 +67,9 @@ void ConnectionProcessor::process(HTTPRequest& request) {
 QByteArray ConnectionProcessor::render() const {
     UI::DefaultPageRenderer core(true);
 
-    core.setTitle("PuppetFTP - Connection");
+    Translate::instance()->group("connection");
+
+    core.setTitle("PuppetFTP - "+Translate::instance()->tr("title"));
     core.body()->addWidget(_notify);
     // Content
     UI::Container* connection = new UI::Container(UI::Container::SECTION);
@@ -84,19 +87,19 @@ QByteArray ConnectionProcessor::render() const {
 
             // Input User
             UI::Input* user = new UI::Input("login");
-            user->setLabel("User");
+            user->setLabel(Translate::instance()->tr("user"));
             user->setPlaceholder(true);
             form->addWidget("connect", user);
             // Input Password
             UI::Input* password = new UI::Input("passwd", UI::Input::PASSWORD);
-            password->setLabel("Password");
+            password->setLabel(Translate::instance()->tr("password"));
             password->setPlaceholder(true);
             form->addWidget("connect", password);
             // Button
             UI::Input* button = new UI::Input("submit", UI::Input::SUBMIT);
-            button->setValue("Connection");
+            button->setValue(Translate::instance()->tr("button"));
             button->setId("submitForm");
-            button->addClass("submit");
+            button->addClass("submit btn");
             form->addWidget("connect", button);
         }
         connection->addWidget(form);
