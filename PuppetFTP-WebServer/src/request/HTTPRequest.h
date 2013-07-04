@@ -27,7 +27,7 @@ protected:
     QString                 _rawData;
     QMap<QString, QVariant> _parameters;
 
-    QString                 _reditectTo;
+    QString                 _redirectTo;
 
     HTTPRequest();
 
