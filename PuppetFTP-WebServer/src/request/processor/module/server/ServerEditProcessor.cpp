@@ -24,7 +24,7 @@ ServerEditProcessor::ServerEditProcessor() : AbstractRequestProcessor() {
 ServerEditProcessor::~ServerEditProcessor() {
 }
 
-QStringList ServerEditProcessor::getRequiredCrendentials() const {
+QStringList ServerEditProcessor::getRequiredCredentials() const {
     QStringList list;
     return list;
 }

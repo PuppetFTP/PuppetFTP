@@ -27,7 +27,7 @@ QHash<QString, QString> AbstractRequestProcessor::getAdditionalHeaderParameters(
     return QHash<QString, QString>();
 }
 
-QStringList AbstractRequestProcessor::getRequiredCrendentials() const {
+QStringList AbstractRequestProcessor::getRequiredCredentials() const {
     return QStringList();
 }
 

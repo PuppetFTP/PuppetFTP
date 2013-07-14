@@ -21,7 +21,7 @@ EntityDeleteProcessor::EntityDeleteProcessor() : AbstractRequestProcessor() {
 EntityDeleteProcessor::~EntityDeleteProcessor() {
 }
 
-QStringList EntityDeleteProcessor::getRequiredCrendentials() const {
+QStringList EntityDeleteProcessor::getRequiredCredentials() const {
     QStringList list;
     return list;
 }

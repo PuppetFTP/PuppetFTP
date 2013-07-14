@@ -8,7 +8,7 @@ UnavailableProcessor::UnavailableProcessor() : AbstractRequestProcessor() {
 UnavailableProcessor::~UnavailableProcessor() {
 }
 
-QStringList UnavailableProcessor::getRequiredCrendentials() const {
+QStringList UnavailableProcessor::getRequiredCredentials() const {
     QStringList list;
     return list;
 }

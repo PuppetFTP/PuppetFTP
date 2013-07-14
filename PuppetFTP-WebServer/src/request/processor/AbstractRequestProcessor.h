@@ -24,7 +24,7 @@ public:
     virtual QString                 getContentType()                const;
     virtual bool                    hasAdditionalHeaderParameters() const;
     virtual QHash<QString, QString> getAdditionalHeaderParameters() const;
-    virtual QStringList             getRequiredCrendentials()       const;
+    virtual QStringList             getRequiredCredentials()       const;
     virtual UI::Notify*             getNotify()                     const;
     virtual void                    addNotify(QPair<QString, UI::Notify::SEVERITY> notice);
     virtual void                    addNotify(const QString& text, UI::Notify::SEVERITY severity = UI::Notify::NONE);

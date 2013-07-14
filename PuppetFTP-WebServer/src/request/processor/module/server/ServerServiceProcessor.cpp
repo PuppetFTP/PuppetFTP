@@ -18,7 +18,7 @@ ServerServiceProcessor::ServerServiceProcessor() : AbstractRequestProcessor() {
 ServerServiceProcessor::~ServerServiceProcessor() {
 }
 
-QStringList ServerServiceProcessor::getRequiredCrendentials() const {
+QStringList ServerServiceProcessor::getRequiredCredentials() const {
     QStringList list;
     return list;
 }

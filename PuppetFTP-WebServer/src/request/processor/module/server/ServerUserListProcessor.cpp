@@ -11,7 +11,7 @@ ServerUserListProcessor::ServerUserListProcessor() : AbstractRequestProcessor() 
 ServerUserListProcessor::~ServerUserListProcessor() {
 }
 
-QStringList ServerUserListProcessor::getRequiredCrendentials() const {
+QStringList ServerUserListProcessor::getRequiredCredentials() const {
     QStringList list;
     return list;
 }

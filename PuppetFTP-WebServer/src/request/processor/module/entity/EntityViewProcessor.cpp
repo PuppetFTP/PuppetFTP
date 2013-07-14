@@ -20,7 +20,7 @@ EntityViewProcessor::EntityViewProcessor() : AbstractRequestProcessor() {
 EntityViewProcessor::~EntityViewProcessor() {
 }
 
-QStringList EntityViewProcessor::getRequiredCrendentials() const {
+QStringList EntityViewProcessor::getRequiredCredentials() const {
     QStringList list;
     return list;
 }

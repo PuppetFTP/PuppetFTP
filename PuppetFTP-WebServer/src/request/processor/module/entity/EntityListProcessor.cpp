@@ -23,7 +23,7 @@ EntityListProcessor::EntityListProcessor() : AbstractRequestProcessor() {
 EntityListProcessor::~EntityListProcessor() {
 }
 
-QStringList EntityListProcessor::getRequiredCrendentials() const {
+QStringList EntityListProcessor::getRequiredCredentials() const {
     QStringList list;
     return list;
 }
