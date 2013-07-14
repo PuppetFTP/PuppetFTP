@@ -23,7 +23,7 @@ EntityEditProcessor::EntityEditProcessor() : AbstractRequestProcessor() {
 EntityEditProcessor::~EntityEditProcessor() {
 }
 
-QStringList EntityEditProcessor::getRequiredCrendentials() const {
+QStringList EntityEditProcessor::getRequiredCredentials() const {
     QStringList list;
     return list;
 }

@@ -144,7 +144,7 @@ HTTPResponse RequestDispatcher::dispatch(HTTPRequest& request) {
 }
 
 bool RequestDispatcher::canAccessToProcessor(IRequestProcessor* processor, const Session& session) const {
-    QStringList credentials = processor->getRequiredCrendentials();
+    QStringList credentials = processor->getRequiredCredentials();
     if (credentials.size() > 0) {
         for (QStringList::iterator it = credentials.begin(); it != credentials.end(); it++) {
             if (session.hasCredential(*it) == true) {
