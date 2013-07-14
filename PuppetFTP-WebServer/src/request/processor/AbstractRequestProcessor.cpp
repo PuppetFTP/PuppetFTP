@@ -27,10 +27,6 @@ QHash<QString, QString> AbstractRequestProcessor::getAdditionalHeaderParameters(
     return QHash<QString, QString>();
 }
 
-QStringList AbstractRequestProcessor::getRequiredCredentials() const {
-    return QStringList();
-}
-
 UI::Notify* AbstractRequestProcessor::getNotify() const {
     return _notify;
 }

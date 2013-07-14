@@ -22,7 +22,6 @@ public:
     EntityEditProcessor();
     virtual ~EntityEditProcessor();
 
-    QStringList getRequiredCredentials() const;
     void        process(HTTPRequest& request);
     QByteArray  render() const;
 };

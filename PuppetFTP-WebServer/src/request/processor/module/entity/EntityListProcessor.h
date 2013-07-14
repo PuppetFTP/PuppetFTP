@@ -23,7 +23,6 @@ public:
     EntityListProcessor();
     virtual ~EntityListProcessor();
 
-    QStringList getRequiredCredentials() const;
     void        process(HTTPRequest& request);
     QByteArray  render() const;
 };

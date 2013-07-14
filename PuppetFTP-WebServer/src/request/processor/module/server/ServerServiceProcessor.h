@@ -13,7 +13,6 @@ public:
     ServerServiceProcessor();
     virtual ~ServerServiceProcessor();
 
-    QStringList getRequiredCredentials() const;
     void        process(HTTPRequest& request);
     QByteArray  render() const;
 };

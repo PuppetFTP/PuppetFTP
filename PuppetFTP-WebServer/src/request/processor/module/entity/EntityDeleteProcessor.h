@@ -20,7 +20,6 @@ public:
     EntityDeleteProcessor();
     virtual ~EntityDeleteProcessor();
 
-    QStringList getRequiredCredentials() const;
     void        process(HTTPRequest& request);
     QByteArray  render() const;
 };

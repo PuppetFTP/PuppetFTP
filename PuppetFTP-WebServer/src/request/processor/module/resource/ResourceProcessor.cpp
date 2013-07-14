@@ -27,9 +27,6 @@ QHash<QString, QString> ResourceProcessor::getAdditionalHeaderParameters() const
     return _headerParameters;
 }
 
-QStringList ResourceProcessor::getRequiredCredentials() const {
-    return QStringList();
-}
 UI::Notify* ResourceProcessor::getNotify() const {
     return NULL;
 }
