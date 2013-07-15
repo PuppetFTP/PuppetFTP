@@ -8,28 +8,43 @@
 #include "UserModelList.h"
 #include "User.h"
 #include "Helper.h"
+#include "Translate.h"
 
 namespace UI {
 
 UserModelList::UserModelList() : ModelEntityList< ::Model::User >() {
+    Translate::instance()->group("listing_user");
     // Set Column
-    addColumn("#",           "id"           );
-    addColumn("Last name",   "lastname"     );
-    addColumn("First name",  "firstname"    );
-//    addColumn("Mail",        "email"        );
-    addColumn("Last access", "last_access"  );
+    addColumn(Translate::instance()->tr("id"),        "id"           );
+    addColumn(Translate::instance()->tr("lastname"),  "lastname"     );
+    addColumn(Translate::instance()->tr("firstname"), "firstname"    );
+//    addColumn(Translate::instance()->tr("mail"),      "email"        );
+    addColumn(Translate::instance()->tr("access"),    "last_access"  );
 
     // Set order
 //    QStringList order;
 //    order << "lastname" << "firstname" << "email" << "last_access";
 //    setDisplayOrder(order);
 
+    Translate::instance()->group("listing");
     // Set action
-    addAction("entityDelete", new Image("/images/icon_delete.png", "Delete"));
-    addAction("entityEdit",   new Image("/images/icon_edit.png",   "Edit"));
+    Text* edit = new Text("");
+    edit->addClass("icon-edit");
+    edit->setAttribute("title", Translate::instance()->tr("action_edit"));
+    Link* linkEdit = new Link("#", edit);
+    linkEdit->setAttribute("rel", "shadowbox; width=500;height=390");
+    addAction("entityEdit",   linkEdit);
 
+    Text* del = new Text("");
+    del->addClass("icon-trash");
+    del->setAttribute("title", Translate::instance()->tr("action_delete"));
+    Link* linkDel = new Link("#", del);
+    linkDel->setAttribute("rel", "shadowbox; width=500;height=110");
+    addAction("entityDelete", linkDel);
+
+    Translate::instance()->group("listing_user");
     // Set button
-    addButton("entityAdd", new Text("Add User"));
+    addButton("entityAdd", new Text(Translate::instance()->tr("button_add")));
 
     // Set format column
     setFormat("last_access", &Helper::formatQdateTime);

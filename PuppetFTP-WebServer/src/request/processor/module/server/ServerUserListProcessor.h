@@ -1,3 +1,10 @@
+/*
+ * ServerUserListProcessor.h
+ *
+ *  Created on: 17 juin 2013
+ *      Author: mtonnelier
+ */
+
 #ifndef SERVERUSERLISTPROCESSOR_H
 #define SERVERUSERLISTPROCESSOR_H
 

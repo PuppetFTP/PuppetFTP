@@ -5,6 +5,13 @@
     <module name="general" />
     <processor name="index" />
   </route>
+  <route name="lang" uri="/:lang">
+    <module name="general" />
+    <processor name="lang" />
+    <requirements>
+      <parameter name="lang" value="[\w]+" />
+    </requirements>
+  </route>
   <!-- Connect/disconnect -->
   <route name="login" uri="/connection">
     <module name="authentication" />
@@ -107,9 +114,12 @@
   </route>
 
   <!-- Server -->
-  <route name="serverUserList" uri="/server/user">
+  <route name="serverUserList" uri="/server/user/:id">
     <module name="server" />
     <processor name="serverUserList" />
+    <requirements>
+      <parameter name="id" value="[\d]+" />
+    </requirements>
   </route>
   <route name="serverUserEdit" uri="/server/user/edit/:id">
     <module name="server" />
@@ -122,9 +132,9 @@
     <module name="server" />
     <processor name="serverList" />
   </route>
-  <route name="serverEdit" uri="/server/edit/:id">
+  <route name="serverManage" uri="/server/manage/:id">
     <module name="server" />
-    <processor name="serverEdit" />
+    <processor name="serverManage" />
     <requirements>
       <parameter name="id" value="[\d]+" />
     </requirements>
@@ -138,15 +148,3 @@
     </requirements>
   </route>
 </routing>
-
-
-
-
-
-
-
-
-
-
-
-

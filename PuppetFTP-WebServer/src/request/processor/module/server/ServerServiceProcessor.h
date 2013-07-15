@@ -1,3 +1,10 @@
+/*
+ * ServerServiceProcessor.h
+ *
+ *  Created on: 17 juin 2013
+ *      Author: mtonnelier
+ */
+
 #ifndef SERVERSERVICEPROCESSOR_H
 #define SERVERSERVICEPROCESSOR_H
 
@@ -9,6 +16,7 @@ class ServerServiceProcessor: public AbstractRequestProcessor {
 protected:
     QString     _name;
     int         _id;
+    bool        _close;
 public:
     ServerServiceProcessor();
     virtual ~ServerServiceProcessor();

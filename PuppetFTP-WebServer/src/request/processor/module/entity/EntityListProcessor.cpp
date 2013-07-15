@@ -16,6 +16,7 @@
 #include "Widget.h"
 #include "ITable.h"
 #include "DatabaseManager.h"
+#include "Translate.h"
 
 EntityListProcessor::EntityListProcessor() : AbstractRequestProcessor() {
 }
@@ -54,20 +55,24 @@ QByteArray EntityListProcessor::render() const {
     QMap<QString, QVariant> param;
     param["entity"] = _entityName;
 
-    page.setTitle("PuppetFTP - "+_entityName);
     page.body()->addWidget(_notify);
 
+    Translate::instance()->group("breadcrumb");
     // Breadcrumbs
     UI::Title* title = new UI::Title();
     {
         UI::Breadcrumb* link = new UI::Breadcrumb();
-        QString name(_entityName + " management");
+        QString name(Translate::instance()->tr("entity", _entityName));
         name[0] = name[0].toUpper();
-        link->addLink("Configure PuppetFTP", Helper::gen_url("index"));
+
+        link->addLink(Translate::instance()->tr("home"), Helper::gen_url("index"));
         link->addLink(name, Helper::gen_url("entityList", param));
         title->addWidget(link);
     }
     page.body()->addWidget(title);
+
+    Translate::instance()->group("listing");
+    page.setTitle("PuppetFTP - " + Translate::instance()->tr("title"));
 
     // Content
     UI::Container* divContent = new UI::Container();
@@ -76,25 +81,26 @@ QByteArray EntityListProcessor::render() const {
         UI::Container* divIcon = new UI::Container();
         {
             divIcon->addClass("icon users");
-            UI::Image* imgContent = new UI::Image("/images/icon_admin.png", "Configure PuppetFTP");
+            UI::Image* imgContent = new UI::Image("/img/icon_admin.png", Translate::instance()->tr("icon"));
             imgContent->setAttribute("width", "60");
             divIcon->addWidget(imgContent);
         }
         divContent->addWidget(divIcon);
 
         // Menu
+        Translate::instance()->group("listing_menu");
         UI::Menu* menu = new UI::Menu(UI::Container::NAV);
         {
             menu->setAttribute("id", "menu");
             param["entity"] = "user";
-            menu->addMenu("menu", new UI::Link(Helper::gen_url("entityList", param), new UI::Text("User management")));
-            param["entity"] = "server";
-            menu->addMenu("menu", new UI::Link(Helper::gen_url("entityList", param), new UI::Text("Server management")));
+            menu->addMenu("menu", new UI::Link(Helper::gen_url("entityList", param), new UI::Text(Translate::instance()->tr("user"))));
+//            param["entity"] = "server";
+            menu->addMenu("menu", new UI::Link(Helper::gen_url("importExport", param), new UI::Text(Translate::instance()->tr("import_export"))));
 
 //            param["entity"] = "role";
-//            menu->addMenu("menu", new UI::Link(Helper::gen_url("entityList", param), new UI::Text("Role management")));
+//            menu->addMenu("menu", new UI::Link(Helper::gen_url("entityList", param), new UI::Text(Translate::instance()->tr("role"))));
 //            param["entity"] = "credential";
-//            menu->addMenu("menu", new UI::Link(Helper::gen_url("entityList", param), new UI::Text("Credential management")));
+//            menu->addMenu("menu", new UI::Link(Helper::gen_url("entityList", param), new UI::Text(Translate::instance()->tr("credential"))));
         }
         divContent->addWidget(menu);
 

@@ -47,6 +47,7 @@ bool RequestDispatcher::configure() {
     RequestProcessorFactory::instance()->registerProcessor<ConnectionProcessor>("login");
     RequestProcessorFactory::instance()->registerProcessor<DisconnectProcessor>("logout");
     RequestProcessorFactory::instance()->registerProcessor<IndexProcessor>("index");
+    RequestProcessorFactory::instance()->registerProcessor<IndexProcessor>("lang");
 
     // Entity
     RequestProcessorFactory::instance()->registerProcessor<EntityListProcessor>("entityList");
@@ -57,7 +58,7 @@ bool RequestDispatcher::configure() {
     RequestProcessorFactory::instance()->registerProcessor<UnavailableProcessor>("importExport");
 
     // Server
-    RequestProcessorFactory::instance()->registerProcessor<ServerEditProcessor>("serverEdit");
+    RequestProcessorFactory::instance()->registerProcessor<ServerManageProcessor>("serverManage");
     RequestProcessorFactory::instance()->registerProcessor<ServerListProcessor>("serverList");
     RequestProcessorFactory::instance()->registerProcessor<ServerServiceProcessor>("serverService");
     RequestProcessorFactory::instance()->registerProcessor<UnavailableProcessor>("serverUserList");

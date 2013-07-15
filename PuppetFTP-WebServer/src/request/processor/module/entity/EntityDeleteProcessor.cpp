@@ -9,11 +9,12 @@
 #include "SessionManager.h"
 #include "Session.h"
 
-#include "DefaultPageRenderer.h"
+#include "EmptyPageRenderer.h"
 #include "DatabaseManager.h"
 #include "ITable.h"
 #include "Helper.h"
 #include "Widget.h"
+#include "Translate.h"
 
 EntityDeleteProcessor::EntityDeleteProcessor() : AbstractRequestProcessor() {
 }
@@ -25,6 +26,7 @@ void EntityDeleteProcessor::process(HTTPRequest& request) {
     _id         = request.getParameter("id").toInt();
     _entityName = request.getParameter("entity").toString();
     Session*  s = SessionManager::instance()->getSession(request.getSessionId());
+    _close      = false;
 
     QMap<QString, QVariant> param;
     param.insert("entity", _entityName);
@@ -42,7 +44,7 @@ void EntityDeleteProcessor::process(HTTPRequest& request) {
     }
 
     if (!request.getParameter("cancel").isNull() || !request.getParameter("submit").isNull() || object == NULL) {
-        request.redirect(Helper::gen_url("entityList", param));
+        _close = true;
     }
 
     if (object != NULL) {
@@ -52,70 +54,59 @@ void EntityDeleteProcessor::process(HTTPRequest& request) {
 }
 
 QByteArray EntityDeleteProcessor::render() const {
-    UI::DefaultPageRenderer page;
+    UI::EmptyPageRenderer page;
 
-    page.setTitle("PuppetFTP - Configure");
+    if (_close == false) {
 
-    QMap<QString, QVariant> param;
-    param["entity"] = _entityName;
-    param["id"]     = _id;
+        QMap<QString, QVariant> param;
+        param["entity"] = _entityName;
+        param["id"]     = _id;
 
-    // Breadcrumbs
-    UI::Title*     title = new UI::Title();
-    {
-        UI::Breadcrumb* link = new UI::Breadcrumb();
+        Translate::instance()->group("delete");
+        page.setTitle("PuppetFTP - "+Translate::instance()->tr("title"));
 
-        QString name(_entityName + " management");
-        name[0] = name[0].toUpper();
-
-        link->addLink("Configure PuppetFTP", Helper::gen_url("index"));
-        link->addLink(name, Helper::gen_url("entityList", param));
-        link->addLink("Delete " + _entityName, "");
-        title->addWidget(link);
-    }
-    page.body()->addWidget(title);
-
-
-    // Content
-    UI::Container* divContent = new UI::Container(UI::Container::SECTION);
-    {
-        divContent->setId("action");
-        // Deleting
-        UI::Container* div = new UI::Container();
+        // Content
+        UI::Container* divContent = new UI::Container(UI::Container::SECTION);
         {
-            div->addClass("box");
-            // Create Form
-            UI::Form* form = new UI::Form(Helper::gen_url("entityDelete", param));
+            divContent->setId("action");
+            // Deleting
+            UI::Container* div = new UI::Container();
             {
-                form->setRendering(UI::Form::NONE);
-                form->setRendererLabel(false);
-                form->setId("deleteForm");
-                form->setAttribute("novalidate", "novalidate");
-                form->addSection("deleteForm", "Do you want to remove this " + _entityName + " ?");
+                div->addClass("box");
+                // Create Form
+                UI::Form* form = new UI::Form(Helper::gen_url("entityDelete", param));
+                {
+                    form->setRendering(UI::Form::NONE);
+                    form->setRendererLabel(false);
+                    form->setId("deleteForm");
+                    form->setAttribute("novalidate", "novalidate");
+                    form->addSection("deleteForm", Translate::instance()->tr("message", _entityName + " : #" + QString::number(_id)));
 
-                // Submit
-                UI::Input* submit = new UI::Input("submit", UI::Input::SUBMIT);
-                submit->setValue("Delete");
-                submit->addClass("delete");
-                form->addWidget("deleteForm", submit);
+                    // Submit
+                    UI::Input* submit = new UI::Input("submit", UI::Input::SUBMIT);
+                    submit->setValue(Translate::instance()->tr("submit"));
+                    submit->addClass("btn");
+                    form->addWidget("deleteForm", submit);
 
-                // Cancel
-                UI::Input* cancel = new UI::Input("cancel", UI::Input::SUBMIT);
-                cancel->setValue("Cancel");
-                cancel->addClass("cancel");
-                form->addWidget("deleteForm", cancel);
+                    // Cancel
+                    UI::Input* cancel = new UI::Input("cancel", UI::Input::SUBMIT);
+                    cancel->setValue(Translate::instance()->tr("cancel"));
+                    cancel->addClass("btn");
+                    form->addWidget("deleteForm", cancel);
 
+                }
+                div->addWidget(form);
+
+                // Clear
+                UI::Container* divClear = new UI::Container();
+                divClear->setAttribute("style", "clear:both;visibility:hidden;");
+                div->addWidget(divClear);
             }
-            div->addWidget(form);
-
-            // Clear
-            UI::Container* divClear = new UI::Container();
-            divClear->setAttribute("style", "clear:both;visibility:hidden;");
-            div->addWidget(divClear);
+            divContent->addWidget(div);
         }
-        divContent->addWidget(div);
+        page.body()->addWidget(divContent);
+    } else {
+        page.addJavascript("/js/close-sbx.js");
     }
-    page.body()->addWidget(divContent);
-
     return page.render();
 }

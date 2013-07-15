@@ -20,14 +20,14 @@
 
 namespace UI {
 
-typedef QString (*fnctFormat)(const QVariant&);
+typedef QString (*fnctFormatEdit)(const QVariant&);
 
 template <typename E>
 class ModelEntityEditor : public IModelEditor {
 protected:
     Container*                _content;
     Form*                     _form;
-    QMap<QString, fnctFormat> _format;
+    QMap<QString, fnctFormatEdit> _format;
 
 public:
     ModelEntityEditor() {
@@ -59,6 +59,7 @@ public:
         }
         Input* submit = new Input("submit", Input::SUBMIT);
         submit->setValue("Save");
+        submit->addClass("btn");
         _form->addWidget("submit", submit);
 
         _content = new Container();
@@ -93,7 +94,7 @@ public:
         }
     }
 
-    void setFormat(const QString& property, const fnctFormat& fnct) {
+    void setFormat(const QString& property, const fnctFormatEdit& fnct) {
         _format[property] = fnct;
     }
 

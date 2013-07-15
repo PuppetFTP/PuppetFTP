@@ -7,6 +7,7 @@
 
 #include "AbstractWidgetForm.h"
 #include "Text.h"
+#include "Image.h"
 
 namespace UI {
 
@@ -32,7 +33,11 @@ QString     AbstractWidgetForm::getClasses()                      const         
 
 void        AbstractWidgetForm::setName(const QString& name)                            { _name  = name;                    }
 void        AbstractWidgetForm::setLabel(const QString& label)                          { _label = new Text(label);         }
-void        AbstractWidgetForm::setHelp(const QString& help)                            { _help  = new Text(help);          }
+
+void        AbstractWidgetForm::setHelp(const QString& help) {
+    //_help  = new Image("/img/icon_question.png", help);
+}
+
 void        AbstractWidgetForm::setValue(const QVariant& value)                         { _value = value;                   }
 void        AbstractWidgetForm::setAttribute(const QString& name, const QString& value) { _attributes[name] = value;        }
 void        AbstractWidgetForm::removeAttribute(const QString& name)                    { _attributes.remove(name);         }

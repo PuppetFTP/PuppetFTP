@@ -98,9 +98,12 @@ QByteArray PageRenderer::render() const {
         res.append(" id=\""+_id+"\"");
     res.append(">\n");
 
-    res.append(_header->render());
-    res.append(_body->render());
-    res.append(_footer->render());
+    if (_header->getWidget().size() > 0)
+        res.append(_header->render());
+    if (_body->getWidget().size() > 0)
+        res.append(_body->render());
+    if (_footer->getWidget().size() > 0)
+        res.append(_footer->render());
 
     res.append("  </body>\n");
     res.append("</html>");

@@ -36,7 +36,7 @@ private:
 
 public:
     PageRenderer();
-    ~PageRenderer();
+    virtual ~PageRenderer();
 
     QString                   getId()                           const;
     QString                   getTitle()                        const;
