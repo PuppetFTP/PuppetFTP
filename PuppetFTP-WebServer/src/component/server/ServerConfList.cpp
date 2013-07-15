@@ -8,13 +8,20 @@ ServerConfList::ServerConfList() : ModelEntityList< ::Model::Server >() {
 
     Translate::instance()->group("listing_server");
     // Set column
-    addColumn(Translate::instance()->tr("id"),      "id"      );
-    addColumn(Translate::instance()->tr("name"),    "name"    );
-    addColumn(Translate::instance()->tr("address"), "address" );
-    addColumn(Translate::instance()->tr("port"),    "port"    );
+    addColumn(Translate::instance()->tr("id"),      "id"       );
+    addColumn(Translate::instance()->tr("name"),    "name"     );
+    addColumn(Translate::instance()->tr("address"), "address"  );
+    addColumn(Translate::instance()->tr("port"),    "port"     );
+    addColumn(Translate::instance()->tr("ref_id"),  "corba_id" );
 
     Translate::instance()->group("listing");
     // Set action
+
+    Text* user = new Text("");
+    user->addClass("icon-user");
+    user->setAttribute("title", Translate::instance()->tr("action_user"));
+    Link* linkUser = new Link("#", user);
+    addAction("serverUserList", linkUser);
 
     Text* server = new Text("");
     server->addClass("icon-wrench");

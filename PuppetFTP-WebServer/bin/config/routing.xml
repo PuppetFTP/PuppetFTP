@@ -71,9 +71,12 @@
   </route>
 
   <!-- Server -->
-  <route name="serverUserList" uri="/server/user">
+  <route name="serverUserList" uri="/server/user/:id">
     <module name="server" />
     <processor name="serverUserList" />
+    <requirements>
+      <parameter name="id" value="[\d]+" />
+    </requirements>
   </route>
   <route name="serverUserEdit" uri="/server/user/edit/:id">
     <module name="server" />
@@ -102,15 +105,3 @@
     </requirements>
   </route>
 </routing>
-
-
-
-
-
-
-
-
-
-
-
-

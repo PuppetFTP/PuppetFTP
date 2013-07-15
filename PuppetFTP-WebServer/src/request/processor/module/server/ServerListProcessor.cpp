@@ -45,25 +45,12 @@ QByteArray ServerListProcessor::render() const {
     QMap<QString, QVariant> param;
 
     page.body()->addWidget(_notify);
-
-    Translate::instance()->group("breadcrumb");
-    // Breadcrumbs
-    UI::Title* title = new UI::Title();
-    {
-        UI::Breadcrumb* link = new UI::Breadcrumb();
-        link->addLink(Translate::instance()->tr("server_home"), Helper::gen_url("index"));
-        link->addLink(Translate::instance()->tr("server_manage"), "");
-        title->addWidget(link);
-    }
-    page.body()->addWidget(title);
-
     Translate::instance()->group("server_manage");
-    page.setTitle("PuppetFTP - "+Translate::instance()->tr("title"));
 
     // Content
-    UI::Container* divContent = new UI::Container();
+    UI::Container* divBreadcrumb = new UI::Container();
     {
-        divContent->setId("server");
+        divBreadcrumb->setId("breadcrumb");
 
         // Icon
         UI::Container* divIcon = new UI::Container();
@@ -73,16 +60,47 @@ QByteArray ServerListProcessor::render() const {
             imgContent->setAttribute("width", "60");
             divIcon->addWidget(imgContent);
         }
-        divContent->addWidget(divIcon);
+        divBreadcrumb->addWidget(divIcon);
 
-        // Menu
-        UI::Menu* menu = new UI::Menu(UI::Container::NAV);
+        Translate::instance()->group("breadcrumb");
+        // Breadcrumbs
+        UI::Title* title = new UI::Title();
         {
-            menu->setAttribute("id", "menu");
-            menu->addMenu("menu", new UI::Link(Helper::gen_url("serverUserList", param), new UI::Text(Translate::instance()->tr("menu_user"))));
-            menu->addMenu("menu", new UI::Link(Helper::gen_url("serverList", param), new UI::Text(Translate::instance()->tr("menu_server"))));
+            UI::Breadcrumb* link = new UI::Breadcrumb();
+            link->addLink(Translate::instance()->tr("server_home"), Helper::gen_url("index"));
+            link->addLink(Translate::instance()->tr("server_manage"), "");
+            title->addWidget(link);
         }
-        divContent->addWidget(menu);
+        divBreadcrumb->addWidget(title);
+    }
+    page.body()->addWidget(divBreadcrumb);
+
+    Translate::instance()->group("server_manage");
+    page.setTitle("PuppetFTP - "+Translate::instance()->tr("title"));
+
+    // Content
+    UI::Container* divContent = new UI::Container();
+    {
+        divContent->setId("server");
+
+//        // Icon
+//        UI::Container* divIcon = new UI::Container();
+//        {
+//            divIcon->addClass("icon users");
+//            UI::Image* imgContent = new UI::Image("/img/icon_ftp.png", Translate::instance()->tr("icon"));
+//            imgContent->setAttribute("width", "60");
+//            divIcon->addWidget(imgContent);
+//        }
+//        divContent->addWidget(divIcon);
+
+//        // Menu
+//        UI::Menu* menu = new UI::Menu(UI::Container::NAV);
+//        {
+//            menu->setAttribute("id", "menu");
+//            menu->addMenu("menu", new UI::Link(Helper::gen_url("serverUserList", param), new UI::Text(Translate::instance()->tr("menu_user"))));
+//            menu->addMenu("menu", new UI::Link(Helper::gen_url("serverList", param), new UI::Text(Translate::instance()->tr("menu_server"))));
+//        }
+//        divContent->addWidget(menu);
 
         // Editing
         divContent->addWidget(_table->getContent());

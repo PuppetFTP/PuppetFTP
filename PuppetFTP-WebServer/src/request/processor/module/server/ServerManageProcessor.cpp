@@ -61,7 +61,7 @@ void ServerManageProcessor::process(HTTPRequest& request) {
             return;
         }
         if (!request.getParameter("submit").isNull()) {
-//            client->setServerName(request.getParameter("server_name").toString());
+            //client->setServerName(request.getParameter("server_name").toString());
             client->setServerPort(request.getParameter("server_port").toUInt());
             client->setInternetProtocol((IServerConfigurationProvider::INTERNET_PROTOCOL::ip)request.getParameter("internet_protocol").toInt());
             client->setIdleTimeout(request.getParameter("idle_timeout").toUInt());
@@ -160,7 +160,7 @@ QByteArray ServerManageProcessor::render() const {
         UI::Menu* menu = new UI::Menu(UI::Container::NAV);
         {
             menu->setAttribute("id", "menu");
-            menu->addMenu("menu", new UI::Link(Helper::gen_url("serverUserList"), new UI::Text(Translate::instance()->tr("menu_user"))));
+            menu->addMenu("menu", new UI::Link(Helper::gen_url("serverUserList", param), new UI::Text(Translate::instance()->tr("menu_user"))));
             menu->addMenu("menu", new UI::Link(Helper::gen_url("serverList"), new UI::Text(Translate::instance()->tr("menu_server"))));
         }
         divContent->addWidget(menu);

@@ -151,7 +151,12 @@ section > section#action input[type=button] {float:right;margin:10px 0 0 10px;}
 
 section > h1.editServer {float:left;}
 section > div.buttons {float:right;margin:15px;}
+section > div#breadcrumb {height: 66px;margin-top:10px;}
+section > div#breadcrumb h1 {margin:0;padding-top:10px;}
+section > div#server > section {width:93%;margin:0 30px;}
 section > div#server {clear:both;}
+section > div#server table tbody td {padding:8px 20px;}
+section > div#server table thead th {padding:8px 20px;}
 section > div#server div.rightCol {float:left;margin:0 35px;width:65%;}
 section > div#server div.rightCol form h1 {margin:0;}
 section > div#server div.rightCol form table {margin:20px 0;width:100%}
@@ -164,7 +169,7 @@ section > div#server div.rightCol form select {width:235px;margin-right: 5px;hei
 
 section > div section table td {padding:0 5px;vertical-align: middle;}
 section > div section table td:first-child {width:25px;}
-section > div section table td:last-child {width:65px;text-align:center;}
+section > div section table td:last-child {width:76px;text-align:center;}
 section > div section table td:last-child div.action a {margin-right:5px;}
 
 /*

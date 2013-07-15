@@ -57,7 +57,7 @@ QByteArray IndexProcessor::render() const {
             UI::Image* img = new UI::Image("/img/icon_user.png", Translate::instance()->tr("manage_users"));
             img->setAttribute("width", "60");
             divIcon1->addWidget(img);
-            UI::Link* link = new UI::Link(Helper::gen_url("serverUserList", param),   new UI::Text(Translate::instance()->tr("manage_users")));
+            UI::Link* link = new UI::Link(Helper::gen_url("importExport", param),   new UI::Text(Translate::instance()->tr("manage_users")));
             divIcon1->addWidget(link);
         }
         section->addWidget(divIcon1);
