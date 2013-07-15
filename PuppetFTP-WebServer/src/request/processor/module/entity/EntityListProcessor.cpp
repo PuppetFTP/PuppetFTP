@@ -23,11 +23,6 @@ EntityListProcessor::EntityListProcessor() : AbstractRequestProcessor() {
 EntityListProcessor::~EntityListProcessor() {
 }
 
-QStringList EntityListProcessor::getRequiredCrendentials() const {
-    QStringList list;
-    return list;
-}
-
 void EntityListProcessor::process(HTTPRequest& request) {
     Session* s = SessionManager::instance()->getSession(request.getSessionId());
     addNotify(s->getNotification("delete"));

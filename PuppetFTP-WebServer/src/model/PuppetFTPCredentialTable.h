@@ -19,6 +19,7 @@ public:
 
     QString getName() const;
     QStringList getPrimaryKeys() const;
+    QList<QObject*> getCredentialsForRole(int roleId) const;
 };
 
 #endif // PuppetFTPCredentialTable_H

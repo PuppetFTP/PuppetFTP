@@ -8,11 +8,6 @@ UnavailableProcessor::UnavailableProcessor() : AbstractRequestProcessor() {
 UnavailableProcessor::~UnavailableProcessor() {
 }
 
-QStringList UnavailableProcessor::getRequiredCrendentials() const {
-    QStringList list;
-    return list;
-}
-
 void UnavailableProcessor::process(HTTPRequest& request) {
 }
 

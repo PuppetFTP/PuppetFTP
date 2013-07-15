@@ -86,6 +86,38 @@ bool RouteReader::startElement(const QString& namespaceURI, const QString& local
             }
         }
     }
+    else if (qName == "access") {
+        if (_currentRoute == 0) {
+            qWarning() << "Invalid position of node access, ignored.";
+        }
+        else {
+            if (atts.value("parameter_name") == "" && atts.value("parameter_value") == "") {
+                _currentParameter = 0;
+            }
+            else if ((atts.value("parameter_name") == "") ^ (atts.value("parameter_value") == "")) {
+                qWarning() << "Parameter parameter_name or parameter_value missing, ignored.";
+            }
+            else {
+                _currentParameter = new QPair<QString, QString>(atts.value("parameter_name"), atts.value("parameter_value"));
+            }
+        }
+    }
+    else if (qName == "credential") {
+        if (_currentRoute == 0) {
+            qWarning() << "Invalid position of node credential, ignored.";
+        }
+        else {
+            if (atts.value("value") == "") {
+                qWarning() << "Parameter name or value missing, ignored.";
+            }
+            else {
+                if (_currentParameter == 0)
+                    _currentRoute->setDefaultRequiredCredential(atts.value("value"));
+                else
+                    _currentRoute->setRequiredCredential(*_currentParameter, atts.value("value"));
+            }
+        }
+    }
     return true;
 }
 
@@ -93,6 +125,9 @@ bool RouteReader::endElement(const QString& namespaceURI, const QString& localNa
     if (qName == "route") {
         _results.push_back(_currentRoute);
         _currentRoute = 0;
+    }
+    else if (qName == "access") {
+        _currentParameter = 0;
     }
     return true;
 }

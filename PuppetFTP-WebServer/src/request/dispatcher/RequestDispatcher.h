@@ -22,7 +22,7 @@ private:
 	RequestDispatcher();
 	virtual ~RequestDispatcher();
 
-	bool canAccessToProcessor(IRequestProcessor* processor, const Session& session) const;
+    bool canAccessToRoute(Routing::Route* route, const Session& session, const HTTPRequest& request) const;
 
 public:
 	static RequestDispatcher* instance();

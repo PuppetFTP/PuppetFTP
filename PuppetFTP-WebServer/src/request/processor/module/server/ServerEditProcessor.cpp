@@ -24,11 +24,6 @@ ServerEditProcessor::ServerEditProcessor() : AbstractRequestProcessor() {
 ServerEditProcessor::~ServerEditProcessor() {
 }
 
-QStringList ServerEditProcessor::getRequiredCrendentials() const {
-    QStringList list;
-    return list;
-}
-
 void ServerEditProcessor::process(HTTPRequest& request) {
     _id        = request.getParameter("id").toInt();
     Session* s = SessionManager::instance()->getSession(request.getSessionId());

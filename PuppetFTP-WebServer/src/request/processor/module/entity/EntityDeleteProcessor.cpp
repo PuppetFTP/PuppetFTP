@@ -21,11 +21,6 @@ EntityDeleteProcessor::EntityDeleteProcessor() : AbstractRequestProcessor() {
 EntityDeleteProcessor::~EntityDeleteProcessor() {
 }
 
-QStringList EntityDeleteProcessor::getRequiredCrendentials() const {
-    QStringList list;
-    return list;
-}
-
 void EntityDeleteProcessor::process(HTTPRequest& request) {
     _id         = request.getParameter("id").toInt();
     _entityName = request.getParameter("entity").toString();
