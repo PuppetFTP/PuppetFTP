@@ -20,15 +20,15 @@ insert into USER (ID,FIRSTNAME,LASTNAME,PASSWD,EMAIL,PUPPETFTP_ROLE,CREATED_AT) 
 insert into USER (ID,FIRSTNAME,LASTNAME,PASSWD,EMAIL,PUPPETFTP_ROLE,CREATED_AT) values (20,'Justina','Zimmerman','NYW53lhh5Vp','tristique@eget.edu',2,datetime());
 
 -- ================================== SERVER
-insert into SERVER (ID, NAME, ADDRESS, PORT) values (1, 'server 1', 'ftp1.puppet.ftp', 21);
-insert into SERVER (ID, NAME, ADDRESS, PORT) values (2, 'server 2', 'ftp2.puppet.ftp', 22);
-insert into SERVER (ID, NAME, ADDRESS, PORT) values (3, 'server 3', 'ftp3.puppet.ftp', 53);
-insert into SERVER (ID, NAME, ADDRESS, PORT) values (4, 'server 4', 'ftp4.puppet.ftp', 22);
-insert into SERVER (ID, NAME, ADDRESS, PORT) values (5, 'server 5', 'ftp5.puppet.ftp', 76);
-insert into SERVER (ID, NAME, ADDRESS, PORT) values (6, 'server 6', 'ftp6.puppet.ftp', 4242);
-insert into SERVER (ID, NAME, ADDRESS, PORT) values (7, 'server 7', 'ftp7.puppet.ftp', 21);
-insert into SERVER (ID, NAME, ADDRESS, PORT) values (8, 'server 8', 'ftp8.puppet.ftp', 765);
-insert into SERVER (ID, NAME, ADDRESS, PORT) values (9, 'server 9', 'ftp9.puppet.ftp', 21);
+insert into SERVER (ID, NAME, ADDRESS, PORT, CORBA_ID) values (1, 'server 1', 'ftp1.puppet.ftp', 21, 'localhost');
+insert into SERVER (ID, NAME, ADDRESS, PORT, CORBA_ID) values (2, 'server 2', 'ftp2.puppet.ftp', 22, 'test2');
+insert into SERVER (ID, NAME, ADDRESS, PORT, CORBA_ID) values (3, 'server 3', 'ftp3.puppet.ftp', 53, 'test3');
+insert into SERVER (ID, NAME, ADDRESS, PORT, CORBA_ID) values (4, 'server 4', 'ftp4.puppet.ftp', 22, 'test4');
+insert into SERVER (ID, NAME, ADDRESS, PORT, CORBA_ID) values (5, 'server 5', 'ftp5.puppet.ftp', 76, 'test5');
+insert into SERVER (ID, NAME, ADDRESS, PORT, CORBA_ID) values (6, 'server 6', 'ftp6.puppet.ftp', 4242, 'test6');
+insert into SERVER (ID, NAME, ADDRESS, PORT, CORBA_ID) values (7, 'server 7', 'ftp7.puppet.ftp', 21, 'test7');
+insert into SERVER (ID, NAME, ADDRESS, PORT, CORBA_ID) values (8, 'server 8', 'ftp8.puppet.ftp', 765, 'test8');
+insert into SERVER (ID, NAME, ADDRESS, PORT, CORBA_ID) values (9, 'server 9', 'ftp9.puppet.ftp', 21, 'test9');
 
 -- ================================== ACCESSIBLE_SERVER
 insert into ACCESSIBLE_SERVER (USER,SERVER,SERVER_ROLE) values (2,3,3);

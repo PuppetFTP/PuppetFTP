@@ -38,6 +38,7 @@ ID                   INTEGER              not null,
 NAME                 VARCHAR(256),
 ADDRESS              VARCHAR(63)          not null,
 PORT                 INTEGER,
+CORBA_ID	     VARCHAR(100)	  not null,
 primary key (ID)
 );
 
