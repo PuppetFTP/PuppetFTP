@@ -21,7 +21,6 @@ public:
     EntityDeleteProcessor();
     virtual ~EntityDeleteProcessor();
 
-    QStringList getRequiredCrendentials() const;
     void        process(HTTPRequest& request);
     QByteArray  render() const;
 };

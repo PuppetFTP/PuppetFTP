@@ -14,11 +14,6 @@ ServerListProcessor::ServerListProcessor() : AbstractRequestProcessor() {
 ServerListProcessor::~ServerListProcessor() {
 }
 
-QStringList ServerListProcessor::getRequiredCrendentials() const {
-    QStringList list;
-    return list;
-}
-
 void ServerListProcessor::process(HTTPRequest& request) {
     Session*     s = SessionManager::instance()->getSession(request.getSessionId());
     addNotify(s->getNotification("edit"));

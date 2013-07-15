@@ -7,23 +7,35 @@ How to define a route:
 A route must be defined in the rounting.xml according to the rounting.xsd
 schema. The following example shows how to create a route:
 
-<route name="consult_server" uri="/server/:id/:name">
+<route name="consult_server" uri="/abc/:entity/:id/:name">
     <module name="server" />
     <processor name="ConsultServer" />
     <requirements>
+      <parameter name="entity"   value="[\w]+" />
       <parameter name="id"   value="\d+" />
       <parameter name="name" value="[\w\d-]+" />
     </requirements>
+    <access parameter_name="entity" value="server">
+      <credential value="server_list" />
+    </access>
+    <access>
+      <credential value="entity_list" />
+    </access>
 </route>
 
-Nodes route is mandatory and attributes name and uri also. Name and uri
+Node route is mandatory and attributes name and uri also. Name and uri
 must be unique. An uri can contain parameters which must be preceeded by
 the character ':' (like :id). Requirements can be specified on these 
 parameters in the sequence requirements and are not mandatory. Requirements
 are regular expression which describe the parameter.
-Node module and processor are mandatory and require the name attribute.
+Nodes module and processor are mandatory and require the name attribute.
 For module, the name must match the module containing the processor but
 is currently used only for clarity. For processor, name is the name of the
 processor which has to be called in order to treat the request. In case of
 the processor cannot be found, an error (500) will be returned.
+Node access specifies which credentials are necessary for the user to use
+this route. In case of the user doesn't have the credentials, an error (403)
+will be returned. Attributes parameter_name and parameter_value are not 
+mandatory. They allow to specify required credentials when one of the
+parameters has a certain value.
 

@@ -14,7 +14,7 @@
 HTTPRequest::HTTPRequest() {
 }
 
-HTTPRequest::HTTPRequest(const QHostAddress& peer) : _peer(peer), _reditectTo("") {
+HTTPRequest::HTTPRequest(const QHostAddress& peer) : _peer(peer), _redirectTo("") {
 }
 
 HTTPRequest::~HTTPRequest() {
@@ -78,7 +78,7 @@ void HTTPRequest::parseData(const Routing::Route& route) {
     // Parse post data
     QString post = _rawData.split("\r\n\r\n").at(1);
     if (post.isEmpty() == false) {
-        QStringList args = post.split("&");
+        QStringList args = post.replace('+', ' ').split("&");
         for (QStringList::iterator it = args.begin(); it != args.end(); it++) {
             QStringList arg = (*it).split("=");
             if (arg.at(0).isEmpty() == false) {
@@ -89,15 +89,15 @@ void HTTPRequest::parseData(const Routing::Route& route) {
 }
 
 void HTTPRequest::redirect(const QString& uri) {
-    _reditectTo = uri;
+    _redirectTo = uri;
 }
 
 bool HTTPRequest::isRedirected() const {
-    return _reditectTo != "";
+    return _redirectTo != "";
 }
 
 QString HTTPRequest::getRedirection() const {
-    return _reditectTo;
+    return _redirectTo;
 }
 
 QString HTTPRequest::toString() const {

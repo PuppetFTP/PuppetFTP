@@ -19,11 +19,6 @@ ServerServiceProcessor::ServerServiceProcessor() : AbstractRequestProcessor() {
 ServerServiceProcessor::~ServerServiceProcessor() {
 }
 
-QStringList ServerServiceProcessor::getRequiredCrendentials() const {
-    QStringList list;
-    return list;
-}
-
 void ServerServiceProcessor::process(HTTPRequest& request) {
     Session* s = SessionManager::instance()->getSession(request.getSessionId());
     bool   err = true;

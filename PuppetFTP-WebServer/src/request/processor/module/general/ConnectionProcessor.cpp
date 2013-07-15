@@ -16,6 +16,9 @@
 #include "DatabaseManager.h"
 #include "User.h"
 #include "Translate.h"
+#include "Role.h"
+#include "PuppetFTPCredentialTable.h"
+#include "Credential.h"
 
 ConnectionProcessor::ConnectionProcessor() : AbstractRequestProcessor() {
 }
@@ -44,23 +47,38 @@ void ConnectionProcessor::process(HTTPRequest& request) {
         authCouple.insert("email", request.getParameter("login"));
         authCouple.insert("passwd", request.getParameter("passwd"));
 
-        ITable*      table = DatabaseManager::instance()->getTable("user");
-        Model::User* user  = dynamic_cast<Model::User*>(table->get(authCouple));
+        ITable*      userTable = DatabaseManager::instance()->getTable("user");
+        Model::User* user  = dynamic_cast<Model::User*>(userTable->get(authCouple));
         if (user == NULL) {
             addNotify("Invalid login/password.", UI::Notify::ERROR);
-            delete table;
+            delete userTable;
             return;
         }
+
+        ITable* roleTable = DatabaseManager::instance()->getTable("puppetftp_role");
+        Model::Role* role = dynamic_cast<Model::Role*>(roleTable->get("id", user->getRole()));
+
+        PuppetFTPCredentialTable* credentialTable = dynamic_cast<PuppetFTPCredentialTable*>(DatabaseManager::instance()->getTable("puppetftp_credential"));
+        QList<QObject*> credentials = credentialTable->getCredentialsForRole(role->getId());
+        QObject* credential;
+        QStringList creds;
+        foreach (credential, credentials)
+            creds.append(dynamic_cast<Model::Credential*>(credential)->getName());
+
         Session* s = SessionManager::instance()->getSession(request.getSessionId());
 
         s->setAuthenticated(true);
+        s->setCredentials(creds);
         user->setLastAccess(QDateTime::currentDateTime());
-        table->save(user);
+        userTable->save(user);
 
         s->setNotification("connection", user->getLastname() + " is connected.", UI::Notify::INFO);
         request.redirect(Helper::gen_url("index"));
-        delete table;
+
+        delete userTable;
         delete user;
+        delete roleTable;
+        delete role;
     }
 }
 

@@ -18,7 +18,6 @@ public:
     ServerListProcessor();
     virtual ~ServerListProcessor();
 
-    QStringList getRequiredCrendentials() const;
     void        process(HTTPRequest& request);
     QByteArray  render() const;
 };

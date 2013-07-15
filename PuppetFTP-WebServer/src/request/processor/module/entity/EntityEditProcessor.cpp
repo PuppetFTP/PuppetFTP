@@ -24,11 +24,6 @@ EntityEditProcessor::EntityEditProcessor() : AbstractRequestProcessor() {
 EntityEditProcessor::~EntityEditProcessor() {
 }
 
-QStringList EntityEditProcessor::getRequiredCrendentials() const {
-    QStringList list;
-    return list;
-}
-
 void EntityEditProcessor::process(HTTPRequest& request) {
     _id         = request.getParameter("id").toInt();
     _entityName = request.getParameter("entity").toString();
