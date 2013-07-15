@@ -1,0 +1,6 @@
+h1 {font-size:21px;text-align:center;}
+section#edition {margin-left:15px;margin-top:15px;}
+section#edition div.box table tr td {padding:5px;}
+section#edition div.box table tr > td {width:170px;}
+section#action div.box form {text-align:center;}
+section#action div.box form > input {margin-right:15px;}

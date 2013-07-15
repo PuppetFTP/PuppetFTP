@@ -8,8 +8,6 @@ namespace UI {
 
 class Image : public AbstractWidget, public IInlinable {
 protected:
-    QString     _title;
-    QString     _url;
 private:
     Image();
 public:

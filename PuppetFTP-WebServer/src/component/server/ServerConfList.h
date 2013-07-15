@@ -12,6 +12,7 @@ public:
     ServerConfList();
     virtual ~ServerConfList();
 };
+QString formatSetServerEditLink(const QVariant& value, QMap<QString, QVariant> params);
 
 } // namespace UI
 

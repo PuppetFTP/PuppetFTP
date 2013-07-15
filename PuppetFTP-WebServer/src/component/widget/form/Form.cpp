@@ -170,6 +170,7 @@ QString                                        Form::render() const {
                         }
 
                         container->addWidget((*widget));
+                        container->addWidget((*widget)->getHelp());
                         row << container;
 
                         table->addRow(row);
@@ -182,6 +183,7 @@ QString                                        Form::render() const {
                         }
 
                         container->addWidget((*widget));
+                        container->addWidget((*widget)->getHelp());
                         list->addWidget(container);
                     } else if (_rendering == Form::NONE) {
 
@@ -191,6 +193,7 @@ QString                                        Form::render() const {
                         }
 
                         container->addWidget((*widget));
+                        container->addWidget((*widget)->getHelp());
                         div->addWidget(container);
                     }
                 }

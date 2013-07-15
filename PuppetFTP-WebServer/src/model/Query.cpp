@@ -53,13 +53,13 @@ Query* Query::into(const QString &table) {
     return this;
 }
 
-Query* Query::join(const QMap<QString, QMap<QString, QVariant> > &joins) {
-    _joins = QMap<QString, QMap<QString, QVariant> >(joins);
+Query* Query::join(const QMap<QString, QMap<QString, QString> > &joins) {
+    _joins = QMap<QString, QMap<QString, QString> >(joins);
     return this;
 }
 
-Query* Query::join(const QString &table, const QMap<QString, QVariant> &onClauses) {
-    _joins[QString(table)] = QMap<QString, QVariant>(onClauses);
+Query* Query::join(const QString &table, const QMap<QString, QString> &onClauses) {
+    _joins[QString(table)] = QMap<QString, QString>(onClauses);
     return this;
 }
 
@@ -121,12 +121,12 @@ QString Query::toSql() const {
 
     //join
     if (_type == Query::SELECT && !_joins.isEmpty()) {
-        for (QMap<QString, QMap<QString, QVariant> >::const_iterator it = _joins.begin(); it != _joins.end(); ++it) {
+        for (QMap<QString, QMap<QString, QString> >::const_iterator it = _joins.begin(); it != _joins.end(); ++it) {
             sql += " JOIN " + it.key() + " ON ( ";
             int condNum = 0;
-            for (QMap<QString, QVariant>::const_iterator it2 = it.value().begin(); it2 != it.value().end(); ++it2) {
+            for (QMap<QString, QString>::const_iterator it2 = it.value().begin(); it2 != it.value().end(); ++it2) {
                 sql += ++condNum == 1 ? " " : " AND ";
-                sql += it2.key() + " = " + (it2.value() == 0 ? "NULL " : "'" + it2.value().toString() + "'");
+                sql += it2.key() + " = " + it2.value();
             }
             sql += " ) ";
         }
@@ -182,7 +182,6 @@ QString Query::toSql() const {
     if (_limit > 0 && _offset >= 0) {
         sql += " LIMIT " + QString::number(_limit) + " OFFSET " + QString::number(_offset);
     }
-
 
     return sql;
 }

@@ -19,6 +19,10 @@ public:
     virtual ~ServerConfEditor();
 
     QString formatEnumProtocol(const QVariant& value);
+
+private:
+    void initCustomField();
+    void initOrder();
 };
 
 } // namespace UI

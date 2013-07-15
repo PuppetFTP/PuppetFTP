@@ -21,18 +21,18 @@
 
 namespace UI {
 
-typedef QString (*fnctFormat)(const QVariant&);
+typedef QString (*fnctFormat)(const QVariant&, QMap<QString, QVariant>);
 
 template <typename E>
 class ModelEntityList : public IModelList {
 protected :
-    QList<E*>                  _objects;
-    Container*                 _content;
-    QStringList                _displayOrder;
-    QMap<QString, IInlinable*> _actions;
-    QMap<QString, IInlinable*> _buttons;
-    QMap<QString, QString>     _cols;
-    QMap<QString, fnctFormat>  _format;
+    QList<E*>                            _objects;
+    Container*                           _content;
+    QStringList                          _displayOrder;
+    QHash<QString, Link*>          _actions;
+    QMap<QString, IInlinable*>           _buttons;
+    QMap<QString, QString>               _cols;
+    QMap<QString, fnctFormat>            _format;
 
 public:
     ModelEntityList() {
@@ -56,7 +56,6 @@ public:
 
     virtual void fill(const QList<E*>& objects) {
         QMap<QString, QVariant> params;
-        params["type"] = "local";
         // Param url
         QString classname(E::staticMetaObject.className());
         QStringList tmp = classname.split("::");
@@ -69,6 +68,7 @@ public:
         _content->addWidget(setButton(params));
 
         Table* table = new Table();
+        table->addClass("table table-hover");
         _objects.clear();
         _objects.append(objects);
 
@@ -96,15 +96,15 @@ public:
             foreach (col, _displayOrder) {
                 QMetaProperty field = E::staticMetaObject.property(propertyToIndex[col]);
                 QVariant v = field.read(*it0);
-                Container* head = new Container(Container::NONE);
-                if (_format.contains(field.name())) {
-                    v = _format[field.name()](v);
-                }
-                head->addWidget(new Text(v.toString()));
-                row << head;
                 if (QString(field.name()) == "id") {
                     params["id"] = v;
                 }
+                Container* head = new Container(Container::NONE);
+                if (_format.contains(field.name())) {
+                    v = _format[field.name()](v, params);
+                }
+                head->addWidget(new Text(v.toString()));
+                row << head;
             }
             row << setAction(params);
             table->addRow(row);
@@ -136,15 +136,17 @@ public:
         _format[property] = fnct;
     }
 
-    void addAction(QString url, IInlinable* inlinable) {
+    void addAction(QString url, Link* inlinable) {
         _actions[url] = inlinable;
     }
 
     Container* setAction(QMap<QString, QVariant> params) {
         Container* actions = new Container();
         actions->addClass("action");
-        for (QMap<QString, IInlinable*>::const_iterator it = _actions.begin(); it != _actions.end(); it++) {
-            actions->addWidget(new Link(Helper::gen_url(it.key(), params), it.value()));
+        for (QHash<QString, Link*>::const_iterator it = _actions.begin(); it != _actions.end(); it++) {
+            Link* link = new Link(*it.value());
+            link->setUrl(Helper::gen_url(it.key(), params));
+            actions->addWidget(link);
         }
         return actions;
     }
@@ -157,7 +159,8 @@ public:
         Container* buttons = new Container(Container::NONE);
         for (QMap<QString, IInlinable*>::const_iterator it = _buttons.begin(); it != _buttons.end(); it++) {
             IWidget* link = new Link(Helper::gen_url(it.key(), params), it.value());
-            link->addClass("button");
+            link->addClass("btn");
+            link->setAttribute("rel", "shadowbox; width=500;height=390");
             buttons->addWidget(link);
         }
         return buttons;
