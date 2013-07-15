@@ -26,7 +26,7 @@ protected:
     QueryType                                   _type;
     QMap<QString, QVariant>                     _values;
     QString                                     _from;
-    QMap<QString, QMap<QString, QVariant> >     _joins;
+    QMap<QString, QMap<QString, QString> >     _joins;
     QMap<QString, QVariant>                     _where;
     QMap<QString, bool>                         _orderBy;
     QStringList                                 _groupBy;
@@ -44,8 +44,8 @@ public:
 
     Query* from(const QString& table);
     Query* into(const QString& table);
-    Query* join(const QMap<QString, QMap<QString, QVariant> > &join);
-    Query* join(const QString& table, const QMap<QString, QVariant>& onClauses);
+    Query* join(const QMap<QString, QMap<QString, QString> > &join);
+    Query* join(const QString& table, const QMap<QString, QString>& onClauses);
     Query* where(const QMap<QString, QVariant>& where);
     Query* where(const QString &field, const QVariant &val);
 
