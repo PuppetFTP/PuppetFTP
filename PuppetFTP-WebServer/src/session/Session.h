@@ -41,6 +41,7 @@ public:
 	bool                    isAuthenticated() const;
 	void                    setAuthenticated(bool auth);
 	bool                    hasCredential(const QString& right) const;
+    void                    setCredentials(const QStringList& rights);
 
 	QVariant                getAttribute(const QString& name) const;
 	QMap<QString, QVariant> getAttributes() const;

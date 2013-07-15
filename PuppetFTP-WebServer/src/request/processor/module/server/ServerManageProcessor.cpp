@@ -25,12 +25,7 @@ ServerManageProcessor::ServerManageProcessor() : AbstractRequestProcessor() {
 ServerManageProcessor::~ServerManageProcessor() {
 }
 
-QStringList ServerManageProcessor::getRequiredCrendentials() const {
-    QStringList list;
-    return list;
-}
-
-void ServerManageProcessor::process(HTTPRequest& request) {
+void ServerEditProcessor::process(HTTPRequest& request) {
     _id        = request.getParameter("id").toInt();
     Session* s = SessionManager::instance()->getSession(request.getSessionId());
     addNotify(s->getNotification("edit"));

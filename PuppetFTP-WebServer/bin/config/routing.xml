@@ -22,16 +22,21 @@
     <processor name="logout" />
   </route>
 
-  <!-- User Configuration Page -->
   <!-- Entity -->
-
   <route name="entityAdd" uri="/local/:entity/add">
     <module name="entity" />
     <processor name="entityEdit" />
     <requirements>
       <parameter name="entity" value="[\w]+" />
     </requirements>
+    <access parameter_name="entity" parameter_value="user">
+      <credential value="user_edit" />
+    </access>
+    <access parameter_name="entity" parameter_value="server">
+      <credential value="server_edit" />
+    </access>
   </route>
+
   <route name="entityEdit" uri="/local/:entity/edit/:id">
     <module name="entity" />
     <processor name="entityEdit" />
@@ -39,7 +44,14 @@
       <parameter name="entity" value="[\w]+" />
       <parameter name="id" value="[\d]+" />
     </requirements>
+    <access parameter_name="entity" parameter_value="user">
+      <credential value="user_edit" />
+    </access>
+    <access parameter_name="entity" parameter_value="server">
+      <credential value="server_edit" />
+    </access>
   </route>
+
   <route name="entityDelete" uri="/local/:entity/delete/:id">
     <module name="entity" />
     <processor name="entityDelete" />
@@ -47,7 +59,14 @@
       <parameter name="entity" value="[\w]+" />
       <parameter name="id" value="[\d]+" />
     </requirements>
+    <access parameter_name="entity" parameter_value="user">
+      <credential value="user_delete" />
+    </access>
+    <access parameter_name="entity" parameter_value="server">
+      <credential value="server_delete" />
+    </access>
   </route>
+
   <route name="entityView" uri="/local/:entity/view/:id">
     <module name="entity" />
     <processor name="entityView" />
@@ -55,19 +74,43 @@
       <parameter name="entity" value="[\w]+" />
       <parameter name="id" value="[\d]+" />
     </requirements>
+    <access parameter_name="entity" parameter_value="user">
+      <credential value="user_list" />
+    </access>
+    <access parameter_name="entity" parameter_value="server">
+      <credential value="server_list" />
+    </access>
   </route>
+
   <route name="entityList" uri="/local/:entity">
     <module name="entity" />
     <processor name="entityList" />
     <requirements>
       <parameter name="entity" value="[\w]+" />
     </requirements>
+    <access parameter_name="entity" parameter_value="user">
+      <credential value="user_list" />
+    </access>
+    <access parameter_name="entity" parameter_value="server">
+      <credential value="server_list" />
+    </access>
   </route>
 
   <!-- Import Export Configuration Page -->
   <route name="importExport" uri="/local/import-export">
     <module name="importexport" />
     <processor name="importExport" />
+    <access >
+      <credential value="user_list" />
+      <credential value="server_list" />
+      <credential value="access_list" />
+      <credential value="user_edit" />
+      <credential value="server_edit" />
+      <credential value="access_edit" />
+      <credential value="user_delete" />
+      <credential value="server_delete" />
+      <credential value="access_delete" />
+    </access>
   </route>
 
   <!-- Server -->

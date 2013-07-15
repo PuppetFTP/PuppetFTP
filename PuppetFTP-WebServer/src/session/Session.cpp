@@ -39,8 +39,11 @@ void Session::setAuthenticated(bool auth) {
 }
 
 bool Session::hasCredential(const QString& right) const {
-    qDebug() << right;
-	return true;
+    return _rights.contains(right);
+}
+
+void Session::setCredentials(const QStringList& rights) {
+    _rights = QStringList(rights);
 }
 
 QVariant Session::getAttribute(const QString& name) const {

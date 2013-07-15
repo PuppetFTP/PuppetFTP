@@ -114,7 +114,7 @@ public:
         return res.isEmpty() || res.at(0) == 0 ? 0 : res.at(0);
     }
 
-private:
+protected:
     QStringList getFields() const {
         QStringList fields;
         for (QList<QMetaProperty>::const_iterator it = _properties.begin(); it != _properties.end(); it++) {
