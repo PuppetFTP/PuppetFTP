@@ -27,9 +27,6 @@ QHash<QString, QString> ResourceProcessor::getAdditionalHeaderParameters() const
     return _headerParameters;
 }
 
-QStringList ResourceProcessor::getRequiredCrendentials() const {
-    return QStringList();
-}
 UI::Notify* ResourceProcessor::getNotify() const {
     return NULL;
 }
@@ -38,16 +35,16 @@ void ResourceProcessor::process(HTTPRequest& request) {
     _resource.setFileName("./web/" + request.getRequestedURI());
     // Content type
     QFileInfo fileinfo(_resource.fileName());
-    if (fileinfo.completeSuffix() == "png") {
+    if (fileinfo.suffix() == "png") {
         _contentType = "image/png";
     }
-    else if (fileinfo.completeSuffix() == "jpg" || fileinfo.completeSuffix() == "jpeg") {
+    else if (fileinfo.suffix() == "jpg" || fileinfo.completeSuffix() == "jpeg") {
         _contentType = "image/jpeg";
     }
-    else if (fileinfo.completeSuffix() == "js") {
+    else if (fileinfo.suffix() == "js") {
         _contentType = "application/javascript";
     }
-    else if (fileinfo.completeSuffix() == "css") {
+    else if (fileinfo.suffix() == "css") {
         _contentType = "text/css";
     }
     else {

@@ -9,11 +9,13 @@
 #include "DatabaseManager.h"
 #include "Role.h"
 #include "Input.h"
+#include "Translate.h"
 
 namespace UI {
 
 
 UserModelEditor::UserModelEditor() : ModelEntityEditor< ::Model::User >() {
+    Translate::instance()->group("editor_user");
     // Remove unsed widget
     getForm()->removeWidget("id");
     getForm()->removeWidget("created_at");
@@ -22,43 +24,50 @@ UserModelEditor::UserModelEditor() : ModelEntityEditor< ::Model::User >() {
     getForm()->removeWidget("passwd");
 
     // Set label
-    getForm()->getWidget("firstname")->setLabel("First Name");
-    getForm()->getWidget("lastname")->setLabel("Last Name");
-    getForm()->getWidget("email")->setLabel("Email");
+    getForm()->getWidget("firstname")->setLabel(Translate::instance()->tr("firstname"));
+    getForm()->getWidget("lastname")->setLabel(Translate::instance()->tr("lastname"));
+    getForm()->getWidget("email")->setLabel(Translate::instance()->tr("mail"));
 
     // Add custom attribute
     getForm()->getWidget("email")->setAttribute("autocomplete", "off");
 
     // Get role
-    ITable*         table = DatabaseManager::instance()->getTable("puppetftp_role");
+    initCustomField();
+}
+
+UserModelEditor::~UserModelEditor() {
+}
+
+void UserModelEditor::initCustomField() {
+
+    ITable* table = DatabaseManager::instance()->getTable("puppetftp_role");
     if (table == NULL) {
         // rediriger ou gérer le cas d'erreur
-
     }
-    QList<QObject*> roles = table->getAll();
 
     // Create custom widget
     InputChoice* selectRole = new InputChoice("puppetftp_role", InputChoice::SELECT);
-    selectRole->setLabel("Role");
+    {
+        selectRole->setLabel(Translate::instance()->tr("role"));
 
-    for (QList<QObject*>::const_iterator it = roles.begin(); it != roles.end(); it++) {
-        Model::Role* role = dynamic_cast<Model::Role*>(*it);
-        selectRole->addOption(QString::number(role->getId()), role->getName());
+        QList<QObject*> roles = table->getAll();
+        for (QList<QObject*>::const_iterator it = roles.begin(); it != roles.end(); it++) {
+            Model::Role* role = dynamic_cast<Model::Role*>(*it);
+            selectRole->addOption(QString::number(role->getId()), role->getName());
+        }
+        roles.clear();
     }
     getForm()->addWidget("editor", selectRole);
 
-    Input* password = new Input("passwd", Input::PASSWORD);
-    password->setLabel("Password");
-    password->setAttribute("autocomplete", "off");
 
+    Input* password = new Input("passwd", Input::PASSWORD);
+    {
+        password->setLabel(Translate::instance()->tr("password"));
+        password->setAttribute("autocomplete", "off");
+    }
     getForm()->addWidget("editor", password);
 
-    roles.clear();
     delete table;
-}
-
-
-UserModelEditor::~UserModelEditor() {
 }
 
 } // namespace UI

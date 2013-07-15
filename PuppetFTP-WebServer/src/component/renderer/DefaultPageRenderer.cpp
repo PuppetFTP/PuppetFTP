@@ -5,11 +5,11 @@
  *      Author: mtonnelier
  */
 
+#include <QDate>
 #include "DefaultPageRenderer.h"
 #include "Widget.h"
 #include "Helper.h"
-#include "Session.h"
-#include "SessionManager.h"
+#include "Translate.h"
 
 namespace UI {
 
@@ -19,17 +19,20 @@ DefaultPageRenderer::DefaultPageRenderer(const bool disabled) :
     addMetaTag("keywords", "puppet, puppetFTP, FTP, proFTPd, vsFTPd");
     addMetaTag("description", "Administration de serveur FTP");
     addMetaTag("robots", "index,follow");
-    setFavicon("/images/favicon.ico");
+    setFavicon("/img/favicon.ico");
+    addStylesheet("/css/bootstrap.min.css");
     addStylesheet("/css/style.css");
+    addStylesheet("/css/shadowbox.css");
     addStylesheet("http://fonts.googleapis.com/css?family=Muli:300");
-    addStylesheet("/css/jquery-ambiance.css");
-    addJavascript("/js/jquery-min.js");
-    addJavascript("/js/jquery-ambiance.js");
+    addStylesheet("/css/jquery.ambiance.css");
+    addJavascript("/js/jquery.min.js");
+    addJavascript("/js/jquery.ambiance.js");
+    addJavascript("/js/shadowbox.js");
     addJavascript("/js/puppetftp.js");
 
     // Header
     // Logo
-    Image* img = new Image("/images/logo.png", "puppetFTP.com");
+    Image* img = new Image("/img/logo.png", "puppetFTP.com");
     img->setId("logo_img");
     img->setAttribute("width", "350");
 
@@ -39,26 +42,27 @@ DefaultPageRenderer::DefaultPageRenderer(const bool disabled) :
     logo->addWidget(link);
     header()->addWidget(logo);
 
+    Translate::instance()->group("default");
     if (_disabledMenu == false) {
         // Menu
         Container* menu = new Container(Container::NAV);
         {
             Container* imgHome = new Container();
-            imgHome->addWidget(new Image("/images/icon_home.png", "home"));
+            imgHome->addWidget(new Image("/img/icon_home.png", Translate::instance()->tr("button_home")));
             menu->addWidget(imgHome);
 
             Container* linkHome = new Container();
             linkHome->addClass("link");
-            linkHome->addWidget(new Link(Helper::gen_url("index"), new Text("Home")));
+            linkHome->addWidget(new Link(Helper::gen_url("index"), new Text(Translate::instance()->tr("button_home"))));
             menu->addWidget(linkHome);
 
             Container* imgLogout = new Container();
-            imgLogout->addWidget(new Image("/images/icon_logout.png", "logout"));
+            imgLogout->addWidget(new Image("/img/icon_logout.png", Translate::instance()->tr("button_logout")));
             menu->addWidget(imgLogout);
 
             Container* linkLogout = new Container();
             linkLogout->addClass("link");
-            linkLogout->addWidget(new Link(Helper::gen_url("logout"), new Text("Logout")));
+            linkLogout->addWidget(new Link(Helper::gen_url("logout"), new Text(Translate::instance()->tr("button_logout"))));
             menu->addWidget(linkLogout);
         }
         header()->addWidget(menu);
@@ -71,7 +75,15 @@ DefaultPageRenderer::DefaultPageRenderer(const bool disabled) :
 
     // Footer
     Container* foot = new Container(Container::PARAGRAPH);
-    foot->addWidget(new Text("PuppetFTP © 2012 - All right reserved."));
+    QDate date      = QDate::currentDate();
+    foot->addWidget(new Text("PuppetFTP © 2012/" + date.toString("yyyy") + " - "));
+    foot->addWidget(new Text(Translate::instance()->tr("copyright")));
+    if (_disabledMenu == false) {
+        QMap<QString, QVariant> param;
+        param["entity"] = "user";
+        foot->addWidget(new Text(" - "));
+        foot->addWidget(new Link(Helper::gen_url("entityList", param), new Text(Translate::instance()->tr("manage"))));
+    }
     footer()->addWidget(foot);
 }
 

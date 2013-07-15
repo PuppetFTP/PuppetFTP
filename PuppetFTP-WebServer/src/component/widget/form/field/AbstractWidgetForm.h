@@ -13,7 +13,7 @@
 #include <QVariant>
 #include "IWidgetForm.h"
 #include "IInlinable.h"
-
+#include "Information.h"
 
 namespace UI {
 
@@ -21,7 +21,7 @@ class AbstractWidgetForm : public IWidgetForm {
 protected:
     QString                _name; // id will be equal to name, must be unique
     IWidget*               _label;
-    IWidget*               _help;
+    Information*           _help;
     QVariant               _value;
     QMap<QString, QString> _attributes;
 

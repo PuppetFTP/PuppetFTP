@@ -20,11 +20,6 @@ EntityViewProcessor::EntityViewProcessor() : AbstractRequestProcessor() {
 EntityViewProcessor::~EntityViewProcessor() {
 }
 
-QStringList EntityViewProcessor::getRequiredCrendentials() const {
-    QStringList list;
-    return list;
-}
-
 void EntityViewProcessor::process(HTTPRequest& request) {
     _type = request.getParameter("type").toString();
 }

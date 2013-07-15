@@ -18,7 +18,7 @@ QString slugify(const QString& input) {
                           .replace(QRegExp("^-+|-+$"), "");
 }
 
-QString formatQdateTime(const QVariant& date) {
+QString formatQdateTime(const QVariant& date, QMap<QString, QVariant> params) {
     return date.toDateTime().toString("yyyy-MM-dd hh:mm:ss");
 }
 

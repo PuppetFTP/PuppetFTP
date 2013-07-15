@@ -17,13 +17,11 @@ AbstractWidget::~AbstractWidget() {
     removeAllAttributes();
 }
 
-  //QVariant AbstractWidget::getValue()                        const                 { return _value;                }
 QString  AbstractWidget::getAttribute(const QString& name) const                 { return _attributes[name];     }
 QMap<QString, QString>  AbstractWidget::getAttributes()    const                 { return _attributes;           }
 QString  AbstractWidget::getId()                           const                 { return getAttribute("id");    }
 QString  AbstractWidget::getClasses()                      const                 { return getAttribute("class"); }
 
-  //void     AbstractWidget::setValue(const QVariant& value)                         { _value = value;                }
 void     AbstractWidget::setAttribute(const QString& name, const QString& value) { _attributes[name] = value;     }
 void     AbstractWidget::removeAttribute(const QString& name)                    { _attributes.remove(name);      }
 void     AbstractWidget::removeAllAttributes()                                   { _attributes.clear();           }

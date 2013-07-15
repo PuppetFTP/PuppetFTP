@@ -1,3 +1,10 @@
+/*
+ * ServerUserListProcessor.h
+ *
+ *  Created on: 17 juin 2013
+ *      Author: mtonnelier
+ */
+
 #ifndef SERVERUSERLISTPROCESSOR_H
 #define SERVERUSERLISTPROCESSOR_H
 
@@ -16,7 +23,6 @@ public:
     ServerUserListProcessor();
     virtual ~ServerUserListProcessor();
 
-    QStringList getRequiredCrendentials() const;
     void        process(HTTPRequest& request);
     QByteArray  render() const;
 };

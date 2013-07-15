@@ -47,6 +47,7 @@ bool RequestDispatcher::configure() {
     RequestProcessorFactory::instance()->registerProcessor<ConnectionProcessor>("login");
     RequestProcessorFactory::instance()->registerProcessor<DisconnectProcessor>("logout");
     RequestProcessorFactory::instance()->registerProcessor<IndexProcessor>("index");
+    RequestProcessorFactory::instance()->registerProcessor<IndexProcessor>("lang");
 
     // Entity
     RequestProcessorFactory::instance()->registerProcessor<EntityListProcessor>("entityList");
@@ -57,7 +58,7 @@ bool RequestDispatcher::configure() {
     RequestProcessorFactory::instance()->registerProcessor<UnavailableProcessor>("importExport");
 
     // Server
-    RequestProcessorFactory::instance()->registerProcessor<ServerEditProcessor>("serverEdit");
+    RequestProcessorFactory::instance()->registerProcessor<ServerManageProcessor>("serverManage");
     RequestProcessorFactory::instance()->registerProcessor<ServerListProcessor>("serverList");
     RequestProcessorFactory::instance()->registerProcessor<ServerServiceProcessor>("serverService");
     RequestProcessorFactory::instance()->registerProcessor<UnavailableProcessor>("serverUserList");
@@ -108,16 +109,16 @@ HTTPResponse RequestDispatcher::dispatch(HTTPRequest& request) {
         }
         else {
             request.parseData(*route);
+            if (canAccessToRoute(route, *session, request) == false) {
+                qDebug() << "Access is not permitted";
+                response.forbidden();
+                return response;
+            }
             processor = RequestProcessorFactory::instance()->getProcessor(route->getProcessor());
         }
         if (processor == 0) {
             qDebug() << "No processor can be found for route" << route->getName() << "(request:" << request.getRequestedURI() << ")";
             response.error("Cannot treat the request: " + request.getRequestedURI());
-            return response;
-        }
-        if (canAccessToProcessor(processor, *session) == false) {
-            qDebug() << "Access is not permitted";
-            response.forbidden();
             return response;
         }
         processor->process(request);
@@ -143,17 +144,32 @@ HTTPResponse RequestDispatcher::dispatch(HTTPRequest& request) {
     return response;
 }
 
-bool RequestDispatcher::canAccessToProcessor(IRequestProcessor* processor, const Session& session) const {
-    QStringList credentials = processor->getRequiredCrendentials();
-    if (credentials.size() > 0) {
-        for (QStringList::iterator it = credentials.begin(); it != credentials.end(); it++) {
-            if (session.hasCredential(*it) == true) {
-                return true;
+bool RequestDispatcher::canAccessToRoute(Routing::Route* route, const Session& session, const HTTPRequest& request) const {
+    QHash<QPair<QString, QString>, QStringList> parameterizedCredentials = route->getRequiredCredentials();
+    if (parameterizedCredentials.size() > 0) {
+        QPair<QString, QString> param;
+        foreach (param, parameterizedCredentials.keys()) {
+            if (request.getParameter(param.first).toString() == param.second) {
+                QStringList credentials = parameterizedCredentials[param];
+                foreach (const QString& credential, credentials) {
+                    if (session.hasCredential(credential)) {
+                        return true;
+                    }
+                }
+                return false;
             }
         }
     }
-    else {
-        return true;
+
+    QStringList credentials = route->getDefaultRequiredCredentials();
+    if (credentials.size() > 0) {
+        foreach (const QString& credential, credentials) {
+            if (session.hasCredential(credential)) {
+                return true;
+            }
+        }
+        return false;
     }
-    return false;
+
+    return true;
 }

@@ -3,29 +3,23 @@
 namespace UI {
 
 Image::Image() {
-    _url   = "";
-    _title = "";
 }
 
 Image::Image(const QString& url) {
-    _url   = url;
-    _title = "";
+    setAttribute("src", url);
 }
 
 Image::Image(const QString& url, const QString& title) {
-    _url   = url;
-    _title = title;
+    setAttribute("src", url);
+    setAttribute("alt", title);
+    setAttribute("title", title);
 }
 
 Image::Image(const Image& obj) {
-    _title      = obj.getTitle();
-    _url        = obj.getUrl();
     _attributes = obj.getAttributes();
 }
 
 Image& Image::operator=(const Image& obj) {
-    _title      = obj.getTitle();
-    _url        = obj.getUrl();
     _attributes = obj.getAttributes();
     return *this;
 }
@@ -33,21 +27,15 @@ Image& Image::operator=(const Image& obj) {
 Image::~Image() {
 }
 
-void            Image::setTitle(const QString& title)   { _title = title; }
-void            Image::setUrl(const QString& url)       { _url = url;     }
-QString         Image::getTitle()                 const { return _title;  }
-QString         Image::getUrl()                   const { return _url;    }
+void            Image::setTitle(const QString& title)   { setAttribute("alt", title); }
+void            Image::setUrl(const QString& url)       { setAttribute("src", url);   }
+QString         Image::getTitle()                 const { return getAttribute("alt"); }
+QString         Image::getUrl()                   const { return getAttribute("src"); }
 
 QString         Image::render()                   const {
     QString res;
 
-    res.append("<img" + renderAttribute() + " src=\"");
-    res.append(_url);
-    if (!_title.isEmpty()) {
-        res.append("\" alt=\"");
-        res.append(_title);
-    }
-    res.append("\"/>");
+    res.append("<img" + renderAttribute() + " />");
     return res;
 }
 

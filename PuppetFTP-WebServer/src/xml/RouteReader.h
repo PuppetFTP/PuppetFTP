@@ -18,6 +18,7 @@ private:
     RouteReader();
 
     Routing::Route*           _currentRoute;
+    QPair<QString, QString>*  _currentParameter;
     QList<Routing::Route*>    _results;
 
 public:

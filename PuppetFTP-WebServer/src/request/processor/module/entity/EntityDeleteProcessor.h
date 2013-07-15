@@ -16,11 +16,11 @@ class EntityDeleteProcessor: public AbstractRequestProcessor {
 protected:
     QString     _entityName;
     int         _id;
+    bool        _close;
 public:
     EntityDeleteProcessor();
     virtual ~EntityDeleteProcessor();
 
-    QStringList getRequiredCrendentials() const;
     void        process(HTTPRequest& request);
     QByteArray  render() const;
 };

@@ -26,7 +26,6 @@ public:
     QString                 getContentType() const;
     bool                    hasAdditionalHeaderParameters() const;
     QHash<QString, QString> getAdditionalHeaderParameters() const;
-    QStringList             getRequiredCrendentials() const;
     UI::Notify*             getNotify() const;
 
     void                    process(HTTPRequest& request);

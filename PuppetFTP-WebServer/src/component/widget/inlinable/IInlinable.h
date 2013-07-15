@@ -1,6 +1,8 @@
 #ifndef IINLINABLE_H
 #define IINLINABLE_H
 
+#include "IWidget.h"
+
 namespace UI {
 
 class IInlinable {

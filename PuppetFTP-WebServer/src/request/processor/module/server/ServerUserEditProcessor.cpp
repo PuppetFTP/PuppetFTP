@@ -1,5 +1,4 @@
 #include "ServerUserEditProcessor.h"
 
-ServerUserEditProcessor::ServerUserEditProcessor()
-{
+ServerUserEditProcessor::ServerUserEditProcessor() {
 }

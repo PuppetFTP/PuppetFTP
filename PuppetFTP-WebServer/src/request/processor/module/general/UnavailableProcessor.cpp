@@ -1,16 +1,12 @@
 #include "UnavailableProcessor.h"
 #include "DefaultPageRenderer.h"
 #include "Widget.h"
+#include "Translate.h"
 
 UnavailableProcessor::UnavailableProcessor() : AbstractRequestProcessor() {
 }
 
 UnavailableProcessor::~UnavailableProcessor() {
-}
-
-QStringList UnavailableProcessor::getRequiredCrendentials() const {
-    QStringList list;
-    return list;
 }
 
 void UnavailableProcessor::process(HTTPRequest& request) {
@@ -19,13 +15,14 @@ void UnavailableProcessor::process(HTTPRequest& request) {
 QByteArray UnavailableProcessor::render() const {
     UI::DefaultPageRenderer page;
 
+    Translate::instance()->group("unavailable");
 
-    page.setTitle("PuppetFTP - Unavailable page");
+    page.setTitle("PuppetFTP - "+Translate::instance()->tr("title"));
 
     UI::Container* divContent = new UI::Container();
     divContent->setId("unavailable");
-    divContent->addWidget(new UI::Title("This page is currently unavailable in this version product."));
-    divContent->addWidget(new UI::Image("/images/under_construction.jpg"));
+    divContent->addWidget(new UI::Title(Translate::instance()->tr("text")));
+    divContent->addWidget(new UI::Image("/img/under_construction.jpg"));
 
     page.body()->addWidget(divContent);
     return page.render();

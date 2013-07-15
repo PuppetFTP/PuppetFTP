@@ -18,6 +18,9 @@ class UserModelEditor : public ModelEntityEditor< ::Model::User > {
 public:
     UserModelEditor();
     virtual ~UserModelEditor();
+
+private:
+    void initCustomField();
 };
 
 } // namespace UI

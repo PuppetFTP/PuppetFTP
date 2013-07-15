@@ -9,7 +9,6 @@ namespace UI {
 class Link : public AbstractWidget, public IInlinable {
 protected:
     IInlinable*     _widget;
-    QString         _url;
 
 private:
     Link();
