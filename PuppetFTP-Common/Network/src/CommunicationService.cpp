@@ -58,8 +58,6 @@ void CommunicationService::configure(INetworkAccessProvider::MODE::mode mode, co
         throw CommunicationException("No provider defined.");
     }
     // Register custom type into QMetaType system
-    qRegisterMetaType<IServerConfigurationProvider::INTERNET_PROTOCOL::ip>("IServerConfigurationProvider_INTERNET_PROTOCOL");
-    qRegisterMetaType<IServerConfigurationProvider::VIRTUAL_USER_AUTHENTICATION::auth>("IServerConfigurationProvider_VIRTUAL_USER_AUTHENTICATION");
     qRegisterMetaTypeStreamOperators<int>("IServerConfigurationProvider_INTERNET_PROTOCOL");
     qRegisterMetaTypeStreamOperators<int>("IServerConfigurationProvider_VIRTUAL_USER_AUTHENTICATION");
     // Configure provider
@@ -71,8 +69,10 @@ void CommunicationService::configure(INetworkAccessProvider::MODE::mode mode, co
 }
 
 void CommunicationService::dispose() {
+    _lock.lock();
     if (_instance != 0) {
-        delete _instance;
-        _instance = 0;
+    	delete _instance;
+    	_instance = 0;
     }
+    _lock.unlock();
 }

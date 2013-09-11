@@ -67,10 +67,6 @@ public:
      */
     virtual void registerServiceProvider(const QString& name, IServerConfigurationProvider* provider) = 0;
     /**
-     * Unregister the given service provider from the network layer.
-     */
-    virtual void unregisterServiceProvider(IServerConfigurationProvider* provider) = 0;
-    /**
      * Unregister the service provider registered as 'name'.
      */
     virtual void unregisterServiceProvider(const QString& name) = 0;
