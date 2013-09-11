@@ -5,14 +5,14 @@ DESTDIR = $$DAEMON_PLUGIN_PATH
 QT += core
 CONFIG += qt plugin
 
-
 INCLUDEPATH += $$PWD
-INCLUDEPATH += $$LIBRARY_SRC_TREE/abstractplugin
-INCLUDEPATH += $$LIBRARY_SRC_TREE/serverconfig
 INCLUDEPATH += $$PLUGIN_SRC_TREE
+INCLUDEPATH += $$LIBRARY_SRC_TREE/utils
+INCLUDEPATH += $$LIBRARY_SRC_TREE/pluginsystem
+INCLUDEPATH += $$LIBRARY_SRC_TREE/metabridge
 INCLUDEPATH += $$NETWORK_SRC_TREE
-INCLUDEPATH += $$NETWORK_SRC_TREE/CORBAImpl/interface
 INCLUDEPATH += $$NETWORK_SRC_TREE/exception
+INCLUDEPATH += $$NETWORK_SRC_TREE/CORBAImpl/interface
 
 HEADERS += $$PWD/abstractauthentication.h
 HEADERS += $$PWD/chrootlist.h
@@ -25,6 +25,7 @@ SOURCES += $$PWD/chrootlist.cpp
 SOURCES += $$PWD/pamauthentication.cpp
 SOURCES += $$PWD/servicemanager.cpp
 
-LIBS += -lAbstractplugin
+LIBS += -lPluginSystem
+LIBS += -lMetaBridge
 LIBS += -lCommunication
-LIBS += -lServerconfig
+LIBS += -lUtils

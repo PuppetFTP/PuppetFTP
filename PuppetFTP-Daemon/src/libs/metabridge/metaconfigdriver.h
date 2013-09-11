@@ -1,32 +1,20 @@
-/*
- * ServiceClientAdapter.h
- *
- *  Created on: 9 nov. 2012
- *      Author: laplace
- */
+#ifndef METABRIDGEDRIVER_H
+#define METABRIDGEDRIVER_H
 
-#ifndef SERVICECLIENTADAPTER_H_
-#define SERVICECLIENTADAPTER_H_
-
-#include <qglobal.h>
 #include <QString>
 #include <QVariant>
-#include <QByteArray>
-#include "ServerConfigHandler.hh"
+#include <QStringList>
+#include <QCache>
+
+#include "metaconfig.h"
+#include "metaplugin.h"
+#include "lasterror.h"
 #include "IServerConfigurationProvider.h"
 
-namespace CORBA {
-namespace Impl {
-
-class ServiceClientAdapter : public IServerConfigurationProvider {
-private:
-    ServerConfigHandler_var _handler;
-
-    ServiceClientAdapter();
-
+class MetaConfigDriver : public LastError, public IServerConfigurationProvider
+{
 public:
-    ServiceClientAdapter(const ServerConfigHandler_var& handler);
-    ~ServiceClientAdapter();
+    MetaConfigDriver();
 
     bool loadPlugin(const QString & pluginId, const QString & pluginName);
     bool unloadPlugin(const QString & pluginId);
@@ -41,9 +29,12 @@ public:
 
     QString lastErrorString();
     bool hasFailure();
+
+private:
+    MetaConfig * tryToGetMetaConfig(const QString & pluginId);
+
+private:
+    QCache < QString, MetaConfig > m_cache;
 };
 
-} // namespace Impl
-} // namespace CORBA
-
-#endif // SERVICECLIENTADAPTER_H_
+#endif // METABRIDGEDRIVER_H

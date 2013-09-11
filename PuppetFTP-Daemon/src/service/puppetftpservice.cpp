@@ -3,9 +3,6 @@
 #include "CommunicationService.h"
 #include "CORBAImpl/Provider.h"
 #include "CommunicationException.h"
-#include "iabstractplugin.h"
-#include "abstractplugin.h"
-#include "abstractpluginexception.h"
 
 PuppetFtpService::PuppetFtpService(int argc, char ** argv)
     : QtService < QCoreApplication > (argc, argv, SERVICE_NAME)
@@ -22,38 +19,36 @@ void PuppetFtpService::start()
 {
     QCoreApplication * app = application();
     ServerConfig     * config = ServerConfig::getInstance();
-    IAbstractPlugin  * plugin;
 
     config->load();
     logMessage(QString("Valid conf file : %1").arg(config->isValid()), Information);
     logMessage(QString("Conf file : %1").arg(config->getSettings().fileName()), Information);
     logMessage(QString("Use bin : %1").arg(config->get(ServerConfig::binPathName)), Information);
 
-    // init configuration handler
+    // Inititiate configuration handler
     QMap<QString, QString> options;
     options["InitRef"] = QString("NameService=corbaloc:iiop:%1:%2/NameService").arg(config->get(ServerConfig::omninameAddrName),
                                                                                     config->get(ServerConfig::omninamePortName));
 
     logMessage(QString(QLatin1String("InitRef is: %1")).arg(options["InitRef"]), Information);
     logMessage(QString(QLatin1String("Use configuration file: %1")).arg(config->get(ServerConfig::configFileName)), Information);
-    logMessage(QString(QLatin1String("Use service binary: %1")).arg(config->get(ServerConfig::binPathName)), Information);
-
     // Configure configuration layer...
-try {
-    CommunicationService::setProvider(new CORBA::Impl::Provider());
-    CommunicationService::configure(INetworkAccessProvider::MODE::SERVER, options);
+    try {
+        CommunicationService::setProvider(new CORBA::Impl::Provider());
+        CommunicationService::configure(INetworkAccessProvider::MODE::SERVER, options);
 
-    // Add a server configuration handler...
-    plugin = AbstractPlugin::load(*config);
-    m_server = plugin->getServerConfigurationProvider();
+        QString serverName = config->get(ServerConfig::serverNameName);
+        if (serverName.isEmpty()) {
+            logMessage(QLatin1String("Unable to find serverName in puppetFTP configurationFile: %1"), Error);
+            stop();
+            return;
+        }
 
-    CommunicationService::provider()->registerServiceProvider(m_server->getServerName(), m_server);
-    }
-    catch (AbstractPluginException e) {
-        logMessage(e.toQString(), Error);
-    }
-    catch (CommunicationException e) {
+        CommunicationService::provider()->registerServiceProvider(serverName, (IServerConfigurationProvider *)&m_metaConfigDriver);
+    } catch (CommunicationException e) {
         logMessage(QString(QLatin1String("Unable to register object: %1")).arg(e.message()), Error);
+        stop();
+        return;
     }
 
     app->exec();
@@ -70,6 +65,7 @@ void PuppetFtpService::stop()
 }
 
 #ifndef QT_NO_DEBUG
+#include <QDebug>
 void PuppetFtpService::logMessage(const QString & message, MessageType type, int id, uint category, const QByteArray & data)
 {
     QString logType;

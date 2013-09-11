@@ -25,6 +25,7 @@ SOURCES     += src/CommunicationService.cpp
 SOURCES     += src/CORBAImpl/Provider.cpp
 SOURCES     += src/CORBAImpl/ServiceAdapter.cpp
 SOURCES     += src/CORBAImpl/ServiceClientAdapter.cpp
+SOURCES     += src/CORBAImpl/typeconverter.cpp
 SOURCES     += src/CORBAImpl/interface/ServerConfigHandlerSK.cc
 SOURCES     += src/exception/CommunicationException.cpp
 
@@ -34,6 +35,7 @@ HEADERS     += src/CommunicationService.h
 HEADERS     += src/CORBAImpl/Provider.h
 HEADERS     += src/CORBAImpl/ServiceAdapter.h
 HEADERS     += src/CORBAImpl/ServiceClientAdapter.h
+HEADERS     += src/CORBAImpl/typeconverter.h
 HEADERS     += src/CORBAImpl/interface/ServerConfigHandler.hh
 HEADERS     += src/exception/CommunicationException.h
 

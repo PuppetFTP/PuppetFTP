@@ -9,4 +9,3 @@ SOURCES += proftpdparser.cpp
 HEADERS += proftpd.h
 HEADERS += proftpdconfig.h
 HEADERS += proftpdparser.h
-

@@ -107,90 +107,6 @@ public:
   static _core_attr const char* _PD_repoId;
 
   // Other IDL defined within this scope.
-  enum INTERNET_PROTOCOL { IPv4, IPv6, undefined /*, __max_INTERNET_PROTOCOL=0xffffffff */ };
-  typedef INTERNET_PROTOCOL& INTERNET_PROTOCOL_out;
-
-  enum VIRTUAL_USER_AUTHENTICATION { Anonymous /*, __max_VIRTUAL_USER_AUTHENTICATION=0xffffffff */ };
-  typedef VIRTUAL_USER_AUTHENTICATION& VIRTUAL_USER_AUTHENTICATION_out;
-
-  class ConfigurationException : public ::CORBA::UserException {
-  public:
-    
-    ::CORBA::String_member why;
-
-  
-
-    inline ConfigurationException() {
-      pd_insertToAnyFn    = insertToAnyFn;
-      pd_insertToAnyFnNCP = insertToAnyFnNCP;
-    }
-    ConfigurationException(const ConfigurationException&);
-    ConfigurationException(const char* i_why);
-    ConfigurationException& operator=(const ConfigurationException&);
-    virtual ~ConfigurationException();
-    virtual void _raise() const;
-    static ConfigurationException* _downcast(::CORBA::Exception*);
-    static const ConfigurationException* _downcast(const ::CORBA::Exception*);
-    static inline ConfigurationException* _narrow(::CORBA::Exception* _e) {
-      return _downcast(_e);
-    }
-    
-    void operator>>=(cdrStream&) const ;
-    void operator<<=(cdrStream&) ;
-
-    static _core_attr insertExceptionToAny    insertToAnyFn;
-    static _core_attr insertExceptionToAnyNCP insertToAnyFnNCP;
-
-    virtual ::CORBA::Exception* _NP_duplicate() const;
-
-    static _core_attr const char* _PD_repoId;
-    static _core_attr const char* _PD_typeId;
-
-  private:
-    virtual const char* _NP_typeId() const;
-    virtual const char* _NP_repoId(int*) const;
-    virtual void _NP_marshal(cdrStream&) const;
-  };
-
-  class ServerException : public ::CORBA::UserException {
-  public:
-    
-    ::CORBA::String_member why;
-
-  
-
-    inline ServerException() {
-      pd_insertToAnyFn    = insertToAnyFn;
-      pd_insertToAnyFnNCP = insertToAnyFnNCP;
-    }
-    ServerException(const ServerException&);
-    ServerException(const char* i_why);
-    ServerException& operator=(const ServerException&);
-    virtual ~ServerException();
-    virtual void _raise() const;
-    static ServerException* _downcast(::CORBA::Exception*);
-    static const ServerException* _downcast(const ::CORBA::Exception*);
-    static inline ServerException* _narrow(::CORBA::Exception* _e) {
-      return _downcast(_e);
-    }
-    
-    void operator>>=(cdrStream&) const ;
-    void operator<<=(cdrStream&) ;
-
-    static _core_attr insertExceptionToAny    insertToAnyFn;
-    static _core_attr insertExceptionToAnyNCP insertToAnyFnNCP;
-
-    virtual ::CORBA::Exception* _NP_duplicate() const;
-
-    static _core_attr const char* _PD_repoId;
-    static _core_attr const char* _PD_typeId;
-
-  private:
-    virtual const char* _NP_typeId() const;
-    virtual const char* _NP_repoId(int*) const;
-    virtual void _NP_marshal(cdrStream&) const;
-  };
-
   class StringSequence_var;
 
   class StringSequence : public _CORBA_Unbounded_Sequence_String {
@@ -300,6 +216,115 @@ public:
     StringSequence_out& operator=(const StringSequence_var&);
   };
 
+  class ByteSequence_var;
+
+  class ByteSequence : public _CORBA_Unbounded_Sequence_Octet {
+  public:
+    typedef ByteSequence_var _var_type;
+    inline ByteSequence() {}
+    inline ByteSequence(const ByteSequence& _s)
+      : _CORBA_Unbounded_Sequence_Octet(_s) {}
+
+    inline ByteSequence(_CORBA_ULong _max)
+      : _CORBA_Unbounded_Sequence_Octet(_max) {}
+    inline ByteSequence(_CORBA_ULong _max, _CORBA_ULong _len, ::CORBA::Octet* _val, _CORBA_Boolean _rel=0)
+      : _CORBA_Unbounded_Sequence_Octet(_max, _len, _val, _rel) {}
+
+  
+
+    inline ByteSequence& operator = (const ByteSequence& _s) {
+      _CORBA_Unbounded_Sequence_Octet::operator=(_s);
+      return *this;
+    }
+  };
+
+  class ByteSequence_out;
+
+  class ByteSequence_var {
+  public:
+    inline ByteSequence_var() : _pd_seq(0) {}
+    inline ByteSequence_var(ByteSequence* _s) : _pd_seq(_s) {}
+    inline ByteSequence_var(const ByteSequence_var& _s) {
+      if( _s._pd_seq )  _pd_seq = new ByteSequence(*_s._pd_seq);
+      else              _pd_seq = 0;
+    }
+    inline ~ByteSequence_var() { if( _pd_seq )  delete _pd_seq; }
+      
+    inline ByteSequence_var& operator = (ByteSequence* _s) {
+      if( _pd_seq )  delete _pd_seq;
+      _pd_seq = _s;
+      return *this;
+    }
+    inline ByteSequence_var& operator = (const ByteSequence_var& _s) {
+      if( _s._pd_seq ) {
+        if( !_pd_seq )  _pd_seq = new ByteSequence;
+        *_pd_seq = *_s._pd_seq;
+      } else if( _pd_seq ) {
+        delete _pd_seq;
+        _pd_seq = 0;
+      }
+      return *this;
+    }
+    inline ::CORBA::Octet& operator [] (_CORBA_ULong _s) {
+      return (*_pd_seq)[_s];
+    }
+
+  
+
+    inline ByteSequence* operator -> () { return _pd_seq; }
+    inline const ByteSequence* operator -> () const { return _pd_seq; }
+#if defined(__GNUG__)
+    inline operator ByteSequence& () const { return *_pd_seq; }
+#else
+    inline operator const ByteSequence& () const { return *_pd_seq; }
+    inline operator ByteSequence& () { return *_pd_seq; }
+#endif
+      
+    inline const ByteSequence& in() const { return *_pd_seq; }
+    inline ByteSequence&       inout()    { return *_pd_seq; }
+    inline ByteSequence*&      out() {
+      if( _pd_seq ) { delete _pd_seq; _pd_seq = 0; }
+      return _pd_seq;
+    }
+    inline ByteSequence* _retn() { ByteSequence* tmp = _pd_seq; _pd_seq = 0; return tmp; }
+      
+    friend class ByteSequence_out;
+    
+  private:
+    ByteSequence* _pd_seq;
+  };
+
+  class ByteSequence_out {
+  public:
+    inline ByteSequence_out(ByteSequence*& _s) : _data(_s) { _data = 0; }
+    inline ByteSequence_out(ByteSequence_var& _s)
+      : _data(_s._pd_seq) { _s = (ByteSequence*) 0; }
+    inline ByteSequence_out(const ByteSequence_out& _s) : _data(_s._data) {}
+    inline ByteSequence_out& operator = (const ByteSequence_out& _s) {
+      _data = _s._data;
+      return *this;
+    }
+    inline ByteSequence_out& operator = (ByteSequence* _s) {
+      _data = _s;
+      return *this;
+    }
+    inline operator ByteSequence*&()  { return _data; }
+    inline ByteSequence*& ptr()       { return _data; }
+    inline ByteSequence* operator->() { return _data; }
+
+    inline ::CORBA::Octet& operator [] (_CORBA_ULong _i) {
+      return (*_data)[_i];
+    }
+
+  
+
+    ByteSequence*& _data;
+
+  private:
+    ByteSequence_out();
+    ByteSequence_out& operator=(const ByteSequence_var&);
+  };
+
 
 };
 
@@ -308,39 +333,15 @@ class _objref_ServerConfigHandler :
   public virtual omniObjRef
 {
 public:
-  char* getServerName();
-  void setServerName(const char* name);
-  char* getServerAddr();
-  ::CORBA::UShort getServerPort();
-  void setServerPort(::CORBA::UShort port);
-  ServerConfigHandler::INTERNET_PROTOCOL getInternetProtocol();
-  void setInternetProtocol(::ServerConfigHandler::INTERNET_PROTOCOL ip);
-  ::CORBA::UShort getIdleTimeout();
-  void setIdleTimeout(::CORBA::UShort to);
-  ::CORBA::UShort getDataConnectionTimeout();
-  void setDataConnectionTimeout(::CORBA::UShort to);
-  ::CORBA::Boolean isUsingSystemUser();
-  void useSystemUser(::CORBA::Boolean use);
-  ::CORBA::Boolean isAnonymousAllowed();
-  void allowAnonymous(::CORBA::Boolean allow);
-  ::CORBA::Boolean isAnonymousUploadAllowed();
-  void allowAnonymousUpload(::CORBA::Boolean allow);
-  ::CORBA::Boolean isAnonymousCreateDirAllowed();
-  void allowAnonymousCreateDir(::CORBA::Boolean allow);
-  ServerConfigHandler::VIRTUAL_USER_AUTHENTICATION getVirtualUserAuthentication();
-  void setVirtualUserAuthentication(::ServerConfigHandler::VIRTUAL_USER_AUTHENTICATION mode);
-  void addVirtualUser(const char* user, const char* password);
-  void remVirtualUser(const char* user);
-  ServerConfigHandler::StringSequence* virtualUsers();
-  char* getWelcomeMessage();
-  void setWelcomeMessage(const char* msg);
-  char* getLogFile();
-  void importConfiguration(const char* configuration);
-  char* exportConfiguration();
-  void resetConfiguration();
-  void start();
-  void stop();
-  void restart();
+  ::CORBA::Boolean loadPlugin(const char* pluginId, const char* pluginName);
+  ::CORBA::Boolean unloadPlugin(const char* pluginId);
+  ::CORBA::Boolean set(const char* pluginId, const char* propertyName, const ::ServerConfigHandler::ByteSequence& value);
+  ServerConfigHandler::ByteSequence* get(const char* pluginId, const char* propertyName);
+  ServerConfigHandler::ByteSequence* exec(const char* pluginId, const char* taskName, const ::ServerConfigHandler::ByteSequence& argumentList);
+  ServerConfigHandler::StringSequence* metaProperties(const char* pluginId);
+  ServerConfigHandler::StringSequence* metaTasks(const char* pluginId);
+  char* lastErrorString();
+  ::CORBA::Boolean hasFailure();
 
   inline _objref_ServerConfigHandler()  { _PR_setobj(0); }  // nil
   _objref_ServerConfigHandler(omniIOR*, omniIdentity*);
@@ -374,39 +375,15 @@ class _impl_ServerConfigHandler :
 public:
   virtual ~_impl_ServerConfigHandler();
 
-  virtual char* getServerName() = 0;
-  virtual void setServerName(const char* name) = 0;
-  virtual char* getServerAddr() = 0;
-  virtual ::CORBA::UShort getServerPort() = 0;
-  virtual void setServerPort(::CORBA::UShort port) = 0;
-  virtual ServerConfigHandler::INTERNET_PROTOCOL getInternetProtocol() = 0;
-  virtual void setInternetProtocol(::ServerConfigHandler::INTERNET_PROTOCOL ip) = 0;
-  virtual ::CORBA::UShort getIdleTimeout() = 0;
-  virtual void setIdleTimeout(::CORBA::UShort to) = 0;
-  virtual ::CORBA::UShort getDataConnectionTimeout() = 0;
-  virtual void setDataConnectionTimeout(::CORBA::UShort to) = 0;
-  virtual ::CORBA::Boolean isUsingSystemUser() = 0;
-  virtual void useSystemUser(::CORBA::Boolean use) = 0;
-  virtual ::CORBA::Boolean isAnonymousAllowed() = 0;
-  virtual void allowAnonymous(::CORBA::Boolean allow) = 0;
-  virtual ::CORBA::Boolean isAnonymousUploadAllowed() = 0;
-  virtual void allowAnonymousUpload(::CORBA::Boolean allow) = 0;
-  virtual ::CORBA::Boolean isAnonymousCreateDirAllowed() = 0;
-  virtual void allowAnonymousCreateDir(::CORBA::Boolean allow) = 0;
-  virtual ServerConfigHandler::VIRTUAL_USER_AUTHENTICATION getVirtualUserAuthentication() = 0;
-  virtual void setVirtualUserAuthentication(::ServerConfigHandler::VIRTUAL_USER_AUTHENTICATION mode) = 0;
-  virtual void addVirtualUser(const char* user, const char* password) = 0;
-  virtual void remVirtualUser(const char* user) = 0;
-  virtual ServerConfigHandler::StringSequence* virtualUsers() = 0;
-  virtual char* getWelcomeMessage() = 0;
-  virtual void setWelcomeMessage(const char* msg) = 0;
-  virtual char* getLogFile() = 0;
-  virtual void importConfiguration(const char* configuration) = 0;
-  virtual char* exportConfiguration() = 0;
-  virtual void resetConfiguration() = 0;
-  virtual void start() = 0;
-  virtual void stop() = 0;
-  virtual void restart() = 0;
+  virtual ::CORBA::Boolean loadPlugin(const char* pluginId, const char* pluginName) = 0;
+  virtual ::CORBA::Boolean unloadPlugin(const char* pluginId) = 0;
+  virtual ::CORBA::Boolean set(const char* pluginId, const char* propertyName, const ::ServerConfigHandler::ByteSequence& value) = 0;
+  virtual ServerConfigHandler::ByteSequence* get(const char* pluginId, const char* propertyName) = 0;
+  virtual ServerConfigHandler::ByteSequence* exec(const char* pluginId, const char* taskName, const ::ServerConfigHandler::ByteSequence& argumentList) = 0;
+  virtual ServerConfigHandler::StringSequence* metaProperties(const char* pluginId) = 0;
+  virtual ServerConfigHandler::StringSequence* metaTasks(const char* pluginId) = 0;
+  virtual char* lastErrorString() = 0;
+  virtual ::CORBA::Boolean hasFailure() = 0;
   
 public:  // Really protected, workaround for xlC
   virtual _CORBA_Boolean _dispatch(omniCallHandle&);
@@ -440,38 +417,6 @@ public:
 
 #undef _core_attr
 #undef _dyn_attr
-
-inline void operator >>=(ServerConfigHandler::INTERNET_PROTOCOL _e, cdrStream& s) {
-  ::operator>>=((::CORBA::ULong)_e, s);
-}
-
-inline void operator <<= (ServerConfigHandler::INTERNET_PROTOCOL& _e, cdrStream& s) {
-  ::CORBA::ULong _0RL_e;
-  ::operator<<=(_0RL_e,s);
-  if (_0RL_e <= ServerConfigHandler::undefined) {
-    _e = (ServerConfigHandler::INTERNET_PROTOCOL) _0RL_e;
-  }
-  else {
-    OMNIORB_THROW(MARSHAL,_OMNI_NS(MARSHAL_InvalidEnumValue),
-                  (::CORBA::CompletionStatus)s.completion());
-  }
-}
-
-inline void operator >>=(ServerConfigHandler::VIRTUAL_USER_AUTHENTICATION _e, cdrStream& s) {
-  ::operator>>=((::CORBA::ULong)_e, s);
-}
-
-inline void operator <<= (ServerConfigHandler::VIRTUAL_USER_AUTHENTICATION& _e, cdrStream& s) {
-  ::CORBA::ULong _0RL_e;
-  ::operator<<=(_0RL_e,s);
-  if (_0RL_e <= ServerConfigHandler::Anonymous) {
-    _e = (ServerConfigHandler::VIRTUAL_USER_AUTHENTICATION) _0RL_e;
-  }
-  else {
-    OMNIORB_THROW(MARSHAL,_OMNI_NS(MARSHAL_InvalidEnumValue),
-                  (::CORBA::CompletionStatus)s.completion());
-  }
-}
 
 
 

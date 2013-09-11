@@ -112,7 +112,7 @@ void Provider::registerServiceProvider(const QString& name, IServerConfiguration
     }
     try {
         ServiceAdapter* handler = new ServiceAdapter(provider);
-        _handlers[provider->getServerName()] = handler;
+        _handlers[name] = handler;
         this->_poa->activate_object(handler);
         this->bindObjectToName(name.toStdString().c_str(), handler->_this());
         handler->_remove_ref();
@@ -124,10 +124,6 @@ void Provider::registerServiceProvider(const QString& name, IServerConfiguration
     } catch(const omniORB::fatalException& e) {
         throw CommunicationException(QString("Receive an omniORB fatal error: ") + e.errmsg());
     }
-}
-
-void Provider::unregisterServiceProvider(IServerConfigurationProvider* provider) {
-    _handlers.remove(provider->getServerName());
 }
 
 void Provider::unregisterServiceProvider(const QString& name) {
