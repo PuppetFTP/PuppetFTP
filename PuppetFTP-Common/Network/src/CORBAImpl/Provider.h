@@ -42,7 +42,6 @@ public:
     void unconfigure();
 
     void registerServiceProvider(const QString& name, IServerConfigurationProvider* provider);
-    void unregisterServiceProvider(IServerConfigurationProvider* provider);
     void unregisterServiceProvider(const QString& name);
 
     IServerConfigurationProvider* getServiceClient(const QString& name);

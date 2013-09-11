@@ -14,152 +14,6 @@ static const char* _0RL_library_version = omniORB_4_1;
 
 
 
-::CORBA::Exception::insertExceptionToAny ServerConfigHandler::ConfigurationException::insertToAnyFn = 0;
-::CORBA::Exception::insertExceptionToAnyNCP ServerConfigHandler::ConfigurationException::insertToAnyFnNCP = 0;
-
-ServerConfigHandler::ConfigurationException::ConfigurationException(const ServerConfigHandler::ConfigurationException& _s) : ::CORBA::UserException(_s)
-{
-  why = _s.why;
-
-}
-
-ServerConfigHandler::ConfigurationException::ConfigurationException(const char* _why)
-{
-  pd_insertToAnyFn    = ServerConfigHandler::ConfigurationException::insertToAnyFn;
-  pd_insertToAnyFnNCP = ServerConfigHandler::ConfigurationException::insertToAnyFnNCP;
-  why = _why;
-
-}
-
-
-
-ServerConfigHandler::ConfigurationException& ServerConfigHandler::ConfigurationException::operator=(const ServerConfigHandler::ConfigurationException& _s)
-{
-  ((::CORBA::UserException*) this)->operator=(_s);
-  why = _s.why;
-
-  return *this;
-}
-
-ServerConfigHandler::ConfigurationException::~ConfigurationException() {}
-
-void ServerConfigHandler::ConfigurationException::_raise() const { throw *this; }
-
-const char* ServerConfigHandler::ConfigurationException::_PD_repoId = "IDL:ServerConfigHandler/ConfigurationException:1.0";
-const char* ServerConfigHandler::ConfigurationException::_PD_typeId = "Exception/UserException/ServerConfigHandler::ConfigurationException";
-
-ServerConfigHandler::ConfigurationException* ServerConfigHandler::ConfigurationException::_downcast(::CORBA::Exception* _e) {
-  return (ConfigurationException*) _NP_is_a(_e, _PD_typeId);
-}
-
-const ServerConfigHandler::ConfigurationException* ServerConfigHandler::ConfigurationException::_downcast(const ::CORBA::Exception* _e) {
-  return (const ConfigurationException*) _NP_is_a(_e, _PD_typeId);
-}
-
-::CORBA::Exception* ServerConfigHandler::ConfigurationException::_NP_duplicate() const {
-  return new ConfigurationException(*this);
-}
-
-const char* ServerConfigHandler::ConfigurationException::_NP_typeId() const {
-  return _PD_typeId;
-}
-
-const char* ServerConfigHandler::ConfigurationException::_NP_repoId(int* _size) const {
-  *_size = sizeof("IDL:ServerConfigHandler/ConfigurationException:1.0");
-  return _PD_repoId;
-}
- 
-void ServerConfigHandler::ConfigurationException::_NP_marshal(cdrStream& _s) const {
-  *this >>= _s;
-}
-
-void
-ServerConfigHandler::ConfigurationException::operator>>= (cdrStream& _n) const
-{
-  _n.marshalString(why,0);
-
-}
-
-void
-ServerConfigHandler::ConfigurationException::operator<<= (cdrStream& _n)
-{
-  why = _n.unmarshalString(0);
-
-}
-
-::CORBA::Exception::insertExceptionToAny ServerConfigHandler::ServerException::insertToAnyFn = 0;
-::CORBA::Exception::insertExceptionToAnyNCP ServerConfigHandler::ServerException::insertToAnyFnNCP = 0;
-
-ServerConfigHandler::ServerException::ServerException(const ServerConfigHandler::ServerException& _s) : ::CORBA::UserException(_s)
-{
-  why = _s.why;
-
-}
-
-ServerConfigHandler::ServerException::ServerException(const char* _why)
-{
-  pd_insertToAnyFn    = ServerConfigHandler::ServerException::insertToAnyFn;
-  pd_insertToAnyFnNCP = ServerConfigHandler::ServerException::insertToAnyFnNCP;
-  why = _why;
-
-}
-
-
-
-ServerConfigHandler::ServerException& ServerConfigHandler::ServerException::operator=(const ServerConfigHandler::ServerException& _s)
-{
-  ((::CORBA::UserException*) this)->operator=(_s);
-  why = _s.why;
-
-  return *this;
-}
-
-ServerConfigHandler::ServerException::~ServerException() {}
-
-void ServerConfigHandler::ServerException::_raise() const { throw *this; }
-
-const char* ServerConfigHandler::ServerException::_PD_repoId = "IDL:ServerConfigHandler/ServerException:1.0";
-const char* ServerConfigHandler::ServerException::_PD_typeId = "Exception/UserException/ServerConfigHandler::ServerException";
-
-ServerConfigHandler::ServerException* ServerConfigHandler::ServerException::_downcast(::CORBA::Exception* _e) {
-  return (ServerException*) _NP_is_a(_e, _PD_typeId);
-}
-
-const ServerConfigHandler::ServerException* ServerConfigHandler::ServerException::_downcast(const ::CORBA::Exception* _e) {
-  return (const ServerException*) _NP_is_a(_e, _PD_typeId);
-}
-
-::CORBA::Exception* ServerConfigHandler::ServerException::_NP_duplicate() const {
-  return new ServerException(*this);
-}
-
-const char* ServerConfigHandler::ServerException::_NP_typeId() const {
-  return _PD_typeId;
-}
-
-const char* ServerConfigHandler::ServerException::_NP_repoId(int* _size) const {
-  *_size = sizeof("IDL:ServerConfigHandler/ServerException:1.0");
-  return _PD_repoId;
-}
- 
-void ServerConfigHandler::ServerException::_NP_marshal(cdrStream& _s) const {
-  *this >>= _s;
-}
-
-void
-ServerConfigHandler::ServerException::operator>>= (cdrStream& _n) const
-{
-  _n.marshalString(why,0);
-
-}
-
-void
-ServerConfigHandler::ServerException::operator<<= (cdrStream& _n)
-{
-  why = _n.unmarshalString(0);
-
-}
-
 ServerConfigHandler_ptr ServerConfigHandler_Helper::_nil() {
   return ::ServerConfigHandler::_nil();
 }
@@ -264,1346 +118,41 @@ _objref_ServerConfigHandler::_ptrToObjRef(const char* id)
 }
 
 // Proxy call descriptor class. Mangled signature:
-//  _cstring_e_cServerConfigHandler_mConfigurationException
-class _0RL_cd_6617778ad39f93c3_00000000
+//  _cboolean_i_cstring_i_cstring
+class _0RL_cd_ae81456844cbbeb5_00000000
   : public omniCallDescriptor
 {
 public:
-  inline _0RL_cd_6617778ad39f93c3_00000000(LocalCallFn lcfn,const char* op_,size_t oplen,_CORBA_Boolean upcall=0):
-     omniCallDescriptor(lcfn, op_, oplen, 0, _user_exns, 1, upcall)
+  inline _0RL_cd_ae81456844cbbeb5_00000000(LocalCallFn lcfn,const char* op_,size_t oplen,_CORBA_Boolean upcall=0):
+     omniCallDescriptor(lcfn, op_, oplen, 0, _user_exns, 0, upcall)
   {
     
   }
   
-  
+  void marshalArguments(cdrStream&);
+  void unmarshalArguments(cdrStream&);
+
   void unmarshalReturnedValues(cdrStream&);
   void marshalReturnedValues(cdrStream&);
   
-  void userException(cdrStream&,_OMNI_NS(IOP_C)*,const char*);
-  static const char* const _user_exns[];
-
-  ::CORBA::String_var result;
-};
-
-void _0RL_cd_6617778ad39f93c3_00000000::marshalReturnedValues(cdrStream& _n)
-{
-  _n.marshalString(result,0);
-
-}
-
-void _0RL_cd_6617778ad39f93c3_00000000::unmarshalReturnedValues(cdrStream& _n)
-{
-  result = _n.unmarshalString(0);
-
-}
-
-const char* const _0RL_cd_6617778ad39f93c3_00000000::_user_exns[] = {
-  ServerConfigHandler::ConfigurationException::_PD_repoId
-};
-
-void _0RL_cd_6617778ad39f93c3_00000000::userException(cdrStream& s, _OMNI_NS(IOP_C)* iop_client, const char* repoId)
-{
-  if ( omni::strMatch(repoId, ServerConfigHandler::ConfigurationException::_PD_repoId) ) {
-    ServerConfigHandler::ConfigurationException _ex;
-    _ex <<= s;
-    if (iop_client) iop_client->RequestCompleted();
-    throw _ex;
-  }
-
-
-  else {
-    if (iop_client) iop_client->RequestCompleted(1);
-    OMNIORB_THROW(UNKNOWN,UNKNOWN_UserException,
-                  (::CORBA::CompletionStatus)s.completion());
-  }
-}
-
-// Local call call-back function.
-static void
-_0RL_lcfn_6617778ad39f93c3_10000000(omniCallDescriptor* cd, omniServant* svnt)
-{
-  _0RL_cd_6617778ad39f93c3_00000000* tcd = (_0RL_cd_6617778ad39f93c3_00000000*)cd;
-  _impl_ServerConfigHandler* impl = (_impl_ServerConfigHandler*) svnt->_ptrToInterface(ServerConfigHandler::_PD_repoId);
-#ifdef HAS_Cplusplus_catch_exception_by_base
-  tcd->result = impl->getServerName();
-#else
-  if (!cd->is_upcall())
-    tcd->result = impl->getServerName();
-  else {
-    try {
-      tcd->result = impl->getServerName();
-    }
-    catch(ServerConfigHandler::ConfigurationException& ex) {
-      throw omniORB::StubUserException(ex._NP_duplicate());
-    }
-
-
-  }
-#endif
-
-
-}
-
-char* _objref_ServerConfigHandler::getServerName()
-{
-  _0RL_cd_6617778ad39f93c3_00000000 _call_desc(_0RL_lcfn_6617778ad39f93c3_10000000, "getServerName", 14);
-
-
-  _invoke(_call_desc);
-  return _call_desc.result._retn();
-
-
-}
-// Proxy call descriptor class. Mangled signature:
-//  void_i_cstring_e_cServerConfigHandler_mConfigurationException
-class _0RL_cd_6617778ad39f93c3_20000000
-  : public omniCallDescriptor
-{
-public:
-  inline _0RL_cd_6617778ad39f93c3_20000000(LocalCallFn lcfn,const char* op_,size_t oplen,_CORBA_Boolean upcall=0):
-     omniCallDescriptor(lcfn, op_, oplen, 0, _user_exns, 1, upcall)
-  {
-    
-  }
   
-  void marshalArguments(cdrStream&);
-  void unmarshalArguments(cdrStream&);
-
-    
-  void userException(cdrStream&,_OMNI_NS(IOP_C)*,const char*);
-  static const char* const _user_exns[];
-
-  ::CORBA::String_var arg_0_;
-  const char* arg_0;
-};
-
-void _0RL_cd_6617778ad39f93c3_20000000::marshalArguments(cdrStream& _n)
-{
-  _n.marshalString(arg_0,0);
-
-}
-
-void _0RL_cd_6617778ad39f93c3_20000000::unmarshalArguments(cdrStream& _n)
-{
-  arg_0_ = _n.unmarshalString(0);
-  arg_0 = arg_0_.in();
-
-}
-
-const char* const _0RL_cd_6617778ad39f93c3_20000000::_user_exns[] = {
-  ServerConfigHandler::ConfigurationException::_PD_repoId
-};
-
-void _0RL_cd_6617778ad39f93c3_20000000::userException(cdrStream& s, _OMNI_NS(IOP_C)* iop_client, const char* repoId)
-{
-  if ( omni::strMatch(repoId, ServerConfigHandler::ConfigurationException::_PD_repoId) ) {
-    ServerConfigHandler::ConfigurationException _ex;
-    _ex <<= s;
-    if (iop_client) iop_client->RequestCompleted();
-    throw _ex;
-  }
-
-
-  else {
-    if (iop_client) iop_client->RequestCompleted(1);
-    OMNIORB_THROW(UNKNOWN,UNKNOWN_UserException,
-                  (::CORBA::CompletionStatus)s.completion());
-  }
-}
-
-// Local call call-back function.
-static void
-_0RL_lcfn_6617778ad39f93c3_30000000(omniCallDescriptor* cd, omniServant* svnt)
-{
-  _0RL_cd_6617778ad39f93c3_20000000* tcd = (_0RL_cd_6617778ad39f93c3_20000000*)cd;
-  _impl_ServerConfigHandler* impl = (_impl_ServerConfigHandler*) svnt->_ptrToInterface(ServerConfigHandler::_PD_repoId);
-#ifdef HAS_Cplusplus_catch_exception_by_base
-  impl->setServerName(tcd->arg_0);
-#else
-  if (!cd->is_upcall())
-    impl->setServerName(tcd->arg_0);
-  else {
-    try {
-      impl->setServerName(tcd->arg_0);
-    }
-    catch(ServerConfigHandler::ConfigurationException& ex) {
-      throw omniORB::StubUserException(ex._NP_duplicate());
-    }
-
-
-  }
-#endif
-
-
-}
-
-void _objref_ServerConfigHandler::setServerName(const char* name)
-{
-  _0RL_cd_6617778ad39f93c3_20000000 _call_desc(_0RL_lcfn_6617778ad39f93c3_30000000, "setServerName", 14);
-  _call_desc.arg_0 = name;
-
-  _invoke(_call_desc);
-
-
-
-}
-// Local call call-back function.
-static void
-_0RL_lcfn_6617778ad39f93c3_40000000(omniCallDescriptor* cd, omniServant* svnt)
-{
-  _0RL_cd_6617778ad39f93c3_00000000* tcd = (_0RL_cd_6617778ad39f93c3_00000000*)cd;
-  _impl_ServerConfigHandler* impl = (_impl_ServerConfigHandler*) svnt->_ptrToInterface(ServerConfigHandler::_PD_repoId);
-#ifdef HAS_Cplusplus_catch_exception_by_base
-  tcd->result = impl->getServerAddr();
-#else
-  if (!cd->is_upcall())
-    tcd->result = impl->getServerAddr();
-  else {
-    try {
-      tcd->result = impl->getServerAddr();
-    }
-    catch(ServerConfigHandler::ConfigurationException& ex) {
-      throw omniORB::StubUserException(ex._NP_duplicate());
-    }
-
-
-  }
-#endif
-
-
-}
-
-char* _objref_ServerConfigHandler::getServerAddr()
-{
-  _0RL_cd_6617778ad39f93c3_00000000 _call_desc(_0RL_lcfn_6617778ad39f93c3_40000000, "getServerAddr", 14);
-
-
-  _invoke(_call_desc);
-  return _call_desc.result._retn();
-
-
-}
-// Proxy call descriptor class. Mangled signature:
-//  _cunsigned_pshort_e_cServerConfigHandler_mConfigurationException
-class _0RL_cd_6617778ad39f93c3_50000000
-  : public omniCallDescriptor
-{
-public:
-  inline _0RL_cd_6617778ad39f93c3_50000000(LocalCallFn lcfn,const char* op_,size_t oplen,_CORBA_Boolean upcall=0):
-     omniCallDescriptor(lcfn, op_, oplen, 0, _user_exns, 1, upcall)
-  {
-    
-  }
-  
-  
-  void unmarshalReturnedValues(cdrStream&);
-  void marshalReturnedValues(cdrStream&);
-  
-  void userException(cdrStream&,_OMNI_NS(IOP_C)*,const char*);
-  static const char* const _user_exns[];
-
-  ::CORBA::UShort result;
-};
-
-void _0RL_cd_6617778ad39f93c3_50000000::marshalReturnedValues(cdrStream& _n)
-{
-  result >>= _n;
-
-}
-
-void _0RL_cd_6617778ad39f93c3_50000000::unmarshalReturnedValues(cdrStream& _n)
-{
-  (::CORBA::UShort&)result <<= _n;
-
-}
-
-const char* const _0RL_cd_6617778ad39f93c3_50000000::_user_exns[] = {
-  ServerConfigHandler::ConfigurationException::_PD_repoId
-};
-
-void _0RL_cd_6617778ad39f93c3_50000000::userException(cdrStream& s, _OMNI_NS(IOP_C)* iop_client, const char* repoId)
-{
-  if ( omni::strMatch(repoId, ServerConfigHandler::ConfigurationException::_PD_repoId) ) {
-    ServerConfigHandler::ConfigurationException _ex;
-    _ex <<= s;
-    if (iop_client) iop_client->RequestCompleted();
-    throw _ex;
-  }
-
-
-  else {
-    if (iop_client) iop_client->RequestCompleted(1);
-    OMNIORB_THROW(UNKNOWN,UNKNOWN_UserException,
-                  (::CORBA::CompletionStatus)s.completion());
-  }
-}
-
-// Local call call-back function.
-static void
-_0RL_lcfn_6617778ad39f93c3_60000000(omniCallDescriptor* cd, omniServant* svnt)
-{
-  _0RL_cd_6617778ad39f93c3_50000000* tcd = (_0RL_cd_6617778ad39f93c3_50000000*)cd;
-  _impl_ServerConfigHandler* impl = (_impl_ServerConfigHandler*) svnt->_ptrToInterface(ServerConfigHandler::_PD_repoId);
-#ifdef HAS_Cplusplus_catch_exception_by_base
-  tcd->result = impl->getServerPort();
-#else
-  if (!cd->is_upcall())
-    tcd->result = impl->getServerPort();
-  else {
-    try {
-      tcd->result = impl->getServerPort();
-    }
-    catch(ServerConfigHandler::ConfigurationException& ex) {
-      throw omniORB::StubUserException(ex._NP_duplicate());
-    }
-
-
-  }
-#endif
-
-
-}
-
-::CORBA::UShort _objref_ServerConfigHandler::getServerPort()
-{
-  _0RL_cd_6617778ad39f93c3_50000000 _call_desc(_0RL_lcfn_6617778ad39f93c3_60000000, "getServerPort", 14);
-
-
-  _invoke(_call_desc);
-  return _call_desc.result;
-
-
-}
-// Proxy call descriptor class. Mangled signature:
-//  void_i_cunsigned_pshort_e_cServerConfigHandler_mConfigurationException
-class _0RL_cd_6617778ad39f93c3_70000000
-  : public omniCallDescriptor
-{
-public:
-  inline _0RL_cd_6617778ad39f93c3_70000000(LocalCallFn lcfn,const char* op_,size_t oplen,_CORBA_Boolean upcall=0):
-     omniCallDescriptor(lcfn, op_, oplen, 0, _user_exns, 1, upcall)
-  {
-    
-  }
-  
-  void marshalArguments(cdrStream&);
-  void unmarshalArguments(cdrStream&);
-
-    
-  void userException(cdrStream&,_OMNI_NS(IOP_C)*,const char*);
-  static const char* const _user_exns[];
-
-  ::CORBA::UShort arg_0;
-};
-
-void _0RL_cd_6617778ad39f93c3_70000000::marshalArguments(cdrStream& _n)
-{
-  arg_0 >>= _n;
-
-}
-
-void _0RL_cd_6617778ad39f93c3_70000000::unmarshalArguments(cdrStream& _n)
-{
-  (::CORBA::UShort&)arg_0 <<= _n;
-
-}
-
-const char* const _0RL_cd_6617778ad39f93c3_70000000::_user_exns[] = {
-  ServerConfigHandler::ConfigurationException::_PD_repoId
-};
-
-void _0RL_cd_6617778ad39f93c3_70000000::userException(cdrStream& s, _OMNI_NS(IOP_C)* iop_client, const char* repoId)
-{
-  if ( omni::strMatch(repoId, ServerConfigHandler::ConfigurationException::_PD_repoId) ) {
-    ServerConfigHandler::ConfigurationException _ex;
-    _ex <<= s;
-    if (iop_client) iop_client->RequestCompleted();
-    throw _ex;
-  }
-
-
-  else {
-    if (iop_client) iop_client->RequestCompleted(1);
-    OMNIORB_THROW(UNKNOWN,UNKNOWN_UserException,
-                  (::CORBA::CompletionStatus)s.completion());
-  }
-}
-
-// Local call call-back function.
-static void
-_0RL_lcfn_6617778ad39f93c3_80000000(omniCallDescriptor* cd, omniServant* svnt)
-{
-  _0RL_cd_6617778ad39f93c3_70000000* tcd = (_0RL_cd_6617778ad39f93c3_70000000*)cd;
-  _impl_ServerConfigHandler* impl = (_impl_ServerConfigHandler*) svnt->_ptrToInterface(ServerConfigHandler::_PD_repoId);
-#ifdef HAS_Cplusplus_catch_exception_by_base
-  impl->setServerPort(tcd->arg_0);
-#else
-  if (!cd->is_upcall())
-    impl->setServerPort(tcd->arg_0);
-  else {
-    try {
-      impl->setServerPort(tcd->arg_0);
-    }
-    catch(ServerConfigHandler::ConfigurationException& ex) {
-      throw omniORB::StubUserException(ex._NP_duplicate());
-    }
-
-
-  }
-#endif
-
-
-}
-
-void _objref_ServerConfigHandler::setServerPort(::CORBA::UShort port)
-{
-  _0RL_cd_6617778ad39f93c3_70000000 _call_desc(_0RL_lcfn_6617778ad39f93c3_80000000, "setServerPort", 14);
-  _call_desc.arg_0 = port;
-
-  _invoke(_call_desc);
-
-
-
-}
-// Proxy call descriptor class. Mangled signature:
-//  _cServerConfigHandler_mINTERNET__PROTOCOL_e_cServerConfigHandler_mConfigurationException
-class _0RL_cd_6617778ad39f93c3_90000000
-  : public omniCallDescriptor
-{
-public:
-  inline _0RL_cd_6617778ad39f93c3_90000000(LocalCallFn lcfn,const char* op_,size_t oplen,_CORBA_Boolean upcall=0):
-     omniCallDescriptor(lcfn, op_, oplen, 0, _user_exns, 1, upcall)
-  {
-    
-  }
-  
-  
-  void unmarshalReturnedValues(cdrStream&);
-  void marshalReturnedValues(cdrStream&);
-  
-  void userException(cdrStream&,_OMNI_NS(IOP_C)*,const char*);
-  static const char* const _user_exns[];
-
-  ServerConfigHandler::INTERNET_PROTOCOL result;
-};
-
-void _0RL_cd_6617778ad39f93c3_90000000::marshalReturnedValues(cdrStream& _n)
-{
-  result >>= _n;
-
-}
-
-void _0RL_cd_6617778ad39f93c3_90000000::unmarshalReturnedValues(cdrStream& _n)
-{
-  (ServerConfigHandler::INTERNET_PROTOCOL&)result <<= _n;
-
-}
-
-const char* const _0RL_cd_6617778ad39f93c3_90000000::_user_exns[] = {
-  ServerConfigHandler::ConfigurationException::_PD_repoId
-};
-
-void _0RL_cd_6617778ad39f93c3_90000000::userException(cdrStream& s, _OMNI_NS(IOP_C)* iop_client, const char* repoId)
-{
-  if ( omni::strMatch(repoId, ServerConfigHandler::ConfigurationException::_PD_repoId) ) {
-    ServerConfigHandler::ConfigurationException _ex;
-    _ex <<= s;
-    if (iop_client) iop_client->RequestCompleted();
-    throw _ex;
-  }
-
-
-  else {
-    if (iop_client) iop_client->RequestCompleted(1);
-    OMNIORB_THROW(UNKNOWN,UNKNOWN_UserException,
-                  (::CORBA::CompletionStatus)s.completion());
-  }
-}
-
-// Local call call-back function.
-static void
-_0RL_lcfn_6617778ad39f93c3_a0000000(omniCallDescriptor* cd, omniServant* svnt)
-{
-  _0RL_cd_6617778ad39f93c3_90000000* tcd = (_0RL_cd_6617778ad39f93c3_90000000*)cd;
-  _impl_ServerConfigHandler* impl = (_impl_ServerConfigHandler*) svnt->_ptrToInterface(ServerConfigHandler::_PD_repoId);
-#ifdef HAS_Cplusplus_catch_exception_by_base
-  tcd->result = impl->getInternetProtocol();
-#else
-  if (!cd->is_upcall())
-    tcd->result = impl->getInternetProtocol();
-  else {
-    try {
-      tcd->result = impl->getInternetProtocol();
-    }
-    catch(ServerConfigHandler::ConfigurationException& ex) {
-      throw omniORB::StubUserException(ex._NP_duplicate());
-    }
-
-
-  }
-#endif
-
-
-}
-
-ServerConfigHandler::INTERNET_PROTOCOL _objref_ServerConfigHandler::getInternetProtocol()
-{
-  _0RL_cd_6617778ad39f93c3_90000000 _call_desc(_0RL_lcfn_6617778ad39f93c3_a0000000, "getInternetProtocol", 20);
-
-
-  _invoke(_call_desc);
-  return _call_desc.result;
-
-
-}
-// Proxy call descriptor class. Mangled signature:
-//  void_i_cServerConfigHandler_mINTERNET__PROTOCOL_e_cServerConfigHandler_mConfigurationException
-class _0RL_cd_6617778ad39f93c3_b0000000
-  : public omniCallDescriptor
-{
-public:
-  inline _0RL_cd_6617778ad39f93c3_b0000000(LocalCallFn lcfn,const char* op_,size_t oplen,_CORBA_Boolean upcall=0):
-     omniCallDescriptor(lcfn, op_, oplen, 0, _user_exns, 1, upcall)
-  {
-    
-  }
-  
-  void marshalArguments(cdrStream&);
-  void unmarshalArguments(cdrStream&);
-
-    
-  void userException(cdrStream&,_OMNI_NS(IOP_C)*,const char*);
-  static const char* const _user_exns[];
-
-  ServerConfigHandler::INTERNET_PROTOCOL arg_0;
-};
-
-void _0RL_cd_6617778ad39f93c3_b0000000::marshalArguments(cdrStream& _n)
-{
-  arg_0 >>= _n;
-
-}
-
-void _0RL_cd_6617778ad39f93c3_b0000000::unmarshalArguments(cdrStream& _n)
-{
-  (ServerConfigHandler::INTERNET_PROTOCOL&)arg_0 <<= _n;
-
-}
-
-const char* const _0RL_cd_6617778ad39f93c3_b0000000::_user_exns[] = {
-  ServerConfigHandler::ConfigurationException::_PD_repoId
-};
-
-void _0RL_cd_6617778ad39f93c3_b0000000::userException(cdrStream& s, _OMNI_NS(IOP_C)* iop_client, const char* repoId)
-{
-  if ( omni::strMatch(repoId, ServerConfigHandler::ConfigurationException::_PD_repoId) ) {
-    ServerConfigHandler::ConfigurationException _ex;
-    _ex <<= s;
-    if (iop_client) iop_client->RequestCompleted();
-    throw _ex;
-  }
-
-
-  else {
-    if (iop_client) iop_client->RequestCompleted(1);
-    OMNIORB_THROW(UNKNOWN,UNKNOWN_UserException,
-                  (::CORBA::CompletionStatus)s.completion());
-  }
-}
-
-// Local call call-back function.
-static void
-_0RL_lcfn_6617778ad39f93c3_c0000000(omniCallDescriptor* cd, omniServant* svnt)
-{
-  _0RL_cd_6617778ad39f93c3_b0000000* tcd = (_0RL_cd_6617778ad39f93c3_b0000000*)cd;
-  _impl_ServerConfigHandler* impl = (_impl_ServerConfigHandler*) svnt->_ptrToInterface(ServerConfigHandler::_PD_repoId);
-#ifdef HAS_Cplusplus_catch_exception_by_base
-  impl->setInternetProtocol(tcd->arg_0);
-#else
-  if (!cd->is_upcall())
-    impl->setInternetProtocol(tcd->arg_0);
-  else {
-    try {
-      impl->setInternetProtocol(tcd->arg_0);
-    }
-    catch(ServerConfigHandler::ConfigurationException& ex) {
-      throw omniORB::StubUserException(ex._NP_duplicate());
-    }
-
-
-  }
-#endif
-
-
-}
-
-void _objref_ServerConfigHandler::setInternetProtocol(::ServerConfigHandler::INTERNET_PROTOCOL ip)
-{
-  _0RL_cd_6617778ad39f93c3_b0000000 _call_desc(_0RL_lcfn_6617778ad39f93c3_c0000000, "setInternetProtocol", 20);
-  _call_desc.arg_0 = ip;
-
-  _invoke(_call_desc);
-
-
-
-}
-// Local call call-back function.
-static void
-_0RL_lcfn_6617778ad39f93c3_d0000000(omniCallDescriptor* cd, omniServant* svnt)
-{
-  _0RL_cd_6617778ad39f93c3_50000000* tcd = (_0RL_cd_6617778ad39f93c3_50000000*)cd;
-  _impl_ServerConfigHandler* impl = (_impl_ServerConfigHandler*) svnt->_ptrToInterface(ServerConfigHandler::_PD_repoId);
-#ifdef HAS_Cplusplus_catch_exception_by_base
-  tcd->result = impl->getIdleTimeout();
-#else
-  if (!cd->is_upcall())
-    tcd->result = impl->getIdleTimeout();
-  else {
-    try {
-      tcd->result = impl->getIdleTimeout();
-    }
-    catch(ServerConfigHandler::ConfigurationException& ex) {
-      throw omniORB::StubUserException(ex._NP_duplicate());
-    }
-
-
-  }
-#endif
-
-
-}
-
-::CORBA::UShort _objref_ServerConfigHandler::getIdleTimeout()
-{
-  _0RL_cd_6617778ad39f93c3_50000000 _call_desc(_0RL_lcfn_6617778ad39f93c3_d0000000, "getIdleTimeout", 15);
-
-
-  _invoke(_call_desc);
-  return _call_desc.result;
-
-
-}
-// Local call call-back function.
-static void
-_0RL_lcfn_6617778ad39f93c3_e0000000(omniCallDescriptor* cd, omniServant* svnt)
-{
-  _0RL_cd_6617778ad39f93c3_70000000* tcd = (_0RL_cd_6617778ad39f93c3_70000000*)cd;
-  _impl_ServerConfigHandler* impl = (_impl_ServerConfigHandler*) svnt->_ptrToInterface(ServerConfigHandler::_PD_repoId);
-#ifdef HAS_Cplusplus_catch_exception_by_base
-  impl->setIdleTimeout(tcd->arg_0);
-#else
-  if (!cd->is_upcall())
-    impl->setIdleTimeout(tcd->arg_0);
-  else {
-    try {
-      impl->setIdleTimeout(tcd->arg_0);
-    }
-    catch(ServerConfigHandler::ConfigurationException& ex) {
-      throw omniORB::StubUserException(ex._NP_duplicate());
-    }
-
-
-  }
-#endif
-
-
-}
-
-void _objref_ServerConfigHandler::setIdleTimeout(::CORBA::UShort to)
-{
-  _0RL_cd_6617778ad39f93c3_70000000 _call_desc(_0RL_lcfn_6617778ad39f93c3_e0000000, "setIdleTimeout", 15);
-  _call_desc.arg_0 = to;
-
-  _invoke(_call_desc);
-
-
-
-}
-// Local call call-back function.
-static void
-_0RL_lcfn_6617778ad39f93c3_f0000000(omniCallDescriptor* cd, omniServant* svnt)
-{
-  _0RL_cd_6617778ad39f93c3_50000000* tcd = (_0RL_cd_6617778ad39f93c3_50000000*)cd;
-  _impl_ServerConfigHandler* impl = (_impl_ServerConfigHandler*) svnt->_ptrToInterface(ServerConfigHandler::_PD_repoId);
-#ifdef HAS_Cplusplus_catch_exception_by_base
-  tcd->result = impl->getDataConnectionTimeout();
-#else
-  if (!cd->is_upcall())
-    tcd->result = impl->getDataConnectionTimeout();
-  else {
-    try {
-      tcd->result = impl->getDataConnectionTimeout();
-    }
-    catch(ServerConfigHandler::ConfigurationException& ex) {
-      throw omniORB::StubUserException(ex._NP_duplicate());
-    }
-
-
-  }
-#endif
-
-
-}
-
-::CORBA::UShort _objref_ServerConfigHandler::getDataConnectionTimeout()
-{
-  _0RL_cd_6617778ad39f93c3_50000000 _call_desc(_0RL_lcfn_6617778ad39f93c3_f0000000, "getDataConnectionTimeout", 25);
-
-
-  _invoke(_call_desc);
-  return _call_desc.result;
-
-
-}
-// Local call call-back function.
-static void
-_0RL_lcfn_6617778ad39f93c3_01000000(omniCallDescriptor* cd, omniServant* svnt)
-{
-  _0RL_cd_6617778ad39f93c3_70000000* tcd = (_0RL_cd_6617778ad39f93c3_70000000*)cd;
-  _impl_ServerConfigHandler* impl = (_impl_ServerConfigHandler*) svnt->_ptrToInterface(ServerConfigHandler::_PD_repoId);
-#ifdef HAS_Cplusplus_catch_exception_by_base
-  impl->setDataConnectionTimeout(tcd->arg_0);
-#else
-  if (!cd->is_upcall())
-    impl->setDataConnectionTimeout(tcd->arg_0);
-  else {
-    try {
-      impl->setDataConnectionTimeout(tcd->arg_0);
-    }
-    catch(ServerConfigHandler::ConfigurationException& ex) {
-      throw omniORB::StubUserException(ex._NP_duplicate());
-    }
-
-
-  }
-#endif
-
-
-}
-
-void _objref_ServerConfigHandler::setDataConnectionTimeout(::CORBA::UShort to)
-{
-  _0RL_cd_6617778ad39f93c3_70000000 _call_desc(_0RL_lcfn_6617778ad39f93c3_01000000, "setDataConnectionTimeout", 25);
-  _call_desc.arg_0 = to;
-
-  _invoke(_call_desc);
-
-
-
-}
-// Proxy call descriptor class. Mangled signature:
-//  _cboolean_e_cServerConfigHandler_mConfigurationException
-class _0RL_cd_6617778ad39f93c3_11000000
-  : public omniCallDescriptor
-{
-public:
-  inline _0RL_cd_6617778ad39f93c3_11000000(LocalCallFn lcfn,const char* op_,size_t oplen,_CORBA_Boolean upcall=0):
-     omniCallDescriptor(lcfn, op_, oplen, 0, _user_exns, 1, upcall)
-  {
-    
-  }
-  
-  
-  void unmarshalReturnedValues(cdrStream&);
-  void marshalReturnedValues(cdrStream&);
-  
-  void userException(cdrStream&,_OMNI_NS(IOP_C)*,const char*);
-  static const char* const _user_exns[];
-
-  ::CORBA::Boolean result;
-};
-
-void _0RL_cd_6617778ad39f93c3_11000000::marshalReturnedValues(cdrStream& _n)
-{
-  _n.marshalBoolean(result);
-
-}
-
-void _0RL_cd_6617778ad39f93c3_11000000::unmarshalReturnedValues(cdrStream& _n)
-{
-  result = _n.unmarshalBoolean();
-
-}
-
-const char* const _0RL_cd_6617778ad39f93c3_11000000::_user_exns[] = {
-  ServerConfigHandler::ConfigurationException::_PD_repoId
-};
-
-void _0RL_cd_6617778ad39f93c3_11000000::userException(cdrStream& s, _OMNI_NS(IOP_C)* iop_client, const char* repoId)
-{
-  if ( omni::strMatch(repoId, ServerConfigHandler::ConfigurationException::_PD_repoId) ) {
-    ServerConfigHandler::ConfigurationException _ex;
-    _ex <<= s;
-    if (iop_client) iop_client->RequestCompleted();
-    throw _ex;
-  }
-
-
-  else {
-    if (iop_client) iop_client->RequestCompleted(1);
-    OMNIORB_THROW(UNKNOWN,UNKNOWN_UserException,
-                  (::CORBA::CompletionStatus)s.completion());
-  }
-}
-
-// Local call call-back function.
-static void
-_0RL_lcfn_6617778ad39f93c3_21000000(omniCallDescriptor* cd, omniServant* svnt)
-{
-  _0RL_cd_6617778ad39f93c3_11000000* tcd = (_0RL_cd_6617778ad39f93c3_11000000*)cd;
-  _impl_ServerConfigHandler* impl = (_impl_ServerConfigHandler*) svnt->_ptrToInterface(ServerConfigHandler::_PD_repoId);
-#ifdef HAS_Cplusplus_catch_exception_by_base
-  tcd->result = impl->isUsingSystemUser();
-#else
-  if (!cd->is_upcall())
-    tcd->result = impl->isUsingSystemUser();
-  else {
-    try {
-      tcd->result = impl->isUsingSystemUser();
-    }
-    catch(ServerConfigHandler::ConfigurationException& ex) {
-      throw omniORB::StubUserException(ex._NP_duplicate());
-    }
-
-
-  }
-#endif
-
-
-}
-
-::CORBA::Boolean _objref_ServerConfigHandler::isUsingSystemUser()
-{
-  _0RL_cd_6617778ad39f93c3_11000000 _call_desc(_0RL_lcfn_6617778ad39f93c3_21000000, "isUsingSystemUser", 18);
-
-
-  _invoke(_call_desc);
-  return _call_desc.result;
-
-
-}
-// Proxy call descriptor class. Mangled signature:
-//  void_i_cboolean_e_cServerConfigHandler_mConfigurationException
-class _0RL_cd_6617778ad39f93c3_31000000
-  : public omniCallDescriptor
-{
-public:
-  inline _0RL_cd_6617778ad39f93c3_31000000(LocalCallFn lcfn,const char* op_,size_t oplen,_CORBA_Boolean upcall=0):
-     omniCallDescriptor(lcfn, op_, oplen, 0, _user_exns, 1, upcall)
-  {
-    
-  }
-  
-  void marshalArguments(cdrStream&);
-  void unmarshalArguments(cdrStream&);
-
-    
-  void userException(cdrStream&,_OMNI_NS(IOP_C)*,const char*);
-  static const char* const _user_exns[];
-
-  ::CORBA::Boolean arg_0;
-};
-
-void _0RL_cd_6617778ad39f93c3_31000000::marshalArguments(cdrStream& _n)
-{
-  _n.marshalBoolean(arg_0);
-
-}
-
-void _0RL_cd_6617778ad39f93c3_31000000::unmarshalArguments(cdrStream& _n)
-{
-  arg_0 = _n.unmarshalBoolean();
-
-}
-
-const char* const _0RL_cd_6617778ad39f93c3_31000000::_user_exns[] = {
-  ServerConfigHandler::ConfigurationException::_PD_repoId
-};
-
-void _0RL_cd_6617778ad39f93c3_31000000::userException(cdrStream& s, _OMNI_NS(IOP_C)* iop_client, const char* repoId)
-{
-  if ( omni::strMatch(repoId, ServerConfigHandler::ConfigurationException::_PD_repoId) ) {
-    ServerConfigHandler::ConfigurationException _ex;
-    _ex <<= s;
-    if (iop_client) iop_client->RequestCompleted();
-    throw _ex;
-  }
-
-
-  else {
-    if (iop_client) iop_client->RequestCompleted(1);
-    OMNIORB_THROW(UNKNOWN,UNKNOWN_UserException,
-                  (::CORBA::CompletionStatus)s.completion());
-  }
-}
-
-// Local call call-back function.
-static void
-_0RL_lcfn_6617778ad39f93c3_41000000(omniCallDescriptor* cd, omniServant* svnt)
-{
-  _0RL_cd_6617778ad39f93c3_31000000* tcd = (_0RL_cd_6617778ad39f93c3_31000000*)cd;
-  _impl_ServerConfigHandler* impl = (_impl_ServerConfigHandler*) svnt->_ptrToInterface(ServerConfigHandler::_PD_repoId);
-#ifdef HAS_Cplusplus_catch_exception_by_base
-  impl->useSystemUser(tcd->arg_0);
-#else
-  if (!cd->is_upcall())
-    impl->useSystemUser(tcd->arg_0);
-  else {
-    try {
-      impl->useSystemUser(tcd->arg_0);
-    }
-    catch(ServerConfigHandler::ConfigurationException& ex) {
-      throw omniORB::StubUserException(ex._NP_duplicate());
-    }
-
-
-  }
-#endif
-
-
-}
-
-void _objref_ServerConfigHandler::useSystemUser(::CORBA::Boolean use)
-{
-  _0RL_cd_6617778ad39f93c3_31000000 _call_desc(_0RL_lcfn_6617778ad39f93c3_41000000, "useSystemUser", 14);
-  _call_desc.arg_0 = use;
-
-  _invoke(_call_desc);
-
-
-
-}
-// Local call call-back function.
-static void
-_0RL_lcfn_6617778ad39f93c3_51000000(omniCallDescriptor* cd, omniServant* svnt)
-{
-  _0RL_cd_6617778ad39f93c3_11000000* tcd = (_0RL_cd_6617778ad39f93c3_11000000*)cd;
-  _impl_ServerConfigHandler* impl = (_impl_ServerConfigHandler*) svnt->_ptrToInterface(ServerConfigHandler::_PD_repoId);
-#ifdef HAS_Cplusplus_catch_exception_by_base
-  tcd->result = impl->isAnonymousAllowed();
-#else
-  if (!cd->is_upcall())
-    tcd->result = impl->isAnonymousAllowed();
-  else {
-    try {
-      tcd->result = impl->isAnonymousAllowed();
-    }
-    catch(ServerConfigHandler::ConfigurationException& ex) {
-      throw omniORB::StubUserException(ex._NP_duplicate());
-    }
-
-
-  }
-#endif
-
-
-}
-
-::CORBA::Boolean _objref_ServerConfigHandler::isAnonymousAllowed()
-{
-  _0RL_cd_6617778ad39f93c3_11000000 _call_desc(_0RL_lcfn_6617778ad39f93c3_51000000, "isAnonymousAllowed", 19);
-
-
-  _invoke(_call_desc);
-  return _call_desc.result;
-
-
-}
-// Local call call-back function.
-static void
-_0RL_lcfn_6617778ad39f93c3_61000000(omniCallDescriptor* cd, omniServant* svnt)
-{
-  _0RL_cd_6617778ad39f93c3_31000000* tcd = (_0RL_cd_6617778ad39f93c3_31000000*)cd;
-  _impl_ServerConfigHandler* impl = (_impl_ServerConfigHandler*) svnt->_ptrToInterface(ServerConfigHandler::_PD_repoId);
-#ifdef HAS_Cplusplus_catch_exception_by_base
-  impl->allowAnonymous(tcd->arg_0);
-#else
-  if (!cd->is_upcall())
-    impl->allowAnonymous(tcd->arg_0);
-  else {
-    try {
-      impl->allowAnonymous(tcd->arg_0);
-    }
-    catch(ServerConfigHandler::ConfigurationException& ex) {
-      throw omniORB::StubUserException(ex._NP_duplicate());
-    }
-
-
-  }
-#endif
-
-
-}
-
-void _objref_ServerConfigHandler::allowAnonymous(::CORBA::Boolean allow)
-{
-  _0RL_cd_6617778ad39f93c3_31000000 _call_desc(_0RL_lcfn_6617778ad39f93c3_61000000, "allowAnonymous", 15);
-  _call_desc.arg_0 = allow;
-
-  _invoke(_call_desc);
-
-
-
-}
-// Local call call-back function.
-static void
-_0RL_lcfn_6617778ad39f93c3_71000000(omniCallDescriptor* cd, omniServant* svnt)
-{
-  _0RL_cd_6617778ad39f93c3_11000000* tcd = (_0RL_cd_6617778ad39f93c3_11000000*)cd;
-  _impl_ServerConfigHandler* impl = (_impl_ServerConfigHandler*) svnt->_ptrToInterface(ServerConfigHandler::_PD_repoId);
-#ifdef HAS_Cplusplus_catch_exception_by_base
-  tcd->result = impl->isAnonymousUploadAllowed();
-#else
-  if (!cd->is_upcall())
-    tcd->result = impl->isAnonymousUploadAllowed();
-  else {
-    try {
-      tcd->result = impl->isAnonymousUploadAllowed();
-    }
-    catch(ServerConfigHandler::ConfigurationException& ex) {
-      throw omniORB::StubUserException(ex._NP_duplicate());
-    }
-
-
-  }
-#endif
-
-
-}
-
-::CORBA::Boolean _objref_ServerConfigHandler::isAnonymousUploadAllowed()
-{
-  _0RL_cd_6617778ad39f93c3_11000000 _call_desc(_0RL_lcfn_6617778ad39f93c3_71000000, "isAnonymousUploadAllowed", 25);
-
-
-  _invoke(_call_desc);
-  return _call_desc.result;
-
-
-}
-// Local call call-back function.
-static void
-_0RL_lcfn_6617778ad39f93c3_81000000(omniCallDescriptor* cd, omniServant* svnt)
-{
-  _0RL_cd_6617778ad39f93c3_31000000* tcd = (_0RL_cd_6617778ad39f93c3_31000000*)cd;
-  _impl_ServerConfigHandler* impl = (_impl_ServerConfigHandler*) svnt->_ptrToInterface(ServerConfigHandler::_PD_repoId);
-#ifdef HAS_Cplusplus_catch_exception_by_base
-  impl->allowAnonymousUpload(tcd->arg_0);
-#else
-  if (!cd->is_upcall())
-    impl->allowAnonymousUpload(tcd->arg_0);
-  else {
-    try {
-      impl->allowAnonymousUpload(tcd->arg_0);
-    }
-    catch(ServerConfigHandler::ConfigurationException& ex) {
-      throw omniORB::StubUserException(ex._NP_duplicate());
-    }
-
-
-  }
-#endif
-
-
-}
-
-void _objref_ServerConfigHandler::allowAnonymousUpload(::CORBA::Boolean allow)
-{
-  _0RL_cd_6617778ad39f93c3_31000000 _call_desc(_0RL_lcfn_6617778ad39f93c3_81000000, "allowAnonymousUpload", 21);
-  _call_desc.arg_0 = allow;
-
-  _invoke(_call_desc);
-
-
-
-}
-// Local call call-back function.
-static void
-_0RL_lcfn_6617778ad39f93c3_91000000(omniCallDescriptor* cd, omniServant* svnt)
-{
-  _0RL_cd_6617778ad39f93c3_11000000* tcd = (_0RL_cd_6617778ad39f93c3_11000000*)cd;
-  _impl_ServerConfigHandler* impl = (_impl_ServerConfigHandler*) svnt->_ptrToInterface(ServerConfigHandler::_PD_repoId);
-#ifdef HAS_Cplusplus_catch_exception_by_base
-  tcd->result = impl->isAnonymousCreateDirAllowed();
-#else
-  if (!cd->is_upcall())
-    tcd->result = impl->isAnonymousCreateDirAllowed();
-  else {
-    try {
-      tcd->result = impl->isAnonymousCreateDirAllowed();
-    }
-    catch(ServerConfigHandler::ConfigurationException& ex) {
-      throw omniORB::StubUserException(ex._NP_duplicate());
-    }
-
-
-  }
-#endif
-
-
-}
-
-::CORBA::Boolean _objref_ServerConfigHandler::isAnonymousCreateDirAllowed()
-{
-  _0RL_cd_6617778ad39f93c3_11000000 _call_desc(_0RL_lcfn_6617778ad39f93c3_91000000, "isAnonymousCreateDirAllowed", 28);
-
-
-  _invoke(_call_desc);
-  return _call_desc.result;
-
-
-}
-// Local call call-back function.
-static void
-_0RL_lcfn_6617778ad39f93c3_a1000000(omniCallDescriptor* cd, omniServant* svnt)
-{
-  _0RL_cd_6617778ad39f93c3_31000000* tcd = (_0RL_cd_6617778ad39f93c3_31000000*)cd;
-  _impl_ServerConfigHandler* impl = (_impl_ServerConfigHandler*) svnt->_ptrToInterface(ServerConfigHandler::_PD_repoId);
-#ifdef HAS_Cplusplus_catch_exception_by_base
-  impl->allowAnonymousCreateDir(tcd->arg_0);
-#else
-  if (!cd->is_upcall())
-    impl->allowAnonymousCreateDir(tcd->arg_0);
-  else {
-    try {
-      impl->allowAnonymousCreateDir(tcd->arg_0);
-    }
-    catch(ServerConfigHandler::ConfigurationException& ex) {
-      throw omniORB::StubUserException(ex._NP_duplicate());
-    }
-
-
-  }
-#endif
-
-
-}
-
-void _objref_ServerConfigHandler::allowAnonymousCreateDir(::CORBA::Boolean allow)
-{
-  _0RL_cd_6617778ad39f93c3_31000000 _call_desc(_0RL_lcfn_6617778ad39f93c3_a1000000, "allowAnonymousCreateDir", 24);
-  _call_desc.arg_0 = allow;
-
-  _invoke(_call_desc);
-
-
-
-}
-// Proxy call descriptor class. Mangled signature:
-//  _cServerConfigHandler_mVIRTUAL__USER__AUTHENTICATION_e_cServerConfigHandler_mConfigurationException
-class _0RL_cd_6617778ad39f93c3_b1000000
-  : public omniCallDescriptor
-{
-public:
-  inline _0RL_cd_6617778ad39f93c3_b1000000(LocalCallFn lcfn,const char* op_,size_t oplen,_CORBA_Boolean upcall=0):
-     omniCallDescriptor(lcfn, op_, oplen, 0, _user_exns, 1, upcall)
-  {
-    
-  }
-  
-  
-  void unmarshalReturnedValues(cdrStream&);
-  void marshalReturnedValues(cdrStream&);
-  
-  void userException(cdrStream&,_OMNI_NS(IOP_C)*,const char*);
-  static const char* const _user_exns[];
-
-  ServerConfigHandler::VIRTUAL_USER_AUTHENTICATION result;
-};
-
-void _0RL_cd_6617778ad39f93c3_b1000000::marshalReturnedValues(cdrStream& _n)
-{
-  result >>= _n;
-
-}
-
-void _0RL_cd_6617778ad39f93c3_b1000000::unmarshalReturnedValues(cdrStream& _n)
-{
-  (ServerConfigHandler::VIRTUAL_USER_AUTHENTICATION&)result <<= _n;
-
-}
-
-const char* const _0RL_cd_6617778ad39f93c3_b1000000::_user_exns[] = {
-  ServerConfigHandler::ConfigurationException::_PD_repoId
-};
-
-void _0RL_cd_6617778ad39f93c3_b1000000::userException(cdrStream& s, _OMNI_NS(IOP_C)* iop_client, const char* repoId)
-{
-  if ( omni::strMatch(repoId, ServerConfigHandler::ConfigurationException::_PD_repoId) ) {
-    ServerConfigHandler::ConfigurationException _ex;
-    _ex <<= s;
-    if (iop_client) iop_client->RequestCompleted();
-    throw _ex;
-  }
-
-
-  else {
-    if (iop_client) iop_client->RequestCompleted(1);
-    OMNIORB_THROW(UNKNOWN,UNKNOWN_UserException,
-                  (::CORBA::CompletionStatus)s.completion());
-  }
-}
-
-// Local call call-back function.
-static void
-_0RL_lcfn_6617778ad39f93c3_c1000000(omniCallDescriptor* cd, omniServant* svnt)
-{
-  _0RL_cd_6617778ad39f93c3_b1000000* tcd = (_0RL_cd_6617778ad39f93c3_b1000000*)cd;
-  _impl_ServerConfigHandler* impl = (_impl_ServerConfigHandler*) svnt->_ptrToInterface(ServerConfigHandler::_PD_repoId);
-#ifdef HAS_Cplusplus_catch_exception_by_base
-  tcd->result = impl->getVirtualUserAuthentication();
-#else
-  if (!cd->is_upcall())
-    tcd->result = impl->getVirtualUserAuthentication();
-  else {
-    try {
-      tcd->result = impl->getVirtualUserAuthentication();
-    }
-    catch(ServerConfigHandler::ConfigurationException& ex) {
-      throw omniORB::StubUserException(ex._NP_duplicate());
-    }
-
-
-  }
-#endif
-
-
-}
-
-ServerConfigHandler::VIRTUAL_USER_AUTHENTICATION _objref_ServerConfigHandler::getVirtualUserAuthentication()
-{
-  _0RL_cd_6617778ad39f93c3_b1000000 _call_desc(_0RL_lcfn_6617778ad39f93c3_c1000000, "getVirtualUserAuthentication", 29);
-
-
-  _invoke(_call_desc);
-  return _call_desc.result;
-
-
-}
-// Proxy call descriptor class. Mangled signature:
-//  void_i_cServerConfigHandler_mVIRTUAL__USER__AUTHENTICATION_e_cServerConfigHandler_mConfigurationException
-class _0RL_cd_6617778ad39f93c3_d1000000
-  : public omniCallDescriptor
-{
-public:
-  inline _0RL_cd_6617778ad39f93c3_d1000000(LocalCallFn lcfn,const char* op_,size_t oplen,_CORBA_Boolean upcall=0):
-     omniCallDescriptor(lcfn, op_, oplen, 0, _user_exns, 1, upcall)
-  {
-    
-  }
-  
-  void marshalArguments(cdrStream&);
-  void unmarshalArguments(cdrStream&);
-
-    
-  void userException(cdrStream&,_OMNI_NS(IOP_C)*,const char*);
-  static const char* const _user_exns[];
-
-  ServerConfigHandler::VIRTUAL_USER_AUTHENTICATION arg_0;
-};
-
-void _0RL_cd_6617778ad39f93c3_d1000000::marshalArguments(cdrStream& _n)
-{
-  arg_0 >>= _n;
-
-}
-
-void _0RL_cd_6617778ad39f93c3_d1000000::unmarshalArguments(cdrStream& _n)
-{
-  (ServerConfigHandler::VIRTUAL_USER_AUTHENTICATION&)arg_0 <<= _n;
-
-}
-
-const char* const _0RL_cd_6617778ad39f93c3_d1000000::_user_exns[] = {
-  ServerConfigHandler::ConfigurationException::_PD_repoId
-};
-
-void _0RL_cd_6617778ad39f93c3_d1000000::userException(cdrStream& s, _OMNI_NS(IOP_C)* iop_client, const char* repoId)
-{
-  if ( omni::strMatch(repoId, ServerConfigHandler::ConfigurationException::_PD_repoId) ) {
-    ServerConfigHandler::ConfigurationException _ex;
-    _ex <<= s;
-    if (iop_client) iop_client->RequestCompleted();
-    throw _ex;
-  }
-
-
-  else {
-    if (iop_client) iop_client->RequestCompleted(1);
-    OMNIORB_THROW(UNKNOWN,UNKNOWN_UserException,
-                  (::CORBA::CompletionStatus)s.completion());
-  }
-}
-
-// Local call call-back function.
-static void
-_0RL_lcfn_6617778ad39f93c3_e1000000(omniCallDescriptor* cd, omniServant* svnt)
-{
-  _0RL_cd_6617778ad39f93c3_d1000000* tcd = (_0RL_cd_6617778ad39f93c3_d1000000*)cd;
-  _impl_ServerConfigHandler* impl = (_impl_ServerConfigHandler*) svnt->_ptrToInterface(ServerConfigHandler::_PD_repoId);
-#ifdef HAS_Cplusplus_catch_exception_by_base
-  impl->setVirtualUserAuthentication(tcd->arg_0);
-#else
-  if (!cd->is_upcall())
-    impl->setVirtualUserAuthentication(tcd->arg_0);
-  else {
-    try {
-      impl->setVirtualUserAuthentication(tcd->arg_0);
-    }
-    catch(ServerConfigHandler::ConfigurationException& ex) {
-      throw omniORB::StubUserException(ex._NP_duplicate());
-    }
-
-
-  }
-#endif
-
-
-}
-
-void _objref_ServerConfigHandler::setVirtualUserAuthentication(::ServerConfigHandler::VIRTUAL_USER_AUTHENTICATION mode)
-{
-  _0RL_cd_6617778ad39f93c3_d1000000 _call_desc(_0RL_lcfn_6617778ad39f93c3_e1000000, "setVirtualUserAuthentication", 29);
-  _call_desc.arg_0 = mode;
-
-  _invoke(_call_desc);
-
-
-
-}
-// Proxy call descriptor class. Mangled signature:
-//  void_i_cstring_i_cstring_e_cServerConfigHandler_mConfigurationException
-class _0RL_cd_6617778ad39f93c3_f1000000
-  : public omniCallDescriptor
-{
-public:
-  inline _0RL_cd_6617778ad39f93c3_f1000000(LocalCallFn lcfn,const char* op_,size_t oplen,_CORBA_Boolean upcall=0):
-     omniCallDescriptor(lcfn, op_, oplen, 0, _user_exns, 1, upcall)
-  {
-    
-  }
-  
-  void marshalArguments(cdrStream&);
-  void unmarshalArguments(cdrStream&);
-
-    
-  void userException(cdrStream&,_OMNI_NS(IOP_C)*,const char*);
   static const char* const _user_exns[];
 
   ::CORBA::String_var arg_0_;
   const char* arg_0;
   ::CORBA::String_var arg_1_;
   const char* arg_1;
+  ::CORBA::Boolean result;
 };
 
-void _0RL_cd_6617778ad39f93c3_f1000000::marshalArguments(cdrStream& _n)
+void _0RL_cd_ae81456844cbbeb5_00000000::marshalArguments(cdrStream& _n)
 {
   _n.marshalString(arg_0,0);
   _n.marshalString(arg_1,0);
 
 }
 
-void _0RL_cd_6617778ad39f93c3_f1000000::unmarshalArguments(cdrStream& _n)
+void _0RL_cd_ae81456844cbbeb5_00000000::unmarshalArguments(cdrStream& _n)
 {
   arg_0_ = _n.unmarshalString(0);
   arg_0 = arg_0_.in();
@@ -1612,108 +161,488 @@ void _0RL_cd_6617778ad39f93c3_f1000000::unmarshalArguments(cdrStream& _n)
 
 }
 
-const char* const _0RL_cd_6617778ad39f93c3_f1000000::_user_exns[] = {
-  ServerConfigHandler::ConfigurationException::_PD_repoId
+void _0RL_cd_ae81456844cbbeb5_00000000::marshalReturnedValues(cdrStream& _n)
+{
+  _n.marshalBoolean(result);
+
+}
+
+void _0RL_cd_ae81456844cbbeb5_00000000::unmarshalReturnedValues(cdrStream& _n)
+{
+  result = _n.unmarshalBoolean();
+
+}
+
+const char* const _0RL_cd_ae81456844cbbeb5_00000000::_user_exns[] = {
+  0
 };
 
-void _0RL_cd_6617778ad39f93c3_f1000000::userException(cdrStream& s, _OMNI_NS(IOP_C)* iop_client, const char* repoId)
-{
-  if ( omni::strMatch(repoId, ServerConfigHandler::ConfigurationException::_PD_repoId) ) {
-    ServerConfigHandler::ConfigurationException _ex;
-    _ex <<= s;
-    if (iop_client) iop_client->RequestCompleted();
-    throw _ex;
-  }
-
-
-  else {
-    if (iop_client) iop_client->RequestCompleted(1);
-    OMNIORB_THROW(UNKNOWN,UNKNOWN_UserException,
-                  (::CORBA::CompletionStatus)s.completion());
-  }
-}
-
 // Local call call-back function.
 static void
-_0RL_lcfn_6617778ad39f93c3_02000000(omniCallDescriptor* cd, omniServant* svnt)
+_0RL_lcfn_ae81456844cbbeb5_10000000(omniCallDescriptor* cd, omniServant* svnt)
 {
-  _0RL_cd_6617778ad39f93c3_f1000000* tcd = (_0RL_cd_6617778ad39f93c3_f1000000*)cd;
+  _0RL_cd_ae81456844cbbeb5_00000000* tcd = (_0RL_cd_ae81456844cbbeb5_00000000*)cd;
   _impl_ServerConfigHandler* impl = (_impl_ServerConfigHandler*) svnt->_ptrToInterface(ServerConfigHandler::_PD_repoId);
-#ifdef HAS_Cplusplus_catch_exception_by_base
-  impl->addVirtualUser(tcd->arg_0, tcd->arg_1);
-#else
-  if (!cd->is_upcall())
-    impl->addVirtualUser(tcd->arg_0, tcd->arg_1);
-  else {
-    try {
-      impl->addVirtualUser(tcd->arg_0, tcd->arg_1);
-    }
-    catch(ServerConfigHandler::ConfigurationException& ex) {
-      throw omniORB::StubUserException(ex._NP_duplicate());
-    }
-
-
-  }
-#endif
+  tcd->result = impl->loadPlugin(tcd->arg_0, tcd->arg_1);
 
 
 }
 
-void _objref_ServerConfigHandler::addVirtualUser(const char* user, const char* password)
+::CORBA::Boolean _objref_ServerConfigHandler::loadPlugin(const char* pluginId, const char* pluginName)
 {
-  _0RL_cd_6617778ad39f93c3_f1000000 _call_desc(_0RL_lcfn_6617778ad39f93c3_02000000, "addVirtualUser", 15);
-  _call_desc.arg_0 = user;
-  _call_desc.arg_1 = password;
+  _0RL_cd_ae81456844cbbeb5_00000000 _call_desc(_0RL_lcfn_ae81456844cbbeb5_10000000, "loadPlugin", 11);
+  _call_desc.arg_0 = pluginId;
+  _call_desc.arg_1 = pluginName;
 
   _invoke(_call_desc);
-
-
-
-}
-// Local call call-back function.
-static void
-_0RL_lcfn_6617778ad39f93c3_12000000(omniCallDescriptor* cd, omniServant* svnt)
-{
-  _0RL_cd_6617778ad39f93c3_20000000* tcd = (_0RL_cd_6617778ad39f93c3_20000000*)cd;
-  _impl_ServerConfigHandler* impl = (_impl_ServerConfigHandler*) svnt->_ptrToInterface(ServerConfigHandler::_PD_repoId);
-#ifdef HAS_Cplusplus_catch_exception_by_base
-  impl->remVirtualUser(tcd->arg_0);
-#else
-  if (!cd->is_upcall())
-    impl->remVirtualUser(tcd->arg_0);
-  else {
-    try {
-      impl->remVirtualUser(tcd->arg_0);
-    }
-    catch(ServerConfigHandler::ConfigurationException& ex) {
-      throw omniORB::StubUserException(ex._NP_duplicate());
-    }
-
-
-  }
-#endif
-
-
-}
-
-void _objref_ServerConfigHandler::remVirtualUser(const char* user)
-{
-  _0RL_cd_6617778ad39f93c3_20000000 _call_desc(_0RL_lcfn_6617778ad39f93c3_12000000, "remVirtualUser", 15);
-  _call_desc.arg_0 = user;
-
-  _invoke(_call_desc);
-
+  return _call_desc.result;
 
 
 }
 // Proxy call descriptor class. Mangled signature:
-//  _cServerConfigHandler_mStringSequence_e_cServerConfigHandler_mConfigurationException
-class _0RL_cd_6617778ad39f93c3_22000000
+//  _cboolean_i_cstring
+class _0RL_cd_ae81456844cbbeb5_20000000
   : public omniCallDescriptor
 {
 public:
-  inline _0RL_cd_6617778ad39f93c3_22000000(LocalCallFn lcfn,const char* op_,size_t oplen,_CORBA_Boolean upcall=0):
-     omniCallDescriptor(lcfn, op_, oplen, 0, _user_exns, 1, upcall)
+  inline _0RL_cd_ae81456844cbbeb5_20000000(LocalCallFn lcfn,const char* op_,size_t oplen,_CORBA_Boolean upcall=0):
+     omniCallDescriptor(lcfn, op_, oplen, 0, _user_exns, 0, upcall)
+  {
+    
+  }
+  
+  void marshalArguments(cdrStream&);
+  void unmarshalArguments(cdrStream&);
+
+  void unmarshalReturnedValues(cdrStream&);
+  void marshalReturnedValues(cdrStream&);
+  
+  
+  static const char* const _user_exns[];
+
+  ::CORBA::String_var arg_0_;
+  const char* arg_0;
+  ::CORBA::Boolean result;
+};
+
+void _0RL_cd_ae81456844cbbeb5_20000000::marshalArguments(cdrStream& _n)
+{
+  _n.marshalString(arg_0,0);
+
+}
+
+void _0RL_cd_ae81456844cbbeb5_20000000::unmarshalArguments(cdrStream& _n)
+{
+  arg_0_ = _n.unmarshalString(0);
+  arg_0 = arg_0_.in();
+
+}
+
+void _0RL_cd_ae81456844cbbeb5_20000000::marshalReturnedValues(cdrStream& _n)
+{
+  _n.marshalBoolean(result);
+
+}
+
+void _0RL_cd_ae81456844cbbeb5_20000000::unmarshalReturnedValues(cdrStream& _n)
+{
+  result = _n.unmarshalBoolean();
+
+}
+
+const char* const _0RL_cd_ae81456844cbbeb5_20000000::_user_exns[] = {
+  0
+};
+
+// Local call call-back function.
+static void
+_0RL_lcfn_ae81456844cbbeb5_30000000(omniCallDescriptor* cd, omniServant* svnt)
+{
+  _0RL_cd_ae81456844cbbeb5_20000000* tcd = (_0RL_cd_ae81456844cbbeb5_20000000*)cd;
+  _impl_ServerConfigHandler* impl = (_impl_ServerConfigHandler*) svnt->_ptrToInterface(ServerConfigHandler::_PD_repoId);
+  tcd->result = impl->unloadPlugin(tcd->arg_0);
+
+
+}
+
+::CORBA::Boolean _objref_ServerConfigHandler::unloadPlugin(const char* pluginId)
+{
+  _0RL_cd_ae81456844cbbeb5_20000000 _call_desc(_0RL_lcfn_ae81456844cbbeb5_30000000, "unloadPlugin", 13);
+  _call_desc.arg_0 = pluginId;
+
+  _invoke(_call_desc);
+  return _call_desc.result;
+
+
+}
+// Proxy call descriptor class. Mangled signature:
+//  _cboolean_i_cstring_i_cstring_i_cServerConfigHandler_mByteSequence
+class _0RL_cd_ae81456844cbbeb5_40000000
+  : public omniCallDescriptor
+{
+public:
+  inline _0RL_cd_ae81456844cbbeb5_40000000(LocalCallFn lcfn,const char* op_,size_t oplen,_CORBA_Boolean upcall=0):
+     omniCallDescriptor(lcfn, op_, oplen, 0, _user_exns, 0, upcall)
+  {
+    
+  }
+  
+  void marshalArguments(cdrStream&);
+  void unmarshalArguments(cdrStream&);
+
+  void unmarshalReturnedValues(cdrStream&);
+  void marshalReturnedValues(cdrStream&);
+  
+  
+  static const char* const _user_exns[];
+
+  ::CORBA::String_var arg_0_;
+  const char* arg_0;
+  ::CORBA::String_var arg_1_;
+  const char* arg_1;
+  ServerConfigHandler::ByteSequence_var arg_2_;
+  const ServerConfigHandler::ByteSequence* arg_2;
+  ::CORBA::Boolean result;
+};
+
+void _0RL_cd_ae81456844cbbeb5_40000000::marshalArguments(cdrStream& _n)
+{
+  _n.marshalString(arg_0,0);
+  _n.marshalString(arg_1,0);
+  (const ServerConfigHandler::ByteSequence&) *arg_2 >>= _n;
+
+}
+
+void _0RL_cd_ae81456844cbbeb5_40000000::unmarshalArguments(cdrStream& _n)
+{
+  arg_0_ = _n.unmarshalString(0);
+  arg_0 = arg_0_.in();
+  arg_1_ = _n.unmarshalString(0);
+  arg_1 = arg_1_.in();
+  arg_2_ = new ServerConfigHandler::ByteSequence;
+  (ServerConfigHandler::ByteSequence&)arg_2_ <<= _n;
+  arg_2 = &arg_2_.in();
+
+}
+
+void _0RL_cd_ae81456844cbbeb5_40000000::marshalReturnedValues(cdrStream& _n)
+{
+  _n.marshalBoolean(result);
+
+}
+
+void _0RL_cd_ae81456844cbbeb5_40000000::unmarshalReturnedValues(cdrStream& _n)
+{
+  result = _n.unmarshalBoolean();
+
+}
+
+const char* const _0RL_cd_ae81456844cbbeb5_40000000::_user_exns[] = {
+  0
+};
+
+// Local call call-back function.
+static void
+_0RL_lcfn_ae81456844cbbeb5_50000000(omniCallDescriptor* cd, omniServant* svnt)
+{
+  _0RL_cd_ae81456844cbbeb5_40000000* tcd = (_0RL_cd_ae81456844cbbeb5_40000000*)cd;
+  _impl_ServerConfigHandler* impl = (_impl_ServerConfigHandler*) svnt->_ptrToInterface(ServerConfigHandler::_PD_repoId);
+  tcd->result = impl->set(tcd->arg_0, tcd->arg_1, *tcd->arg_2);
+
+
+}
+
+::CORBA::Boolean _objref_ServerConfigHandler::set(const char* pluginId, const char* propertyName, const ::ServerConfigHandler::ByteSequence& value)
+{
+  _0RL_cd_ae81456844cbbeb5_40000000 _call_desc(_0RL_lcfn_ae81456844cbbeb5_50000000, "set", 4);
+  _call_desc.arg_0 = pluginId;
+  _call_desc.arg_1 = propertyName;
+  _call_desc.arg_2 = &(::ServerConfigHandler::ByteSequence&) value;
+
+  _invoke(_call_desc);
+  return _call_desc.result;
+
+
+}
+// Proxy call descriptor class. Mangled signature:
+//  _cServerConfigHandler_mByteSequence_i_cstring_i_cstring
+class _0RL_cd_ae81456844cbbeb5_60000000
+  : public omniCallDescriptor
+{
+public:
+  inline _0RL_cd_ae81456844cbbeb5_60000000(LocalCallFn lcfn,const char* op_,size_t oplen,_CORBA_Boolean upcall=0):
+     omniCallDescriptor(lcfn, op_, oplen, 0, _user_exns, 0, upcall)
+  {
+    
+  }
+  
+  void marshalArguments(cdrStream&);
+  void unmarshalArguments(cdrStream&);
+
+  void unmarshalReturnedValues(cdrStream&);
+  void marshalReturnedValues(cdrStream&);
+  
+  
+  static const char* const _user_exns[];
+
+  ::CORBA::String_var arg_0_;
+  const char* arg_0;
+  ::CORBA::String_var arg_1_;
+  const char* arg_1;
+  ServerConfigHandler::ByteSequence_var result;
+};
+
+void _0RL_cd_ae81456844cbbeb5_60000000::marshalArguments(cdrStream& _n)
+{
+  _n.marshalString(arg_0,0);
+  _n.marshalString(arg_1,0);
+
+}
+
+void _0RL_cd_ae81456844cbbeb5_60000000::unmarshalArguments(cdrStream& _n)
+{
+  arg_0_ = _n.unmarshalString(0);
+  arg_0 = arg_0_.in();
+  arg_1_ = _n.unmarshalString(0);
+  arg_1 = arg_1_.in();
+
+}
+
+void _0RL_cd_ae81456844cbbeb5_60000000::marshalReturnedValues(cdrStream& _n)
+{
+  (const ServerConfigHandler::ByteSequence&) result >>= _n;
+
+}
+
+void _0RL_cd_ae81456844cbbeb5_60000000::unmarshalReturnedValues(cdrStream& _n)
+{
+  result = new ServerConfigHandler::ByteSequence;
+  (ServerConfigHandler::ByteSequence&)result <<= _n;
+
+}
+
+const char* const _0RL_cd_ae81456844cbbeb5_60000000::_user_exns[] = {
+  0
+};
+
+// Local call call-back function.
+static void
+_0RL_lcfn_ae81456844cbbeb5_70000000(omniCallDescriptor* cd, omniServant* svnt)
+{
+  _0RL_cd_ae81456844cbbeb5_60000000* tcd = (_0RL_cd_ae81456844cbbeb5_60000000*)cd;
+  _impl_ServerConfigHandler* impl = (_impl_ServerConfigHandler*) svnt->_ptrToInterface(ServerConfigHandler::_PD_repoId);
+  tcd->result = impl->get(tcd->arg_0, tcd->arg_1);
+
+
+}
+
+ServerConfigHandler::ByteSequence* _objref_ServerConfigHandler::get(const char* pluginId, const char* propertyName)
+{
+  _0RL_cd_ae81456844cbbeb5_60000000 _call_desc(_0RL_lcfn_ae81456844cbbeb5_70000000, "get", 4);
+  _call_desc.arg_0 = pluginId;
+  _call_desc.arg_1 = propertyName;
+
+  _invoke(_call_desc);
+  return _call_desc.result._retn();
+
+
+}
+// Proxy call descriptor class. Mangled signature:
+//  _cServerConfigHandler_mByteSequence_i_cstring_i_cstring_i_cServerConfigHandler_mByteSequence
+class _0RL_cd_ae81456844cbbeb5_80000000
+  : public omniCallDescriptor
+{
+public:
+  inline _0RL_cd_ae81456844cbbeb5_80000000(LocalCallFn lcfn,const char* op_,size_t oplen,_CORBA_Boolean upcall=0):
+     omniCallDescriptor(lcfn, op_, oplen, 0, _user_exns, 0, upcall)
+  {
+    
+  }
+  
+  void marshalArguments(cdrStream&);
+  void unmarshalArguments(cdrStream&);
+
+  void unmarshalReturnedValues(cdrStream&);
+  void marshalReturnedValues(cdrStream&);
+  
+  
+  static const char* const _user_exns[];
+
+  ::CORBA::String_var arg_0_;
+  const char* arg_0;
+  ::CORBA::String_var arg_1_;
+  const char* arg_1;
+  ServerConfigHandler::ByteSequence_var arg_2_;
+  const ServerConfigHandler::ByteSequence* arg_2;
+  ServerConfigHandler::ByteSequence_var result;
+};
+
+void _0RL_cd_ae81456844cbbeb5_80000000::marshalArguments(cdrStream& _n)
+{
+  _n.marshalString(arg_0,0);
+  _n.marshalString(arg_1,0);
+  (const ServerConfigHandler::ByteSequence&) *arg_2 >>= _n;
+
+}
+
+void _0RL_cd_ae81456844cbbeb5_80000000::unmarshalArguments(cdrStream& _n)
+{
+  arg_0_ = _n.unmarshalString(0);
+  arg_0 = arg_0_.in();
+  arg_1_ = _n.unmarshalString(0);
+  arg_1 = arg_1_.in();
+  arg_2_ = new ServerConfigHandler::ByteSequence;
+  (ServerConfigHandler::ByteSequence&)arg_2_ <<= _n;
+  arg_2 = &arg_2_.in();
+
+}
+
+void _0RL_cd_ae81456844cbbeb5_80000000::marshalReturnedValues(cdrStream& _n)
+{
+  (const ServerConfigHandler::ByteSequence&) result >>= _n;
+
+}
+
+void _0RL_cd_ae81456844cbbeb5_80000000::unmarshalReturnedValues(cdrStream& _n)
+{
+  result = new ServerConfigHandler::ByteSequence;
+  (ServerConfigHandler::ByteSequence&)result <<= _n;
+
+}
+
+const char* const _0RL_cd_ae81456844cbbeb5_80000000::_user_exns[] = {
+  0
+};
+
+// Local call call-back function.
+static void
+_0RL_lcfn_ae81456844cbbeb5_90000000(omniCallDescriptor* cd, omniServant* svnt)
+{
+  _0RL_cd_ae81456844cbbeb5_80000000* tcd = (_0RL_cd_ae81456844cbbeb5_80000000*)cd;
+  _impl_ServerConfigHandler* impl = (_impl_ServerConfigHandler*) svnt->_ptrToInterface(ServerConfigHandler::_PD_repoId);
+  tcd->result = impl->exec(tcd->arg_0, tcd->arg_1, *tcd->arg_2);
+
+
+}
+
+ServerConfigHandler::ByteSequence* _objref_ServerConfigHandler::exec(const char* pluginId, const char* taskName, const ::ServerConfigHandler::ByteSequence& argumentList)
+{
+  _0RL_cd_ae81456844cbbeb5_80000000 _call_desc(_0RL_lcfn_ae81456844cbbeb5_90000000, "exec", 5);
+  _call_desc.arg_0 = pluginId;
+  _call_desc.arg_1 = taskName;
+  _call_desc.arg_2 = &(::ServerConfigHandler::ByteSequence&) argumentList;
+
+  _invoke(_call_desc);
+  return _call_desc.result._retn();
+
+
+}
+// Proxy call descriptor class. Mangled signature:
+//  _cServerConfigHandler_mStringSequence_i_cstring
+class _0RL_cd_ae81456844cbbeb5_a0000000
+  : public omniCallDescriptor
+{
+public:
+  inline _0RL_cd_ae81456844cbbeb5_a0000000(LocalCallFn lcfn,const char* op_,size_t oplen,_CORBA_Boolean upcall=0):
+     omniCallDescriptor(lcfn, op_, oplen, 0, _user_exns, 0, upcall)
+  {
+    
+  }
+  
+  void marshalArguments(cdrStream&);
+  void unmarshalArguments(cdrStream&);
+
+  void unmarshalReturnedValues(cdrStream&);
+  void marshalReturnedValues(cdrStream&);
+  
+  
+  static const char* const _user_exns[];
+
+  ::CORBA::String_var arg_0_;
+  const char* arg_0;
+  ServerConfigHandler::StringSequence_var result;
+};
+
+void _0RL_cd_ae81456844cbbeb5_a0000000::marshalArguments(cdrStream& _n)
+{
+  _n.marshalString(arg_0,0);
+
+}
+
+void _0RL_cd_ae81456844cbbeb5_a0000000::unmarshalArguments(cdrStream& _n)
+{
+  arg_0_ = _n.unmarshalString(0);
+  arg_0 = arg_0_.in();
+
+}
+
+void _0RL_cd_ae81456844cbbeb5_a0000000::marshalReturnedValues(cdrStream& _n)
+{
+  (const ServerConfigHandler::StringSequence&) result >>= _n;
+
+}
+
+void _0RL_cd_ae81456844cbbeb5_a0000000::unmarshalReturnedValues(cdrStream& _n)
+{
+  result = new ServerConfigHandler::StringSequence;
+  (ServerConfigHandler::StringSequence&)result <<= _n;
+
+}
+
+const char* const _0RL_cd_ae81456844cbbeb5_a0000000::_user_exns[] = {
+  0
+};
+
+// Local call call-back function.
+static void
+_0RL_lcfn_ae81456844cbbeb5_b0000000(omniCallDescriptor* cd, omniServant* svnt)
+{
+  _0RL_cd_ae81456844cbbeb5_a0000000* tcd = (_0RL_cd_ae81456844cbbeb5_a0000000*)cd;
+  _impl_ServerConfigHandler* impl = (_impl_ServerConfigHandler*) svnt->_ptrToInterface(ServerConfigHandler::_PD_repoId);
+  tcd->result = impl->metaProperties(tcd->arg_0);
+
+
+}
+
+ServerConfigHandler::StringSequence* _objref_ServerConfigHandler::metaProperties(const char* pluginId)
+{
+  _0RL_cd_ae81456844cbbeb5_a0000000 _call_desc(_0RL_lcfn_ae81456844cbbeb5_b0000000, "metaProperties", 15);
+  _call_desc.arg_0 = pluginId;
+
+  _invoke(_call_desc);
+  return _call_desc.result._retn();
+
+
+}
+// Local call call-back function.
+static void
+_0RL_lcfn_ae81456844cbbeb5_c0000000(omniCallDescriptor* cd, omniServant* svnt)
+{
+  _0RL_cd_ae81456844cbbeb5_a0000000* tcd = (_0RL_cd_ae81456844cbbeb5_a0000000*)cd;
+  _impl_ServerConfigHandler* impl = (_impl_ServerConfigHandler*) svnt->_ptrToInterface(ServerConfigHandler::_PD_repoId);
+  tcd->result = impl->metaTasks(tcd->arg_0);
+
+
+}
+
+ServerConfigHandler::StringSequence* _objref_ServerConfigHandler::metaTasks(const char* pluginId)
+{
+  _0RL_cd_ae81456844cbbeb5_a0000000 _call_desc(_0RL_lcfn_ae81456844cbbeb5_c0000000, "metaTasks", 10);
+  _call_desc.arg_0 = pluginId;
+
+  _invoke(_call_desc);
+  return _call_desc.result._retn();
+
+
+}
+// Proxy call descriptor class. Mangled signature:
+//  _cstring
+class _0RL_cd_ae81456844cbbeb5_d0000000
+  : public omniCallDescriptor
+{
+public:
+  inline _0RL_cd_ae81456844cbbeb5_d0000000(LocalCallFn lcfn,const char* op_,size_t oplen,_CORBA_Boolean upcall=0):
+     omniCallDescriptor(lcfn, op_, oplen, 0, _user_exns, 0, upcall)
   {
     
   }
@@ -1722,255 +651,42 @@ public:
   void unmarshalReturnedValues(cdrStream&);
   void marshalReturnedValues(cdrStream&);
   
-  void userException(cdrStream&,_OMNI_NS(IOP_C)*,const char*);
+  
   static const char* const _user_exns[];
 
-  ServerConfigHandler::StringSequence_var result;
+  ::CORBA::String_var result;
 };
 
-void _0RL_cd_6617778ad39f93c3_22000000::marshalReturnedValues(cdrStream& _n)
+void _0RL_cd_ae81456844cbbeb5_d0000000::marshalReturnedValues(cdrStream& _n)
 {
-  (const ServerConfigHandler::StringSequence&) result >>= _n;
+  _n.marshalString(result,0);
 
 }
 
-void _0RL_cd_6617778ad39f93c3_22000000::unmarshalReturnedValues(cdrStream& _n)
+void _0RL_cd_ae81456844cbbeb5_d0000000::unmarshalReturnedValues(cdrStream& _n)
 {
-  result = new ServerConfigHandler::StringSequence;
-  (ServerConfigHandler::StringSequence&)result <<= _n;
+  result = _n.unmarshalString(0);
 
 }
 
-const char* const _0RL_cd_6617778ad39f93c3_22000000::_user_exns[] = {
-  ServerConfigHandler::ConfigurationException::_PD_repoId
+const char* const _0RL_cd_ae81456844cbbeb5_d0000000::_user_exns[] = {
+  0
 };
 
-void _0RL_cd_6617778ad39f93c3_22000000::userException(cdrStream& s, _OMNI_NS(IOP_C)* iop_client, const char* repoId)
-{
-  if ( omni::strMatch(repoId, ServerConfigHandler::ConfigurationException::_PD_repoId) ) {
-    ServerConfigHandler::ConfigurationException _ex;
-    _ex <<= s;
-    if (iop_client) iop_client->RequestCompleted();
-    throw _ex;
-  }
-
-
-  else {
-    if (iop_client) iop_client->RequestCompleted(1);
-    OMNIORB_THROW(UNKNOWN,UNKNOWN_UserException,
-                  (::CORBA::CompletionStatus)s.completion());
-  }
-}
-
 // Local call call-back function.
 static void
-_0RL_lcfn_6617778ad39f93c3_32000000(omniCallDescriptor* cd, omniServant* svnt)
+_0RL_lcfn_ae81456844cbbeb5_e0000000(omniCallDescriptor* cd, omniServant* svnt)
 {
-  _0RL_cd_6617778ad39f93c3_22000000* tcd = (_0RL_cd_6617778ad39f93c3_22000000*)cd;
+  _0RL_cd_ae81456844cbbeb5_d0000000* tcd = (_0RL_cd_ae81456844cbbeb5_d0000000*)cd;
   _impl_ServerConfigHandler* impl = (_impl_ServerConfigHandler*) svnt->_ptrToInterface(ServerConfigHandler::_PD_repoId);
-#ifdef HAS_Cplusplus_catch_exception_by_base
-  tcd->result = impl->virtualUsers();
-#else
-  if (!cd->is_upcall())
-    tcd->result = impl->virtualUsers();
-  else {
-    try {
-      tcd->result = impl->virtualUsers();
-    }
-    catch(ServerConfigHandler::ConfigurationException& ex) {
-      throw omniORB::StubUserException(ex._NP_duplicate());
-    }
-
-
-  }
-#endif
+  tcd->result = impl->lastErrorString();
 
 
 }
 
-ServerConfigHandler::StringSequence* _objref_ServerConfigHandler::virtualUsers()
+char* _objref_ServerConfigHandler::lastErrorString()
 {
-  _0RL_cd_6617778ad39f93c3_22000000 _call_desc(_0RL_lcfn_6617778ad39f93c3_32000000, "virtualUsers", 13);
-
-
-  _invoke(_call_desc);
-  return _call_desc.result._retn();
-
-
-}
-// Local call call-back function.
-static void
-_0RL_lcfn_6617778ad39f93c3_42000000(omniCallDescriptor* cd, omniServant* svnt)
-{
-  _0RL_cd_6617778ad39f93c3_00000000* tcd = (_0RL_cd_6617778ad39f93c3_00000000*)cd;
-  _impl_ServerConfigHandler* impl = (_impl_ServerConfigHandler*) svnt->_ptrToInterface(ServerConfigHandler::_PD_repoId);
-#ifdef HAS_Cplusplus_catch_exception_by_base
-  tcd->result = impl->getWelcomeMessage();
-#else
-  if (!cd->is_upcall())
-    tcd->result = impl->getWelcomeMessage();
-  else {
-    try {
-      tcd->result = impl->getWelcomeMessage();
-    }
-    catch(ServerConfigHandler::ConfigurationException& ex) {
-      throw omniORB::StubUserException(ex._NP_duplicate());
-    }
-
-
-  }
-#endif
-
-
-}
-
-char* _objref_ServerConfigHandler::getWelcomeMessage()
-{
-  _0RL_cd_6617778ad39f93c3_00000000 _call_desc(_0RL_lcfn_6617778ad39f93c3_42000000, "getWelcomeMessage", 18);
-
-
-  _invoke(_call_desc);
-  return _call_desc.result._retn();
-
-
-}
-// Local call call-back function.
-static void
-_0RL_lcfn_6617778ad39f93c3_52000000(omniCallDescriptor* cd, omniServant* svnt)
-{
-  _0RL_cd_6617778ad39f93c3_20000000* tcd = (_0RL_cd_6617778ad39f93c3_20000000*)cd;
-  _impl_ServerConfigHandler* impl = (_impl_ServerConfigHandler*) svnt->_ptrToInterface(ServerConfigHandler::_PD_repoId);
-#ifdef HAS_Cplusplus_catch_exception_by_base
-  impl->setWelcomeMessage(tcd->arg_0);
-#else
-  if (!cd->is_upcall())
-    impl->setWelcomeMessage(tcd->arg_0);
-  else {
-    try {
-      impl->setWelcomeMessage(tcd->arg_0);
-    }
-    catch(ServerConfigHandler::ConfigurationException& ex) {
-      throw omniORB::StubUserException(ex._NP_duplicate());
-    }
-
-
-  }
-#endif
-
-
-}
-
-void _objref_ServerConfigHandler::setWelcomeMessage(const char* msg)
-{
-  _0RL_cd_6617778ad39f93c3_20000000 _call_desc(_0RL_lcfn_6617778ad39f93c3_52000000, "setWelcomeMessage", 18);
-  _call_desc.arg_0 = msg;
-
-  _invoke(_call_desc);
-
-
-
-}
-// Local call call-back function.
-static void
-_0RL_lcfn_6617778ad39f93c3_62000000(omniCallDescriptor* cd, omniServant* svnt)
-{
-  _0RL_cd_6617778ad39f93c3_00000000* tcd = (_0RL_cd_6617778ad39f93c3_00000000*)cd;
-  _impl_ServerConfigHandler* impl = (_impl_ServerConfigHandler*) svnt->_ptrToInterface(ServerConfigHandler::_PD_repoId);
-#ifdef HAS_Cplusplus_catch_exception_by_base
-  tcd->result = impl->getLogFile();
-#else
-  if (!cd->is_upcall())
-    tcd->result = impl->getLogFile();
-  else {
-    try {
-      tcd->result = impl->getLogFile();
-    }
-    catch(ServerConfigHandler::ConfigurationException& ex) {
-      throw omniORB::StubUserException(ex._NP_duplicate());
-    }
-
-
-  }
-#endif
-
-
-}
-
-char* _objref_ServerConfigHandler::getLogFile()
-{
-  _0RL_cd_6617778ad39f93c3_00000000 _call_desc(_0RL_lcfn_6617778ad39f93c3_62000000, "getLogFile", 11);
-
-
-  _invoke(_call_desc);
-  return _call_desc.result._retn();
-
-
-}
-// Local call call-back function.
-static void
-_0RL_lcfn_6617778ad39f93c3_72000000(omniCallDescriptor* cd, omniServant* svnt)
-{
-  _0RL_cd_6617778ad39f93c3_20000000* tcd = (_0RL_cd_6617778ad39f93c3_20000000*)cd;
-  _impl_ServerConfigHandler* impl = (_impl_ServerConfigHandler*) svnt->_ptrToInterface(ServerConfigHandler::_PD_repoId);
-#ifdef HAS_Cplusplus_catch_exception_by_base
-  impl->importConfiguration(tcd->arg_0);
-#else
-  if (!cd->is_upcall())
-    impl->importConfiguration(tcd->arg_0);
-  else {
-    try {
-      impl->importConfiguration(tcd->arg_0);
-    }
-    catch(ServerConfigHandler::ConfigurationException& ex) {
-      throw omniORB::StubUserException(ex._NP_duplicate());
-    }
-
-
-  }
-#endif
-
-
-}
-
-void _objref_ServerConfigHandler::importConfiguration(const char* configuration)
-{
-  _0RL_cd_6617778ad39f93c3_20000000 _call_desc(_0RL_lcfn_6617778ad39f93c3_72000000, "importConfiguration", 20);
-  _call_desc.arg_0 = configuration;
-
-  _invoke(_call_desc);
-
-
-
-}
-// Local call call-back function.
-static void
-_0RL_lcfn_6617778ad39f93c3_82000000(omniCallDescriptor* cd, omniServant* svnt)
-{
-  _0RL_cd_6617778ad39f93c3_00000000* tcd = (_0RL_cd_6617778ad39f93c3_00000000*)cd;
-  _impl_ServerConfigHandler* impl = (_impl_ServerConfigHandler*) svnt->_ptrToInterface(ServerConfigHandler::_PD_repoId);
-#ifdef HAS_Cplusplus_catch_exception_by_base
-  tcd->result = impl->exportConfiguration();
-#else
-  if (!cd->is_upcall())
-    tcd->result = impl->exportConfiguration();
-  else {
-    try {
-      tcd->result = impl->exportConfiguration();
-    }
-    catch(ServerConfigHandler::ConfigurationException& ex) {
-      throw omniORB::StubUserException(ex._NP_duplicate());
-    }
-
-
-  }
-#endif
-
-
-}
-
-char* _objref_ServerConfigHandler::exportConfiguration()
-{
-  _0RL_cd_6617778ad39f93c3_00000000 _call_desc(_0RL_lcfn_6617778ad39f93c3_82000000, "exportConfiguration", 20);
+  _0RL_cd_ae81456844cbbeb5_d0000000 _call_desc(_0RL_lcfn_ae81456844cbbeb5_e0000000, "lastErrorString", 16);
 
 
   _invoke(_call_desc);
@@ -1979,228 +695,61 @@ char* _objref_ServerConfigHandler::exportConfiguration()
 
 }
 // Proxy call descriptor class. Mangled signature:
-//  void_e_cServerConfigHandler_mConfigurationException
-class _0RL_cd_6617778ad39f93c3_92000000
+//  _cboolean
+class _0RL_cd_ae81456844cbbeb5_f0000000
   : public omniCallDescriptor
 {
 public:
-  inline _0RL_cd_6617778ad39f93c3_92000000(LocalCallFn lcfn,const char* op_,size_t oplen,_CORBA_Boolean upcall=0):
-     omniCallDescriptor(lcfn, op_, oplen, 0, _user_exns, 1, upcall)
+  inline _0RL_cd_ae81456844cbbeb5_f0000000(LocalCallFn lcfn,const char* op_,size_t oplen,_CORBA_Boolean upcall=0):
+     omniCallDescriptor(lcfn, op_, oplen, 0, _user_exns, 0, upcall)
   {
     
   }
   
   
-    
-  void userException(cdrStream&,_OMNI_NS(IOP_C)*,const char*);
+  void unmarshalReturnedValues(cdrStream&);
+  void marshalReturnedValues(cdrStream&);
+  
+  
   static const char* const _user_exns[];
 
-  
+  ::CORBA::Boolean result;
 };
 
-const char* const _0RL_cd_6617778ad39f93c3_92000000::_user_exns[] = {
-  ServerConfigHandler::ConfigurationException::_PD_repoId
-};
-
-void _0RL_cd_6617778ad39f93c3_92000000::userException(cdrStream& s, _OMNI_NS(IOP_C)* iop_client, const char* repoId)
+void _0RL_cd_ae81456844cbbeb5_f0000000::marshalReturnedValues(cdrStream& _n)
 {
-  if ( omni::strMatch(repoId, ServerConfigHandler::ConfigurationException::_PD_repoId) ) {
-    ServerConfigHandler::ConfigurationException _ex;
-    _ex <<= s;
-    if (iop_client) iop_client->RequestCompleted();
-    throw _ex;
-  }
+  _n.marshalBoolean(result);
 
-
-  else {
-    if (iop_client) iop_client->RequestCompleted(1);
-    OMNIORB_THROW(UNKNOWN,UNKNOWN_UserException,
-                  (::CORBA::CompletionStatus)s.completion());
-  }
 }
+
+void _0RL_cd_ae81456844cbbeb5_f0000000::unmarshalReturnedValues(cdrStream& _n)
+{
+  result = _n.unmarshalBoolean();
+
+}
+
+const char* const _0RL_cd_ae81456844cbbeb5_f0000000::_user_exns[] = {
+  0
+};
 
 // Local call call-back function.
 static void
-_0RL_lcfn_6617778ad39f93c3_a2000000(omniCallDescriptor* cd, omniServant* svnt)
+_0RL_lcfn_ae81456844cbbeb5_01000000(omniCallDescriptor* cd, omniServant* svnt)
 {
-  
+  _0RL_cd_ae81456844cbbeb5_f0000000* tcd = (_0RL_cd_ae81456844cbbeb5_f0000000*)cd;
   _impl_ServerConfigHandler* impl = (_impl_ServerConfigHandler*) svnt->_ptrToInterface(ServerConfigHandler::_PD_repoId);
-#ifdef HAS_Cplusplus_catch_exception_by_base
-  impl->resetConfiguration();
-#else
-  if (!cd->is_upcall())
-    impl->resetConfiguration();
-  else {
-    try {
-      impl->resetConfiguration();
-    }
-    catch(ServerConfigHandler::ConfigurationException& ex) {
-      throw omniORB::StubUserException(ex._NP_duplicate());
-    }
-
-
-  }
-#endif
+  tcd->result = impl->hasFailure();
 
 
 }
 
-void _objref_ServerConfigHandler::resetConfiguration()
+::CORBA::Boolean _objref_ServerConfigHandler::hasFailure()
 {
-  _0RL_cd_6617778ad39f93c3_92000000 _call_desc(_0RL_lcfn_6617778ad39f93c3_a2000000, "resetConfiguration", 19);
+  _0RL_cd_ae81456844cbbeb5_f0000000 _call_desc(_0RL_lcfn_ae81456844cbbeb5_01000000, "hasFailure", 11);
 
 
   _invoke(_call_desc);
-
-
-
-}
-// Proxy call descriptor class. Mangled signature:
-//  void_e_cServerConfigHandler_mServerException
-class _0RL_cd_6617778ad39f93c3_b2000000
-  : public omniCallDescriptor
-{
-public:
-  inline _0RL_cd_6617778ad39f93c3_b2000000(LocalCallFn lcfn,const char* op_,size_t oplen,_CORBA_Boolean upcall=0):
-     omniCallDescriptor(lcfn, op_, oplen, 0, _user_exns, 1, upcall)
-  {
-    
-  }
-  
-  
-    
-  void userException(cdrStream&,_OMNI_NS(IOP_C)*,const char*);
-  static const char* const _user_exns[];
-
-  
-};
-
-const char* const _0RL_cd_6617778ad39f93c3_b2000000::_user_exns[] = {
-  ServerConfigHandler::ServerException::_PD_repoId
-};
-
-void _0RL_cd_6617778ad39f93c3_b2000000::userException(cdrStream& s, _OMNI_NS(IOP_C)* iop_client, const char* repoId)
-{
-  if ( omni::strMatch(repoId, ServerConfigHandler::ServerException::_PD_repoId) ) {
-    ServerConfigHandler::ServerException _ex;
-    _ex <<= s;
-    if (iop_client) iop_client->RequestCompleted();
-    throw _ex;
-  }
-
-
-  else {
-    if (iop_client) iop_client->RequestCompleted(1);
-    OMNIORB_THROW(UNKNOWN,UNKNOWN_UserException,
-                  (::CORBA::CompletionStatus)s.completion());
-  }
-}
-
-// Local call call-back function.
-static void
-_0RL_lcfn_6617778ad39f93c3_c2000000(omniCallDescriptor* cd, omniServant* svnt)
-{
-  
-  _impl_ServerConfigHandler* impl = (_impl_ServerConfigHandler*) svnt->_ptrToInterface(ServerConfigHandler::_PD_repoId);
-#ifdef HAS_Cplusplus_catch_exception_by_base
-  impl->start();
-#else
-  if (!cd->is_upcall())
-    impl->start();
-  else {
-    try {
-      impl->start();
-    }
-    catch(ServerConfigHandler::ServerException& ex) {
-      throw omniORB::StubUserException(ex._NP_duplicate());
-    }
-
-
-  }
-#endif
-
-
-}
-
-void _objref_ServerConfigHandler::start()
-{
-  _0RL_cd_6617778ad39f93c3_b2000000 _call_desc(_0RL_lcfn_6617778ad39f93c3_c2000000, "start", 6);
-
-
-  _invoke(_call_desc);
-
-
-
-}
-// Local call call-back function.
-static void
-_0RL_lcfn_6617778ad39f93c3_d2000000(omniCallDescriptor* cd, omniServant* svnt)
-{
-  
-  _impl_ServerConfigHandler* impl = (_impl_ServerConfigHandler*) svnt->_ptrToInterface(ServerConfigHandler::_PD_repoId);
-#ifdef HAS_Cplusplus_catch_exception_by_base
-  impl->stop();
-#else
-  if (!cd->is_upcall())
-    impl->stop();
-  else {
-    try {
-      impl->stop();
-    }
-    catch(ServerConfigHandler::ServerException& ex) {
-      throw omniORB::StubUserException(ex._NP_duplicate());
-    }
-
-
-  }
-#endif
-
-
-}
-
-void _objref_ServerConfigHandler::stop()
-{
-  _0RL_cd_6617778ad39f93c3_b2000000 _call_desc(_0RL_lcfn_6617778ad39f93c3_d2000000, "stop", 5);
-
-
-  _invoke(_call_desc);
-
-
-
-}
-// Local call call-back function.
-static void
-_0RL_lcfn_6617778ad39f93c3_e2000000(omniCallDescriptor* cd, omniServant* svnt)
-{
-  
-  _impl_ServerConfigHandler* impl = (_impl_ServerConfigHandler*) svnt->_ptrToInterface(ServerConfigHandler::_PD_repoId);
-#ifdef HAS_Cplusplus_catch_exception_by_base
-  impl->restart();
-#else
-  if (!cd->is_upcall())
-    impl->restart();
-  else {
-    try {
-      impl->restart();
-    }
-    catch(ServerConfigHandler::ServerException& ex) {
-      throw omniORB::StubUserException(ex._NP_duplicate());
-    }
-
-
-  }
-#endif
-
-
-}
-
-void _objref_ServerConfigHandler::restart()
-{
-  _0RL_cd_6617778ad39f93c3_b2000000 _call_desc(_0RL_lcfn_6617778ad39f93c3_e2000000, "restart", 8);
-
-
-  _invoke(_call_desc);
-
+  return _call_desc.result;
 
 
 }
@@ -2233,265 +782,73 @@ _impl_ServerConfigHandler::_dispatch(omniCallHandle& _handle)
 {
   const char* op = _handle.operation_name();
 
-  if( omni::strMatch(op, "getServerName") ) {
+  if( omni::strMatch(op, "loadPlugin") ) {
 
-    _0RL_cd_6617778ad39f93c3_00000000 _call_desc(_0RL_lcfn_6617778ad39f93c3_10000000, "getServerName", 14, 1);
+    _0RL_cd_ae81456844cbbeb5_00000000 _call_desc(_0RL_lcfn_ae81456844cbbeb5_10000000, "loadPlugin", 11, 1);
     
     _handle.upcall(this,_call_desc);
     return 1;
   }
 
-  if( omni::strMatch(op, "setServerName") ) {
+  if( omni::strMatch(op, "unloadPlugin") ) {
 
-    _0RL_cd_6617778ad39f93c3_20000000 _call_desc(_0RL_lcfn_6617778ad39f93c3_30000000, "setServerName", 14, 1);
+    _0RL_cd_ae81456844cbbeb5_20000000 _call_desc(_0RL_lcfn_ae81456844cbbeb5_30000000, "unloadPlugin", 13, 1);
     
     _handle.upcall(this,_call_desc);
     return 1;
   }
 
-  if( omni::strMatch(op, "getServerAddr") ) {
+  if( omni::strMatch(op, "set") ) {
 
-    _0RL_cd_6617778ad39f93c3_00000000 _call_desc(_0RL_lcfn_6617778ad39f93c3_40000000, "getServerAddr", 14, 1);
+    _0RL_cd_ae81456844cbbeb5_40000000 _call_desc(_0RL_lcfn_ae81456844cbbeb5_50000000, "set", 4, 1);
     
     _handle.upcall(this,_call_desc);
     return 1;
   }
 
-  if( omni::strMatch(op, "getServerPort") ) {
+  if( omni::strMatch(op, "get") ) {
 
-    _0RL_cd_6617778ad39f93c3_50000000 _call_desc(_0RL_lcfn_6617778ad39f93c3_60000000, "getServerPort", 14, 1);
+    _0RL_cd_ae81456844cbbeb5_60000000 _call_desc(_0RL_lcfn_ae81456844cbbeb5_70000000, "get", 4, 1);
     
     _handle.upcall(this,_call_desc);
     return 1;
   }
 
-  if( omni::strMatch(op, "setServerPort") ) {
+  if( omni::strMatch(op, "exec") ) {
 
-    _0RL_cd_6617778ad39f93c3_70000000 _call_desc(_0RL_lcfn_6617778ad39f93c3_80000000, "setServerPort", 14, 1);
+    _0RL_cd_ae81456844cbbeb5_80000000 _call_desc(_0RL_lcfn_ae81456844cbbeb5_90000000, "exec", 5, 1);
     
     _handle.upcall(this,_call_desc);
     return 1;
   }
 
-  if( omni::strMatch(op, "getInternetProtocol") ) {
+  if( omni::strMatch(op, "metaProperties") ) {
 
-    _0RL_cd_6617778ad39f93c3_90000000 _call_desc(_0RL_lcfn_6617778ad39f93c3_a0000000, "getInternetProtocol", 20, 1);
+    _0RL_cd_ae81456844cbbeb5_a0000000 _call_desc(_0RL_lcfn_ae81456844cbbeb5_b0000000, "metaProperties", 15, 1);
     
     _handle.upcall(this,_call_desc);
     return 1;
   }
 
-  if( omni::strMatch(op, "setInternetProtocol") ) {
+  if( omni::strMatch(op, "metaTasks") ) {
 
-    _0RL_cd_6617778ad39f93c3_b0000000 _call_desc(_0RL_lcfn_6617778ad39f93c3_c0000000, "setInternetProtocol", 20, 1);
+    _0RL_cd_ae81456844cbbeb5_a0000000 _call_desc(_0RL_lcfn_ae81456844cbbeb5_c0000000, "metaTasks", 10, 1);
     
     _handle.upcall(this,_call_desc);
     return 1;
   }
 
-  if( omni::strMatch(op, "getIdleTimeout") ) {
+  if( omni::strMatch(op, "lastErrorString") ) {
 
-    _0RL_cd_6617778ad39f93c3_50000000 _call_desc(_0RL_lcfn_6617778ad39f93c3_d0000000, "getIdleTimeout", 15, 1);
+    _0RL_cd_ae81456844cbbeb5_d0000000 _call_desc(_0RL_lcfn_ae81456844cbbeb5_e0000000, "lastErrorString", 16, 1);
     
     _handle.upcall(this,_call_desc);
     return 1;
   }
 
-  if( omni::strMatch(op, "setIdleTimeout") ) {
+  if( omni::strMatch(op, "hasFailure") ) {
 
-    _0RL_cd_6617778ad39f93c3_70000000 _call_desc(_0RL_lcfn_6617778ad39f93c3_e0000000, "setIdleTimeout", 15, 1);
-    
-    _handle.upcall(this,_call_desc);
-    return 1;
-  }
-
-  if( omni::strMatch(op, "getDataConnectionTimeout") ) {
-
-    _0RL_cd_6617778ad39f93c3_50000000 _call_desc(_0RL_lcfn_6617778ad39f93c3_f0000000, "getDataConnectionTimeout", 25, 1);
-    
-    _handle.upcall(this,_call_desc);
-    return 1;
-  }
-
-  if( omni::strMatch(op, "setDataConnectionTimeout") ) {
-
-    _0RL_cd_6617778ad39f93c3_70000000 _call_desc(_0RL_lcfn_6617778ad39f93c3_01000000, "setDataConnectionTimeout", 25, 1);
-    
-    _handle.upcall(this,_call_desc);
-    return 1;
-  }
-
-  if( omni::strMatch(op, "isUsingSystemUser") ) {
-
-    _0RL_cd_6617778ad39f93c3_11000000 _call_desc(_0RL_lcfn_6617778ad39f93c3_21000000, "isUsingSystemUser", 18, 1);
-    
-    _handle.upcall(this,_call_desc);
-    return 1;
-  }
-
-  if( omni::strMatch(op, "useSystemUser") ) {
-
-    _0RL_cd_6617778ad39f93c3_31000000 _call_desc(_0RL_lcfn_6617778ad39f93c3_41000000, "useSystemUser", 14, 1);
-    
-    _handle.upcall(this,_call_desc);
-    return 1;
-  }
-
-  if( omni::strMatch(op, "isAnonymousAllowed") ) {
-
-    _0RL_cd_6617778ad39f93c3_11000000 _call_desc(_0RL_lcfn_6617778ad39f93c3_51000000, "isAnonymousAllowed", 19, 1);
-    
-    _handle.upcall(this,_call_desc);
-    return 1;
-  }
-
-  if( omni::strMatch(op, "allowAnonymous") ) {
-
-    _0RL_cd_6617778ad39f93c3_31000000 _call_desc(_0RL_lcfn_6617778ad39f93c3_61000000, "allowAnonymous", 15, 1);
-    
-    _handle.upcall(this,_call_desc);
-    return 1;
-  }
-
-  if( omni::strMatch(op, "isAnonymousUploadAllowed") ) {
-
-    _0RL_cd_6617778ad39f93c3_11000000 _call_desc(_0RL_lcfn_6617778ad39f93c3_71000000, "isAnonymousUploadAllowed", 25, 1);
-    
-    _handle.upcall(this,_call_desc);
-    return 1;
-  }
-
-  if( omni::strMatch(op, "allowAnonymousUpload") ) {
-
-    _0RL_cd_6617778ad39f93c3_31000000 _call_desc(_0RL_lcfn_6617778ad39f93c3_81000000, "allowAnonymousUpload", 21, 1);
-    
-    _handle.upcall(this,_call_desc);
-    return 1;
-  }
-
-  if( omni::strMatch(op, "isAnonymousCreateDirAllowed") ) {
-
-    _0RL_cd_6617778ad39f93c3_11000000 _call_desc(_0RL_lcfn_6617778ad39f93c3_91000000, "isAnonymousCreateDirAllowed", 28, 1);
-    
-    _handle.upcall(this,_call_desc);
-    return 1;
-  }
-
-  if( omni::strMatch(op, "allowAnonymousCreateDir") ) {
-
-    _0RL_cd_6617778ad39f93c3_31000000 _call_desc(_0RL_lcfn_6617778ad39f93c3_a1000000, "allowAnonymousCreateDir", 24, 1);
-    
-    _handle.upcall(this,_call_desc);
-    return 1;
-  }
-
-  if( omni::strMatch(op, "getVirtualUserAuthentication") ) {
-
-    _0RL_cd_6617778ad39f93c3_b1000000 _call_desc(_0RL_lcfn_6617778ad39f93c3_c1000000, "getVirtualUserAuthentication", 29, 1);
-    
-    _handle.upcall(this,_call_desc);
-    return 1;
-  }
-
-  if( omni::strMatch(op, "setVirtualUserAuthentication") ) {
-
-    _0RL_cd_6617778ad39f93c3_d1000000 _call_desc(_0RL_lcfn_6617778ad39f93c3_e1000000, "setVirtualUserAuthentication", 29, 1);
-    
-    _handle.upcall(this,_call_desc);
-    return 1;
-  }
-
-  if( omni::strMatch(op, "addVirtualUser") ) {
-
-    _0RL_cd_6617778ad39f93c3_f1000000 _call_desc(_0RL_lcfn_6617778ad39f93c3_02000000, "addVirtualUser", 15, 1);
-    
-    _handle.upcall(this,_call_desc);
-    return 1;
-  }
-
-  if( omni::strMatch(op, "remVirtualUser") ) {
-
-    _0RL_cd_6617778ad39f93c3_20000000 _call_desc(_0RL_lcfn_6617778ad39f93c3_12000000, "remVirtualUser", 15, 1);
-    
-    _handle.upcall(this,_call_desc);
-    return 1;
-  }
-
-  if( omni::strMatch(op, "virtualUsers") ) {
-
-    _0RL_cd_6617778ad39f93c3_22000000 _call_desc(_0RL_lcfn_6617778ad39f93c3_32000000, "virtualUsers", 13, 1);
-    
-    _handle.upcall(this,_call_desc);
-    return 1;
-  }
-
-  if( omni::strMatch(op, "getWelcomeMessage") ) {
-
-    _0RL_cd_6617778ad39f93c3_00000000 _call_desc(_0RL_lcfn_6617778ad39f93c3_42000000, "getWelcomeMessage", 18, 1);
-    
-    _handle.upcall(this,_call_desc);
-    return 1;
-  }
-
-  if( omni::strMatch(op, "setWelcomeMessage") ) {
-
-    _0RL_cd_6617778ad39f93c3_20000000 _call_desc(_0RL_lcfn_6617778ad39f93c3_52000000, "setWelcomeMessage", 18, 1);
-    
-    _handle.upcall(this,_call_desc);
-    return 1;
-  }
-
-  if( omni::strMatch(op, "getLogFile") ) {
-
-    _0RL_cd_6617778ad39f93c3_00000000 _call_desc(_0RL_lcfn_6617778ad39f93c3_62000000, "getLogFile", 11, 1);
-    
-    _handle.upcall(this,_call_desc);
-    return 1;
-  }
-
-  if( omni::strMatch(op, "importConfiguration") ) {
-
-    _0RL_cd_6617778ad39f93c3_20000000 _call_desc(_0RL_lcfn_6617778ad39f93c3_72000000, "importConfiguration", 20, 1);
-    
-    _handle.upcall(this,_call_desc);
-    return 1;
-  }
-
-  if( omni::strMatch(op, "exportConfiguration") ) {
-
-    _0RL_cd_6617778ad39f93c3_00000000 _call_desc(_0RL_lcfn_6617778ad39f93c3_82000000, "exportConfiguration", 20, 1);
-    
-    _handle.upcall(this,_call_desc);
-    return 1;
-  }
-
-  if( omni::strMatch(op, "resetConfiguration") ) {
-
-    _0RL_cd_6617778ad39f93c3_92000000 _call_desc(_0RL_lcfn_6617778ad39f93c3_a2000000, "resetConfiguration", 19, 1);
-    
-    _handle.upcall(this,_call_desc);
-    return 1;
-  }
-
-  if( omni::strMatch(op, "start") ) {
-
-    _0RL_cd_6617778ad39f93c3_b2000000 _call_desc(_0RL_lcfn_6617778ad39f93c3_c2000000, "start", 6, 1);
-    
-    _handle.upcall(this,_call_desc);
-    return 1;
-  }
-
-  if( omni::strMatch(op, "stop") ) {
-
-    _0RL_cd_6617778ad39f93c3_b2000000 _call_desc(_0RL_lcfn_6617778ad39f93c3_d2000000, "stop", 5, 1);
-    
-    _handle.upcall(this,_call_desc);
-    return 1;
-  }
-
-  if( omni::strMatch(op, "restart") ) {
-
-    _0RL_cd_6617778ad39f93c3_b2000000 _call_desc(_0RL_lcfn_6617778ad39f93c3_e2000000, "restart", 8, 1);
+    _0RL_cd_ae81456844cbbeb5_f0000000 _call_desc(_0RL_lcfn_ae81456844cbbeb5_01000000, "hasFailure", 11, 1);
     
     _handle.upcall(this,_call_desc);
     return 1;
