@@ -5,81 +5,116 @@
 #include "vsftpdparser.h"
 #include "servicemanager.h"
 #include "metaconfig.h"
+#include "lasterror.h"
 
-class VsftpdConfigHandler : public MetaConfig
+class VsftpdConfigHandler : public MetaConfig, public LastError
 {
 public:
-    VsftpdConfigHandler(QString serverName, QString serverAddr, QString fileName = DEFAULT_CONFIG_VSFTP_FILE, QString serverBinPath = DEFAULT_BIN_PATH_VSFTP);
+    VsftpdConfigHandler(const QString & serverName, const QString & serverAddr, const QString & fileName = DEFAULT_CONFIG_VSFTP_FILE, const QString & serverBinPath = DEFAULT_BIN_PATH_VSFTP);
     ~VsftpdConfigHandler();
 
     // Network
     Q_PROPERTY(QString serverName READ getServerName WRITE setServerName)
-    Q_PROPERTY(QString serverAddr READ getServerAddr)
-    Q_PROPERTY(quint16 serverPort READ getServerPort WRITE setServerPort)
-    Q_PROPERTY(QString internetProtocol READ getInternetProtocol WRITE setInternetProtocol)
-    Q_PROPERTY(quint16 idleTimeout READ getIdleTimeout WRITE setIdleTimeout)
-    Q_PROPERTY(quint16 dataConnectionTimeout READ getDataConnectionTimeout WRITE setDataConnectionTimeout)
-
     QString getServerName() const;
     void    setServerName(const QString & name);
+
+    Q_PROPERTY(QString serverAddr READ getServerAddr)
     QString getServerAddr() const;
-    quint16 getServerPort() const;
+
+    Q_PROPERTY(quint16 serverPort READ getServerPort WRITE setServerPort)
+    quint16 getServerPort();
     void    setServerPort(quint16 port);
-    QString getInternetProtocol() const;
+
+    Q_PROPERTY(QString internetProtocol READ getInternetProtocol WRITE setInternetProtocol)
+    QString getInternetProtocol();
     void setInternetProtocol(const QString & ip);
-    quint16 getIdleTimeout() const;
+
+    Q_PROPERTY(quint16 idleTimeout READ getIdleTimeout WRITE setIdleTimeout)
+    quint16 getIdleTimeout();
     void setIdleTimeout(quint16 timeout);
-    quint16 getDataConnectionTimeout() const;
+
+    Q_PROPERTY(quint16 dataConnectionTimeout READ getDataConnectionTimeout WRITE setDataConnectionTimeout)
+    quint16 getDataConnectionTimeout();
     void setDataConnectionTimeout(quint16 timeout);
 
-    // User
-/*
-    bool isUsingSystemUser() const;
-    void useSystemUser(bool use);
-    bool isAnonymousAllowed() const;
-    void allowAnonymous(bool allow);
-    bool isAnonymousUploadAllowed() const;
-    void allowAnonymousUpload(bool allow);
-    bool isAnonymousCreateDirAllowed() const;
-    void allowAnonymousCreateDir(bool allow);
+    // Anonymous User
+    Q_PROPERTY(bool anonymousEnable READ isAnonymousEnabled WRITE enableAnonymous)
+    bool isAnonymousEnabled();
+    void enableAnonymous(bool allow);
 
-    // Virtual User Management
-    void setVirtualUserAuthentication(VIRTUAL_USER_AUTHENTICATION::auth mode);
-    VIRTUAL_USER_AUTHENTICATION::auth getVirtualUserAuthentication() const;
-    void addVirtualUser(const QString & user, const QString & password);
-    void remVirtualUser(const QString & user);
-    QStringList virtualUsers() const;
-*/
+    QString anonymousRoot();
+    void setAnonymousRoot(const QString & anonymousRoot);
+
+    Q_PROPERTY(bool anonUploadEnable READ isAnonymousUploadEnabled WRITE enableAnonymousUpload)
+    bool isAnonymousUploadEnabled();
+    void enableAnonymousUpload(bool allow);
+
+    Q_PROPERTY(bool writeEnable READ isWriteEnabled WRITE enableWrite)
+    bool isWriteEnabled();
+    void enableWrite(bool allow);
+
+    Q_PROPERTY(bool anonWorldReadeable READ isAnonymousWorldReadable WRITE allowAnonymousWorldReadable)
+    bool isAnonymousWorldReadable();
+    void allowAnonymousWorldReadable(bool allow);
+
+    Q_PROPERTY(bool anonOtherWriteEnable READ isAnonOtherWriteEnable WRITE enableAnonOtherWrite)
+    bool isAnonOtherWriteEnable();
+    void enableAnonOtherWrite(bool allow);
+
+    Q_PROPERTY(bool anonMkdirWriteEnable READ isAnonymousMakeDirAllowed WRITE allowAnonymousMakeDir)
+    bool isAnonymousMakeDirAllowed();
+    void allowAnonymousMakeDir(bool allow);
+
+    // Regular User
+    Q_PROPERTY(bool localEnable READ isUsingSystemUser WRITE useSystemUser)
+    bool isUsingSystemUser();
+    void useSystemUser(bool use);
+
+    Q_PROPERTY(bool chrootLocalUser READ isChrootLocalUser WRITE chrootLocalUser)
+    bool isChrootLocalUser();
+    void chrootLocalUser(bool use);
+
     // Misc
     Q_PROPERTY(QString welcomeMessage READ getWelcomeMessage WRITE setWelcomeMessage)
-
-    QString getWelcomeMessage() const;
+    QString getWelcomeMessage();
     void setWelcomeMessage(const QString & message);
 
     // Log
     Q_PROPERTY(QString logFile READ getLogFile)
-
-    QString getLogFile() const;
+    QString getLogFile();
 
     // Start/stop
-    Q_INVOKABLE void start() const;
-    Q_INVOKABLE void stop() const;
-    Q_INVOKABLE void restart() const;
+    Q_INVOKABLE void start();
+    Q_INVOKABLE void stop();
+    Q_INVOKABLE void restart();
 
-    // fichier de conf
-/*
-    QString exportConfiguration() const;
-    void importConfiguration(const QString &configuration);
-    void resetConfiguration();
-*/
+    //Parser
+    Q_PROPERTY(QString parserFilename READ parserFileName WRITE setParserFileName)
+    QString parserFileName() const;
+    void setParserFileName(const QString & filename);
+
+    Q_PROPERTY(bool parserDryRun READ isParserDryRun WRITE setParserDryRun)
+    bool isParserDryRun() const;
+    void setParserDryRun(bool dryRun);
+
+    Q_PROPERTY(QString parserData READ parserData WRITE setParserData)
+    QString parserData();
+    void setParserData(const QString & data);
+
+    Q_PROPERTY(QString parserLastError READ parserLastError)
+    QString parserLastError();
+
+    // LastError
+    Q_PROPERTY(QString lastError READ lastError)
+    QString lastError();
 
 private:
-    QString	m_serverName;
-    QString	m_serverAddr;
     VsftpdParser m_parser;
-    QString	m_serverPath;
+
+    QString m_serverName;
+    QString m_serverAddr;
+    QString m_serverPath;
     QString m_serviceName;
-    AbstractAuthentication * m_authentificator;
 };
 
 #endif // VSFTPCONFIG_H

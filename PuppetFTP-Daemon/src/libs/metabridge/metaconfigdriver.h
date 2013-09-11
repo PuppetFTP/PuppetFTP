@@ -5,12 +5,13 @@
 #include <QVariant>
 #include <QStringList>
 #include <QCache>
-#include <QSharedPointer>
 
 #include "metaconfig.h"
 #include "metaplugin.h"
+#include "lasterror.h"
+#include "IServerConfigurationProvider.h"
 
-class MetaConfigDriver
+class MetaConfigDriver : public LastError, public IServerConfigurationProvider
 {
 public:
     MetaConfigDriver();
@@ -27,13 +28,13 @@ public:
     QStringList metaTasks(const QString & pluginId);
 
     QString lastErrorString();
+    bool hasFailure();
+
 private:
-    void setLastErrorString(const QString & errorString);
     MetaConfig * tryToGetMetaConfig(const QString & pluginId);
 
 private:
     QCache < QString, MetaConfig > m_cache;
-    QString m_lastError;
 };
 
 #endif // METABRIDGEDRIVER_H

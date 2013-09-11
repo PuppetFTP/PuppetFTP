@@ -108,4 +108,3 @@ QSharedPointer < Plugin > PluginManager::loadPlugin(const QString & pluginName)
 
     return QSharedPointer < Plugin >();
 }
-

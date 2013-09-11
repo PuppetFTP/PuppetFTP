@@ -1,19 +1,11 @@
 #ifndef PROFTPDCONFIG_H
 #define PROFTPDCONFIG_H
 
-#include "abstractauthentication.h"
-#include "proftpdparser.h"
-#include "servicemanager.h"
-
 #include "metaconfig.h"
+#include "lasterror.h"
+#include "proftpdparser.h"
 
-class Fules
-{
-public:
-    Fules() {}
-};
-
-class ProFtpdConfigHandler : public MetaConfig, public Fules
+class ProFtpdConfigHandler : public MetaConfig, public LastError
 {
     Q_OBJECT
 
@@ -23,72 +15,81 @@ public:
 
     // Network
     Q_PROPERTY(QString serverName READ getServerName WRITE setServerName)
-    Q_PROPERTY(QString serverAddr READ getServerAddr)
-    Q_PROPERTY(quint16 serverPort READ getServerPort WRITE setServerPort)
-    Q_PROPERTY(QString internetProtocol READ getInternetProtocol WRITE setInternetProtocol)
-    Q_PROPERTY(quint16 idleTimeout READ getIdleTimeout WRITE setIdleTimeout)
-    Q_PROPERTY(quint16 dataConnectionTimeout READ getDataConnectionTimeout WRITE setDataConnectionTimeout)
-
     QString getServerName() const;
     void    setServerName(const QString & name);
+
+    Q_PROPERTY(QString serverAddr READ getServerAddr)
     QString getServerAddr() const;
-    quint16 getServerPort() const;
+
+    Q_PROPERTY(quint16 serverPort READ getServerPort WRITE setServerPort)
+    quint16 getServerPort();
     void    setServerPort(quint16 port);
-    QString getInternetProtocol() const;
+
+    Q_PROPERTY(QString internetProtocol READ getInternetProtocol WRITE setInternetProtocol)
+    QString getInternetProtocol();
     void setInternetProtocol(const QString & ip);
-    quint16 getIdleTimeout() const;
+
+    Q_PROPERTY(quint16 idleTimeout READ getIdleTimeout WRITE setIdleTimeout)
+    quint16 getIdleTimeout();
     void setIdleTimeout(quint16 timeout);
-    quint16 getDataConnectionTimeout() const;
+
+    Q_PROPERTY(quint16 dataConnectionTimeout READ getDataConnectionTimeout WRITE setDataConnectionTimeout)
+    quint16 getDataConnectionTimeout();
     void setDataConnectionTimeout(quint16 timeout);
 
-    // User
-    /*
-    bool isUsingSystemUser() const;
-    void useSystemUser(bool use);
-    bool isAnonymousAllowed() const;
+    // Anonymous User
+    Q_PROPERTY(bool anonymousEnable READ isAnonymousAllowed WRITE allowAnonymous)
+    bool isAnonymousAllowed();
     void allowAnonymous(bool allow);
-    bool isAnonymousUploadAllowed() const;
+
+    Q_PROPERTY(bool anonUploadEnable READ isAnonymousUploadAllowed WRITE allowAnonymousUpload)
+    bool isAnonymousUploadAllowed();
     void allowAnonymousUpload(bool allow);
-    bool isAnonymousCreateDirAllowed() const;
-    void allowAnonymousCreateDir(bool allow);
-*/
-    // Virtual User Management
-/*
-    void setVirtualUserAuthentication(VIRTUAL_USER_AUTHENTICATION::auth mode);
-    VIRTUAL_USER_AUTHENTICATION::auth getVirtualUserAuthentication() const;
-    void addVirtualUser(const QString & user, const QString & password);
-    void remVirtualUser(const QString & user);
-    QStringList virtualUsers() const;
-*/
+
+    Q_PROPERTY(bool anonMkdirWriteEnable READ isAnonymousMakeDirAllowed WRITE allowAnonymousMakeDir)
+    bool isAnonymousMakeDirAllowed();
+    void allowAnonymousMakeDir(bool allow);
+
     // Misc
     Q_PROPERTY(QString welcomeMessage READ getWelcomeMessage WRITE setWelcomeMessage)
-
-    QString getWelcomeMessage() const;
+    QString getWelcomeMessage();
     void setWelcomeMessage(const QString & message);
 
     // Log
     Q_PROPERTY(QString logFile READ getLogFile)
-
-    QString getLogFile() const;
+    QString getLogFile();
 
     // Start/stop
-    Q_INVOKABLE void start() const;
-    Q_INVOKABLE void stop() const;
-    Q_INVOKABLE void restart() const;
+    Q_INVOKABLE void start();
+    Q_INVOKABLE void stop();
+    Q_INVOKABLE void restart();
 
-    // fichier de conf
-/*
-    QString exportConfiguration() const;
-    void importConfiguration(const QString &configuration);
-    void resetConfiguration();
-*/
+    // Parser
+    Q_PROPERTY(QString parserFilename READ parserFileName WRITE setParserFileName)
+    QString parserFileName() const;
+    void setParserFileName(const QString & filename);
+
+    Q_PROPERTY(bool parserDryRun READ isParserDryRun WRITE setParserDryRun)
+    bool isParserDryRun() const;
+    void setParserDryRun(bool dryRun);
+
+    Q_PROPERTY(QString parserData READ parserData WRITE setParserData)
+    QString parserData() const;
+    void setParserData(const QString & data);
+
+    Q_PROPERTY(QString parserLastError READ parserLastError)
+    QString parserLastError();
+
+    // LastError
+    Q_PROPERTY(QString lastError READ lastError)
+
 private:
+    ProftpdParser m_parser;
+
     QString	m_serverName;
     QString	m_serverAddr;
-    ProftpdParser m_parser;
     QString	m_serverPath;
     QString m_serviceName;
-    AbstractAuthentication * m_authentificator;
 };
 
 #endif // PROFTPDCONFIG_H

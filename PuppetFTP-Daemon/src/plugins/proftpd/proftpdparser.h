@@ -3,10 +3,15 @@
 
 #include <QString>
 #include <QVariant>
-#include <QDataStream>
+#include <QHash>
+#include <QElapsedTimer>
 
-# define DEFAULT_CONFIG_PROFTPD_FILE "/etc/proftpd/proftpd.conf"
-# define DEFAULT_BIN_PATH_PROFTPD "/etc/init.d/proftpd"
+#include <lasterror.h>
+
+#define DEFAULT_CONFIG_PROFTPD_FILE "/etc/proftpd/proftpd.conf"
+#define DEFAULT_BIN_PATH_PROFTPD "/etc/init.d/proftpd"
+
+#define CACHE_TIME 30000
 
 class ProftpdConfNode : public QHash < QString, QString >
 {
@@ -26,22 +31,37 @@ private:
     QHash < QString, ProftpdConfNode > m_childreen;
 };
 
-class ProftpdParser
+class ProftpdParser : public LastError
 {
 public:
     ProftpdParser(const QString & filePath = DEFAULT_CONFIG_PROFTPD_FILE);
 
     void set(const QString & key, const QVariant & value = QVariant(), bool toDelete = false);
-    QVariant get(const QString & key) const;
+    QVariant get(const QString & key);
 
-    QString filename() const;
+    QString fileName() const;
+    void setFileName(const QString & filename);
+
+    bool isDryRun() const;
+    void setDryRun(bool dryRun);
+
+    QString Data() const;
+    void setData(const QString data);
 
 private:
-    ProftpdConfNode parse(const QString & data) const;
+    ProftpdConfNode parse(const QString & data);
+    void insert(QString & data, const QString & key, const QString & value, bool toDelete);
+
+    void refresh();
+    void flush();
 
 private:
     QString m_filename;
-    ProftpdConfNode m_data;
+    bool m_dryRun;
+
+    QString m_data;
+    ProftpdConfNode m_cache;
+    QElapsedTimer m_cacheTimer;
 };
 
 #endif // PROFTPDPARSER_H

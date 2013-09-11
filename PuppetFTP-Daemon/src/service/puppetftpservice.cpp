@@ -25,7 +25,7 @@ void PuppetFtpService::start()
     logMessage(QString("Conf file : %1").arg(config->getSettings().fileName()), Information);
     logMessage(QString("Use bin : %1").arg(config->get(ServerConfig::binPathName)), Information);
 
-    // init configuration handler
+    // Inititiate configuration handler
     QMap<QString, QString> options;
     options["InitRef"] = QString("NameService=corbaloc:iiop:%1:%2/NameService").arg(config->get(ServerConfig::omninameAddrName),
                                                                                     config->get(ServerConfig::omninamePortName));
@@ -44,10 +44,8 @@ void PuppetFtpService::start()
             return;
         }
 
-        // Uncomment when Communication Service will be update
-        // CommunicationService::provider()->registerServiceProvider(serverName, m_metaConfigDriver);
-    }
-    catch (CommunicationException e) {
+        CommunicationService::provider()->registerServiceProvider(serverName, (IServerConfigurationProvider *)&m_metaConfigDriver);
+    } catch (CommunicationException e) {
         logMessage(QString(QLatin1String("Unable to register object: %1")).arg(e.message()), Error);
         stop();
         return;
