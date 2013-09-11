@@ -235,7 +235,7 @@ void VsftpdConfigHandler::setParserDryRun(bool dryRun)
     m_parser.setDryRun(dryRun);
 }
 
-QString VsftpdConfigHandler::parserData() const
+QString VsftpdConfigHandler::parserData()
 {
     return m_parser.Data();
 }
@@ -245,7 +245,7 @@ void VsftpdConfigHandler::setParserData(const QString & data)
     m_parser.setData(data);
 }
 
-QString VsftpdConfigHandler::parserLastError() const
+QString VsftpdConfigHandler::parserLastError()
 {
     return m_parser.lastError();
 }

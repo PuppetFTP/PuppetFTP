@@ -127,10 +127,13 @@ bool ProFtpdConfigHandler::isAnonymousMakeDirAllowed()
 
 void ProFtpdConfigHandler::allowAnonymousMakeDir(bool allow)
 {
-    if (allow)
+    if (allow) {
+        m_parser.set(QString("Anonymous /home/ftp#Limit MKD"), QVariant(), true);
         m_parser.set(QString("Anonymous /home/ftp#Limit MKD#AllowAll"));
-    else
+    } else {
+        m_parser.set(QString("Anonymous /home/ftp#Limit MKD"), QVariant(), true);
         m_parser.set(QString("Anonymous /home/ftp#Limit MKD#DenyAll"));
+    }
 }
 
 // Misc
@@ -195,7 +198,7 @@ void ProFtpdConfigHandler::setParserData(const QString & data)
     m_parser.setData(data);
 }
 
-QString ProFtpdConfigHandler::parserLastError() const
+QString ProFtpdConfigHandler::parserLastError()
 {
     return m_parser.lastError();
 }

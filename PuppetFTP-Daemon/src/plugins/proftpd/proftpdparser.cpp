@@ -75,18 +75,12 @@ ProftpdParser::ProftpdParser(const QString & filePath)
 {
 }
 
-//#define BEGIN_NODE_REGEXP "\\n\\s*<([^>\\s]+)\\s+([^>]+)>"
 #define BEGIN_NODE_REGEXP "(?:\\n\\s*|^\\s*)<([^>\\n\\s]+)[\\t| ]+([^>\\n]+)>(?:\\n|$)|(?:\\n\\s*|^\\s*)<([^>\\s]+)>(?:\\n|$)"
-//#define DATA_NODE_REGEXP "\\n\\s*([^#<\\n\\s]+)\\s+([^\\s\\n][^\\n]*)"
 
 #define DATA_NODE_REGEXP "(?:\\n\\s*|^\\s*)([^#<>\\n\\s]+)[\\t| ]+([^>\\s\\n][^>\\n]*)(?:\\n|$)|(?:\\n\\s*|^\\s*)([^#<>\\n\\s]+)[\\t| ]*(?:\\n|$)"
 
 ProftpdConfNode ProftpdParser::parse(const QString & data)
 {
-  //  qDebug() << "data";
-  //  qDebug() << data;
-  //  qDebug() << "dataEND";
-
     ProftpdConfNode node;
     QRegExp beginNode(BEGIN_NODE_REGEXP, Qt::CaseSensitive, QRegExp::RegExp2);
     QRegExp datamatch(DATA_NODE_REGEXP, Qt::CaseSensitive, QRegExp::RegExp2);
@@ -98,7 +92,6 @@ ProftpdConfNode ProftpdParser::parse(const QString & data)
         while ((datapos = datamatch.indexIn(data, datapos)) != -1 && datapos < childpos) {
             datapos += datamatch.matchedLength() - 1;
 
-        //    qDebug() << "DATAA" << data.right(datapos);
             if (datamatch.cap(1) == QLatin1String("Include"))
                 continue;
 
@@ -113,23 +106,20 @@ ProftpdConfNode ProftpdParser::parse(const QString & data)
         childpos = endNode.indexIn(data, childpos);
 
         if (childpos == -1)
-            setLastError(QLatin1String("Misformated configuration file"));
+            setLastErrorString(QLatin1String("Misformated configuration file"));
 
-  //      qDebug() << "ADD" << beginNode.capturedTexts();
         int endData = childpos;
         childpos += endNode.matchedLength();
         datapos = childpos;
         node.addChild(beginNode.cap(1).isEmpty() ? beginNode.cap(3) : beginNode.cap(1) + " " + beginNode.cap(2),
                       parse(data.mid(beginData).left(endData - beginData)));
     }
- //   qDebug() << "DATAB" << data.right(datapos)<< "DATABEND";
+
     while ((datapos = datamatch.indexIn(data, datapos)) != -1) {
         datapos += datamatch.matchedLength() - 1;
         if (datamatch.cap(1) == QLatin1String("Include"))
             continue;
 
- //       qDebug() << "DATA" << data.right(datapos) << "DATA END";
-//qDebug() << datamatch.matchedLength() << datamatch.captureCount() << datamatch.capturedTexts();
         datamatch.cap(1).isEmpty() ?
             node.insert(datamatch.cap(3), QString())
             : node.insert(datamatch.cap(1), datamatch.cap(2));
@@ -154,7 +144,7 @@ void ProftpdParser::insert(QString & data, const QString & key, const QString & 
             while ((datapos = datamatch.indexIn(data, datapos)) != -1 && datapos < childpos) {
                 if (datamatch.cap(1) == currentKey) {
                     if (toDelete) {
-                        data.replace(datapos, datamatch.matchedLength(), QString());
+                        data.replace(datapos, datamatch.matchedLength(), QString("\n"));
                         return;
                     }
 
@@ -184,7 +174,7 @@ void ProftpdParser::insert(QString & data, const QString & key, const QString & 
         childpos = endNode.indexIn(data, childpos);
 
         if (childpos == -1)
-            setLastError(QLatin1String("Misformated configuration file"));
+            setLastErrorString(QLatin1String("Misformated configuration file"));
 
         int endData = childpos;
         childpos += endNode.matchedLength();
@@ -208,7 +198,7 @@ void ProftpdParser::insert(QString & data, const QString & key, const QString & 
         while ((datapos = datamatch.indexIn(data, datapos)) != -1) {
             if (datamatch.cap(1) == currentKey) {
                 if (toDelete) {
-                    data.replace(datapos, datamatch.matchedLength(), QString());
+                    data.replace(datapos, datamatch.matchedLength(), QString("\n"));
                     return;
                 }
 
@@ -253,7 +243,7 @@ void ProftpdParser::refresh()
             QTextStream in(&file);
             m_data = in.readAll();
         } else {
-            setLastError(QLatin1String("Unable to access configuration file."));
+            setLastErrorString(QLatin1String("Unable to access configuration file."));
         }
     }
 
@@ -273,9 +263,9 @@ void ProftpdParser::flush()
         if (file.write(m_data.toUtf8()) == -1)
             file.close();
         else
-            setLastError(QLatin1String("An error occured while writting data to the file."));
+            setLastErrorString(QLatin1String("An error occured while writting data to the file."));
     } else {
-        setLastError(QLatin1String("Unable to access configuration file."));
+        setLastErrorString(QLatin1String("Unable to access configuration file."));
     }
 }
 
@@ -306,7 +296,6 @@ QVariant ProftpdParser::get(const QString & key)
     foreach (const QString subkey, keyList) {
         if (subkey != keyList.last()) {
             node = node.childreen().value(subkey, ProftpdConfNode());
-            // qDebug() << node;
         } else {
             if (node.contains(subkey))
                 return QVariant(node.value(subkey, QString()));

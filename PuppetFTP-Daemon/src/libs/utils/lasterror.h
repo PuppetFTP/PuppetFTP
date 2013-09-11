@@ -12,7 +12,7 @@ public:
     bool hasFailure();
 
 protected:
-    void setLastError(const QString & lastError);
+    void setLastErrorString(const QString & lastError);
 
 private:
     QString m_lastError;

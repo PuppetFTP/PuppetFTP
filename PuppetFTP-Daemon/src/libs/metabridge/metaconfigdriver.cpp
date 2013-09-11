@@ -9,6 +9,7 @@
 
 MetaConfigDriver::MetaConfigDriver()
 {
+    setLastErrorString("HUSS");
 }
 
 /*!
@@ -31,19 +32,19 @@ bool MetaConfigDriver::loadPlugin(const QString & pluginId, const QString & plug
                         m_cache.insert(pluginId, metaConfigObject);
                         return true;
                     } else {
-                        m_lastError = QString(QLatin1String("This pluginId doesn'o't provide MetaConfig: %1")).arg(pluginId);
+                        setLastErrorString(QString(QLatin1String("This pluginId doesn'o't provide MetaConfig: %1")).arg(pluginId));
                     }
                 } else {
-                    m_lastError = QLatin1String("unable to load MetaPlugin");
+                    setLastErrorString(QLatin1String("unable to load MetaPlugin"));
                 }
             } else {
-                m_lastError = QLatin1String("This is not a metaPlugin");
+                setLastErrorString(QLatin1String("This is not a metaPlugin"));
             }
         } else {
-            m_lastError = PluginManager::instance()->lastErrorString();
+            setLastErrorString(PluginManager::instance()->lastErrorString());
         }
     } else {
-        m_lastError = QString(QLatin1String("This pluginId is already loaded: %1")).arg(pluginId);
+        setLastErrorString(QString(QLatin1String("This pluginId is already loaded: %1")).arg(pluginId));
     }
 
     return false;
@@ -133,30 +134,6 @@ QStringList MetaConfigDriver::metaTasks(const QString & pluginId)
 }
 
 /*!
-    \fn QString MetaConfigDriver::lastErrorString()
-
-    Return the last error occured
- */
-QString MetaConfigDriver::lastErrorString()
-{
-    QString lastError = m_lastError;
-    m_lastError.clear();
-    return lastError;
-}
-
-/*!
-    \fn void MetaConfigDriver::setLastErrorString(const QString & errorString)
-
-    Set the last error occured
-
-    \internal
- */
-void MetaConfigDriver::setLastErrorString(const QString & errorString)
-{
-    m_lastError = errorString;
-}
-
-/*!
     \fn MetaConfig * MetaConfigDriver::tryToGetMetaConfig(const QString & pluginId)
 
     Try to retrieve the plugin referenced as \a pluginId from the cache
@@ -172,4 +149,14 @@ MetaConfig * MetaConfigDriver::tryToGetMetaConfig(const QString & pluginId)
     setLastErrorString(QString(QLatin1String("This pluginId is not loaded: %1")).arg(pluginId));
 
     return NULL;
+}
+
+QString MetaConfigDriver::lastErrorString()
+{
+    return LastError::lastError();
+}
+
+bool MetaConfigDriver::hasFailure()
+{
+    return LastError::hasFailure();
 }

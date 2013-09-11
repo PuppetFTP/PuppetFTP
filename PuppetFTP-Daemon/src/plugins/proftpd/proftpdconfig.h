@@ -66,11 +66,11 @@ public:
 
     // Parser
     Q_PROPERTY(QString parserFilename READ parserFileName WRITE setParserFileName)
-    QString parserFileName();
+    QString parserFileName() const;
     void setParserFileName(const QString & filename);
 
     Q_PROPERTY(bool parserDryRun READ isParserDryRun WRITE setParserDryRun)
-    bool isParserDryRun();
+    bool isParserDryRun() const;
     void setParserDryRun(bool dryRun);
 
     Q_PROPERTY(QString parserData READ parserData WRITE setParserData)
@@ -78,7 +78,7 @@ public:
     void setParserData(const QString & data);
 
     Q_PROPERTY(QString parserLastError READ parserLastError)
-    QString parserLastError() const;
+    QString parserLastError();
 
     // LastError
     Q_PROPERTY(QString lastError READ lastError)

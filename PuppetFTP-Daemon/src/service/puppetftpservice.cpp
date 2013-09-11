@@ -44,10 +44,8 @@ void PuppetFtpService::start()
             return;
         }
 
-        // Uncomment when Communication Service will be update
-        // CommunicationService::provider()->registerServiceProvider(serverName, m_metaConfigDriver);
-    }
-    catch (CommunicationException e) {
+        CommunicationService::provider()->registerServiceProvider(serverName, (IServerConfigurationProvider *)&m_metaConfigDriver);
+    } catch (CommunicationException e) {
         logMessage(QString(QLatin1String("Unable to register object: %1")).arg(e.message()), Error);
         stop();
         return;

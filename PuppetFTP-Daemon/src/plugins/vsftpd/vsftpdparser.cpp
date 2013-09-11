@@ -20,7 +20,7 @@ void VsftpdParser::refresh()
             QTextStream in(&file);
             m_data = in.readAll();
         } else {
-            setLastError(QLatin1String("Unable to access configuration file."));
+            setLastErrorString(QLatin1String("Unable to access configuration file."));
         }
     }
 
@@ -43,9 +43,9 @@ void VsftpdParser::flush()
         if (file.write(m_data.toUtf8()) == -1)
             file.close();
         else
-            setLastError(QLatin1String("An error occured while writting data to the file."));
+            setLastErrorString(QLatin1String("An error occured while writting data to the file."));
     } else {
-        setLastError(QLatin1String("Unable to access configuration file."));
+        setLastErrorString(QLatin1String("Unable to access configuration file."));
     }
 }
 

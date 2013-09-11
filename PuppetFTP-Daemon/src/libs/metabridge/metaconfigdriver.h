@@ -9,8 +9,9 @@
 #include "metaconfig.h"
 #include "metaplugin.h"
 #include "lasterror.h"
+#include "IServerConfigurationProvider.h"
 
-class MetaConfigDriver : public LastError
+class MetaConfigDriver : public LastError, public IServerConfigurationProvider
 {
 public:
     MetaConfigDriver();
@@ -28,13 +29,12 @@ public:
 
     QString lastErrorString();
     bool hasFailure();
+
 private:
-    void setLastErrorString(const QString & errorString);
     MetaConfig * tryToGetMetaConfig(const QString & pluginId);
 
 private:
     QCache < QString, MetaConfig > m_cache;
-    QString m_lastError;
 };
 
 #endif // METABRIDGEDRIVER_H

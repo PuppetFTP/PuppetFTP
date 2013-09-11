@@ -98,15 +98,15 @@ public:
     void setParserDryRun(bool dryRun);
 
     Q_PROPERTY(QString parserData READ parserData WRITE setParserData)
-    QString parserData() const;
+    QString parserData();
     void setParserData(const QString & data);
 
     Q_PROPERTY(QString parserLastError READ parserLastError)
-    QString parserLastError() const;
+    QString parserLastError();
 
     // LastError
     Q_PROPERTY(QString lastError READ lastError)
-    QString lastError() const;
+    QString lastError();
 
 private:
     VsftpdParser m_parser;

@@ -20,7 +20,7 @@ bool LastError::hasFailure()
     return m_lastError.isEmpty();
 }
 
-void LastError::setLastError(const QString & lastError)
+void LastError::setLastErrorString(const QString & lastError)
 {
     m_lastError = lastError;
 }

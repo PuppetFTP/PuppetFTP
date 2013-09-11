@@ -102,7 +102,7 @@ QVariant MetaConfig::exec(const QString & taskName, const QVariantList & argumen
         QMetaMethod metaMethod = metaObject->method(index);
 
         if (metaMethod.access() == QMetaMethod::Public && metaMethod.methodType() == QMetaMethod::Method) {
-            QVariant returnValue;
+            QVariant returnValue = QVariant(QVariant::nameToType(metaMethod.typeName()));
             QGenericReturnArgument genericResult(metaMethod.typeName(), returnValue.data());
             ArgumentList genericArguments = qVariantListToGenericArguments(argumentList, metaMethod.parameterTypes());
 

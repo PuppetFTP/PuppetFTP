@@ -10,6 +10,7 @@
 
 int main(int argc, char ** argv)
 {
+    /*
     QCoreApplication a(argc, argv);
 
     QString pluginId = QLatin1String("ProFtpd");
@@ -30,18 +31,18 @@ int main(int argc, char ** argv)
 
     qDebug() << driver.get(
         pluginId,
-        QLatin1String("anonUploadEnable")
+        QLatin1String("anonymousEnable")
     );
 
     qDebug() << driver.set(
         pluginId,
-        QLatin1String("anonUploadEnable"),
+        QLatin1String("anonymousEnable"),
         false
     );
 
     qDebug() << driver.get(
         pluginId,
-        QLatin1String("anonUploadEnable")
+        QLatin1String("anonymousEnable")
     );
 
 
@@ -53,7 +54,7 @@ int main(int argc, char ** argv)
     return a.exec();
 
 
-
+*/
 
 
 
