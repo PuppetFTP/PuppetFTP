@@ -24,6 +24,7 @@ HEADERS     += $$SOURCE_PATH/CommunicationService.h
 HEADERS     += $$SOURCE_PATH/CORBAImpl/Provider.h
 HEADERS     += $$SOURCE_PATH/CORBAImpl/ServiceAdapter.h
 HEADERS     += $$SOURCE_PATH/CORBAImpl/ServiceClientAdapter.h
+HEADERS     += $$SOURCE_PATH/CORBAImpl/TypeConverter.h
 HEADERS     += $$SOURCE_PATH/CORBAImpl/interface/ServerConfigHandler.hh
 HEADERS     += $$SOURCE_PATH/exception/CommunicationException.h
 
@@ -31,6 +32,7 @@ SOURCES     += $$SOURCE_PATH/CommunicationService.cpp
 SOURCES     += $$SOURCE_PATH/CORBAImpl/Provider.cpp
 SOURCES     += $$SOURCE_PATH/CORBAImpl/ServiceAdapter.cpp
 SOURCES     += $$SOURCE_PATH/CORBAImpl/ServiceClientAdapter.cpp
+SOURCES     += $$SOURCE_PATH/CORBAImpl/TypeConverter.cpp
 SOURCES     += $$SOURCE_PATH/CORBAImpl/interface/ServerConfigHandlerSK.cc
 SOURCES     += $$SOURCE_PATH/exception/CommunicationException.cpp
 

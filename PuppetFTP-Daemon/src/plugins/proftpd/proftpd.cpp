@@ -1,33 +1,24 @@
 #include "proftpd.h"
 
 Proftpd::Proftpd()
-    : m_configurationProvider(NULL), m_authentificator(NULL)
 {
+    setName(QLatin1String("Proftpd"));
+    setGroup(QLatin1String("FTP"));
+    initialize(*(ServerConfig::getInstance()));
 }
-
-Proftpd::~Proftpd()
-{
-}
-
-/********************************************************************************/
 
 void Proftpd::initialize(ServerConfig & config)
 {
-    QString         configFile;
-    QString         binPath;
-    QString         serverName;
-    QString         serverAddr;
-
-    serverName = config.get(ServerConfig::serverNameName);
-    serverAddr = config.get(ServerConfig::serverAddrName);
-    binPath = config.get(ServerConfig::binPathName);
-    configFile = config.get(ServerConfig::configFileName);
-    m_configurationProvider = new ProFtpdConfigProvider(serverName, serverAddr, configFile, binPath);
+    m_serverName = config.get(ServerConfig::serverNameName);
+    m_serverAddr = config.get(ServerConfig::serverAddrName);
+    m_binPath = config.get(ServerConfig::binPathName);
+    m_configFile = config.get(ServerConfig::configFileName);
 }
 
-IServerConfigurationProvider    *Proftpd::getServerConfigurationProvider() const
+MetaConfig * Proftpd::getMetaConfigInstance()
 {
-    return m_configurationProvider;
+//    return new MetaConfig();
+    return new ProFtpdConfigHandler(m_serverName, m_serverAddr, m_configFile, m_binPath);
 }
 
-Q_EXPORT_PLUGIN2(proftpd_plugin, Proftpd)
+EXPORT_PLUGIN(Proftpd)

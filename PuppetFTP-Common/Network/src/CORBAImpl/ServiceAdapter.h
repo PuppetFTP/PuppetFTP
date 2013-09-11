@@ -8,6 +8,8 @@
 #ifndef SERVICEADAPTER_H_
 #define SERVICEADAPTER_H_
 
+#include <QVariant>
+#include <QByteArray>
 #include "ServerConfigHandler.hh"
 #include "IServerConfigurationProvider.h"
 
@@ -25,53 +27,18 @@ public:
     ServiceAdapter(IServerConfigurationProvider* configurator);
     virtual ~ServiceAdapter();
 
-    // Network
-    char*                                            getServerName();
-    void                                             setServerName(const char* name);
-    char*                                            getServerAddr();
-    unsigned short                                   getServerPort();
-    void                                             setServerPort(unsigned short port);
-    ServerConfigHandler::INTERNET_PROTOCOL           getInternetProtocol();
-    void                                             setInternetProtocol(ServerConfigHandler::INTERNET_PROTOCOL ip);
-    unsigned short                                   getIdleTimeout();
-    void                                             setIdleTimeout(unsigned short to);
-    unsigned short                                   getDataConnectionTimeout();
-    void                                             setDataConnectionTimeout(unsigned short);
-
-    // User
-    bool                                             isUsingSystemUser();
-    void                                             useSystemUser(bool use);
-    bool                                             isAnonymousAllowed();
-    void                                             allowAnonymous(bool allow);
-    bool                                             isAnonymousUploadAllowed();
-    void                                             allowAnonymousUpload(bool allow);
-    bool                                             isAnonymousCreateDirAllowed();
-    void                                             allowAnonymousCreateDir(bool allow);
-    ServerConfigHandler::VIRTUAL_USER_AUTHENTICATION getVirtualUserAuthentication();
-    void                                             setVirtualUserAuthentication(ServerConfigHandler::VIRTUAL_USER_AUTHENTICATION mode);
-    void                                             addVirtualUser(const char* user, const char* password);
-    void                                             remVirtualUser(const char* user);
-    ServerConfigHandler::StringSequence*             virtualUsers();
-
-    // Misc
-    char*                                            getWelcomeMessage();
-    void                                             setWelcomeMessage(const char * msg);
-
-    // Log
-    char*                                            getLogFile();
-
-    // Configuration
-    void                                             importConfiguration(const char* configuration);
-    char*                                            exportConfiguration();
-    void                                             resetConfiguration();
-
-    // Start/stop
-    void                                             start();
-    void                                             stop();
-    void                                             restart();
+    ::CORBA::Boolean loadPlugin(const char* pluginId, const char* pluginName);
+    ::CORBA::Boolean unloadPlugin(const char* pluginId);
+    ::CORBA::Boolean set(const char* pluginId, const char* propertyName, const ::ServerConfigHandler::ByteSequence& value);
+    ServerConfigHandler::ByteSequence* get(const char* pluginId, const char* propertyName);
+    ServerConfigHandler::ByteSequence* exec(const char* pluginId, const char* taskName, const ::ServerConfigHandler::ByteSequence& argumentList);
+    ServerConfigHandler::StringSequence* metaProperties(const char* pluginId);
+    ServerConfigHandler::StringSequence* metaTasks(const char* pluginId);
+    char* lastErrorString();
+    ::CORBA::Boolean hasFailure();
 };
 
-} // Impl
-} // CORBA
+} // namespace Impl
+} // namesapce CORBA
 
 #endif // SERVICEADAPTER_H_

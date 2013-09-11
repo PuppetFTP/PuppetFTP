@@ -1,31 +1,30 @@
 #ifndef VSFTPD_H
 #define VSFTPD_H
 
-#include "iabstractplugin.h"
 #include "chrootlist.h"
 #include "vsftpdconfig.h"
 #include "vsftpdparser.h"
 #include "pamauthentication.h"
 #include "CommunicationException.h"
+#include "serverconfig.h"
+#include "metaplugin.h"
 
-class Vsftpd : public QObject, public IAbstractPlugin
+class Vsftpd : public MetaPlugin
 {
-    Q_OBJECT
-    Q_INTERFACES(IAbstractPlugin)
 public:
     Vsftpd();
     ~Vsftpd();
 
-    // Plugin management
-    void                            initialize(ServerConfig & config);
+    // Plugin default config loading from file deprecated soon !
+    Q_INVOKABLE void initialize(ServerConfig & config);
 
-    // Communication requirement
-    IServerConfigurationProvider    * getServerConfigurationProvider() const;
+    MetaConfig * getMetaConfigInstance();
 
 private:
-    VsftpdParser m_parser;
-    IServerConfigurationProvider    * m_configurationProvider;
-    AbstractAuthentication          * m_authentificator;
-};
+    // Dependency ingections deprecated Soon !
+    QString         m_configFile;
+    QString         m_binPath;
+    QString         m_serverName;
+    QString         m_serverAddr;};
 
 #endif // VSFTPD_H
